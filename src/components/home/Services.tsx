@@ -3,6 +3,11 @@ import { Globe, TrendingUp, Users, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+import serviceWebsite from "@/assets/service-website.jpg";
+import serviceMarketing from "@/assets/service-marketing.jpg";
+import serviceLeads from "@/assets/service-leads.jpg";
+import serviceGmb from "@/assets/service-gmb.jpg";
+
 const services = [
   {
     icon: Globe,
@@ -10,6 +15,8 @@ const services = [
     description:
       "Clean, mobile-friendly websites that turn visitors into inquiries. Simple designs that work, without the complexity.",
     color: "primary",
+    image: serviceWebsite,
+    imageAlt: "Modern responsive website displayed on multiple devices",
   },
   {
     icon: TrendingUp,
@@ -17,6 +24,8 @@ const services = [
     description:
       "Improve online visibility without high budgets or jargon. Organic growth and simple ad strategies that actually work.",
     color: "secondary",
+    image: serviceMarketing,
+    imageAlt: "Digital marketing analytics dashboard showing growth metrics",
   },
   {
     icon: Users,
@@ -24,6 +33,8 @@ const services = [
     description:
       "Focus on messages, calls, and bookings — not vanity metrics. Real results for real businesses.",
     color: "accent",
+    image: serviceLeads,
+    imageAlt: "Smartphone showing social media engagement and notifications",
   },
   {
     icon: MapPin,
@@ -31,6 +42,8 @@ const services = [
     description:
       "Get found on Google Maps. Profile setup, keyword optimization, and review strategies for local visibility.",
     color: "primary",
+    image: serviceGmb,
+    imageAlt: "Google Business Profile with reviews on smartphone",
   },
 ];
 
@@ -89,35 +102,46 @@ export const Services = () => {
             <motion.div
               key={index}
               variants={itemVariants}
-              className="group relative bg-card rounded-2xl p-8 shadow-lg border border-border/50 hover:shadow-xl hover:border-primary/20 transition-all duration-300"
+              className="group relative bg-card rounded-2xl overflow-hidden shadow-lg border border-border/50 hover:shadow-xl hover:border-primary/20 transition-all duration-300"
             >
-              {/* Icon */}
-              <div
-                className={`w-14 h-14 rounded-xl flex items-center justify-center mb-6 ${
-                  service.color === "primary"
-                    ? "bg-primary/10 text-primary"
-                    : service.color === "secondary"
-                    ? "bg-secondary/10 text-secondary"
-                    : "bg-accent/10 text-accent"
-                }`}
-              >
-                <service.icon className="w-7 h-7" />
+              {/* Image */}
+              <div className="relative h-48 overflow-hidden">
+                <img
+                  src={service.image}
+                  alt={service.imageAlt}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+                {/* Icon overlay */}
+                <div
+                  className={`absolute bottom-4 left-4 w-12 h-12 rounded-xl flex items-center justify-center ${
+                    service.color === "primary"
+                      ? "bg-primary text-primary-foreground"
+                      : service.color === "secondary"
+                      ? "bg-secondary text-secondary-foreground"
+                      : "bg-accent text-accent-foreground"
+                  }`}
+                >
+                  <service.icon className="w-6 h-6" />
+                </div>
               </div>
 
               {/* Content */}
-              <h3 className="font-display text-xl font-bold mb-3 group-hover:text-primary transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-muted-foreground mb-6">{service.description}</p>
+              <div className="p-6">
+                <h3 className="font-display text-xl font-bold mb-3 group-hover:text-primary transition-colors">
+                  {service.title}
+                </h3>
+                <p className="text-muted-foreground mb-4">{service.description}</p>
 
-              {/* Link */}
-              <Link
-                to="/services"
-                className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
-              >
-                Learn more
-                <span>→</span>
-              </Link>
+                {/* Link */}
+                <Link
+                  to="/services"
+                  className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all"
+                >
+                  Learn more
+                  <span>→</span>
+                </Link>
+              </div>
             </motion.div>
           ))}
         </motion.div>
