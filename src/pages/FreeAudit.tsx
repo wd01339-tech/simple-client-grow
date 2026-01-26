@@ -3,6 +3,8 @@ import { CheckCircle, Sparkles, MessageCircle, ArrowRight, Clock, Shield, Zap } 
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const auditItems = [
   {
@@ -36,6 +38,7 @@ const auditItems = [
 ];
 
 const FreeAuditPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -44,11 +47,30 @@ const FreeAuditPage = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // In production, this would submit to an API
-    const whatsappMessage = `Hi! I'd like a free audit.%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0AWebsite: ${formData.website}%0ABusiness: ${formData.business}%0A%0AMessage: ${formData.message}`;
-    window.open(`https://wa.me/1234567890?text=${whatsappMessage}`, "_blank");
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        website: formData.website.trim() || null,
+        business_type: formData.business.trim(),
+        message: formData.message.trim() || null,
+        source: "free-audit",
+      });
+
+      if (error) throw error;
+
+      toast.success("Audit request submitted! I'll be in touch within 24-48 hours.");
+      setFormData({ name: "", email: "", website: "", business: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Something went wrong. Please try WhatsApp instead.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -148,6 +170,7 @@ const FreeAuditPage = () => {
                     <input
                       type="text"
                       required
+                      maxLength={100}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="John Doe"
                       value={formData.name}
@@ -159,6 +182,7 @@ const FreeAuditPage = () => {
                     <input
                       type="email"
                       required
+                      maxLength={255}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="john@example.com"
                       value={formData.email}
@@ -169,6 +193,7 @@ const FreeAuditPage = () => {
                     <label className="block text-sm font-medium mb-2">Website URL (if you have one)</label>
                     <input
                       type="url"
+                      maxLength={500}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="https://yourwebsite.com"
                       value={formData.website}
@@ -180,6 +205,7 @@ const FreeAuditPage = () => {
                     <input
                       type="text"
                       required
+                      maxLength={100}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="Homestay, Café, Tour Guide, etc."
                       value={formData.business}
@@ -190,6 +216,7 @@ const FreeAuditPage = () => {
                     <label className="block text-sm font-medium mb-2">What would you like help with?</label>
                     <textarea
                       rows={3}
+                      maxLength={1000}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
                       placeholder="Tell me a bit about your business and what you're hoping to achieve..."
                       value={formData.message}
@@ -197,8 +224,14 @@ const FreeAuditPage = () => {
                     />
                   </div>
 
-                  <Button variant="hero" size="xl" className="w-full" type="submit">
-                    Get My Free Audit
+                  <Button 
+                    variant="hero" 
+                    size="xl" 
+                    className="w-full" 
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Submitting..." : "Get My Free Audit"}
                     <ArrowRight className="w-5 h-5" />
                   </Button>
 

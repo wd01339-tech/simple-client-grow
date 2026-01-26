@@ -3,8 +3,11 @@ import { MessageCircle, Mail, MapPin, Clock, Shield, Heart } from "lucide-react"
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
 
 const ContactPage = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -12,10 +15,29 @@ const ContactPage = () => {
     message: "",
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const whatsappMessage = `Hi! I have a question.%0A%0AName: ${formData.name}%0AEmail: ${formData.email}%0ASubject: ${formData.subject}%0A%0AMessage: ${formData.message}`;
-    window.open(`https://wa.me/1234567890?text=${whatsappMessage}`, "_blank");
+    setIsSubmitting(true);
+
+    try {
+      const { error } = await supabase.from("leads").insert({
+        name: formData.name.trim(),
+        email: formData.email.trim(),
+        subject: formData.subject.trim(),
+        message: formData.message.trim(),
+        source: "contact",
+      });
+
+      if (error) throw error;
+
+      toast.success("Message sent! I'll get back to you within 24 hours.");
+      setFormData({ name: "", email: "", subject: "", message: "" });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Something went wrong. Please try WhatsApp instead.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -171,6 +193,7 @@ const ContactPage = () => {
                     <input
                       type="text"
                       required
+                      maxLength={100}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="John Doe"
                       value={formData.name}
@@ -182,6 +205,7 @@ const ContactPage = () => {
                     <input
                       type="email"
                       required
+                      maxLength={255}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="john@example.com"
                       value={formData.email}
@@ -193,6 +217,7 @@ const ContactPage = () => {
                     <input
                       type="text"
                       required
+                      maxLength={200}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
                       placeholder="What can I help you with?"
                       value={formData.subject}
@@ -204,6 +229,7 @@ const ContactPage = () => {
                     <textarea
                       rows={5}
                       required
+                      maxLength={1000}
                       className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
                       placeholder="Tell me about your project or question..."
                       value={formData.message}
@@ -211,8 +237,14 @@ const ContactPage = () => {
                     />
                   </div>
 
-                  <Button variant="gradient" size="xl" className="w-full" type="submit">
-                    Send Message
+                  <Button 
+                    variant="gradient" 
+                    size="xl" 
+                    className="w-full" 
+                    type="submit"
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
 
                   <p className="text-center text-sm text-muted-foreground">
