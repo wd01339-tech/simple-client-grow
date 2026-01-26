@@ -3,6 +3,8 @@ import { User, Heart, Laptop, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
+import aboutImage from "@/assets/about-consultant.jpg";
+
 const highlights = [
   {
     icon: User,
@@ -36,30 +38,29 @@ export const About = () => {
           >
             <div className="aspect-square max-w-md mx-auto lg:mx-0 relative">
               {/* Decorative circles */}
-              <div className="absolute inset-0 rounded-3xl gradient-bg opacity-10" />
               <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
               <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />
               
-              {/* Main card */}
-              <div className="relative bg-card rounded-3xl p-8 shadow-2xl border border-border/50 h-full flex flex-col justify-center">
-                <div className="w-20 h-20 rounded-2xl gradient-bg flex items-center justify-center mb-6">
-                  <span className="text-primary-foreground font-display font-bold text-3xl">D</span>
-                </div>
-                <h3 className="font-display text-2xl font-bold mb-4">
-                  Hi, I'm Your Digital Partner
-                </h3>
-                <p className="text-muted-foreground mb-6">
-                  A freelance digital consultant helping small businesses build their online presence 
-                  — simple, affordable, and with a personal touch.
-                </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
-                  <span className="text-sm text-muted-foreground">Available for new projects</span>
+              {/* Main image card */}
+              <div className="relative bg-card rounded-3xl overflow-hidden shadow-2xl border border-border/50 h-full">
+                <img
+                  src={aboutImage}
+                  alt="Digital consultant working remotely in a modern home office"
+                  className="w-full h-full object-cover"
+                />
+                {/* Overlay with availability badge */}
+                <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm rounded-xl p-4 border border-border/50">
+                  <h3 className="font-display text-lg font-bold mb-1">
+                    Hi, I'm Your Digital Partner
+                  </h3>
+                  <div className="flex items-center gap-2">
+                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                    <span className="text-sm text-muted-foreground">Available for new projects</span>
+                  </div>
                 </div>
               </div>
             </div>
           </motion.div>
-
           {/* Right: Content */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}
