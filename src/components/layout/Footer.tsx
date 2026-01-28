@@ -1,8 +1,41 @@
 import { Link } from "react-router-dom";
-import { Mail, MessageCircle, MapPin } from "lucide-react";
+import { Mail, MessageCircle, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
+
+  const socialLinks = [
+    {
+      name: "WhatsApp",
+      href: "https://wa.me/1234567890?text=Hi! I'd like to discuss my project.",
+      icon: MessageCircle,
+      bgColor: "bg-[#25D366]",
+    },
+    {
+      name: "Facebook",
+      href: "https://facebook.com/yourpage",
+      icon: Facebook,
+      bgColor: "bg-[#1877F2]",
+    },
+    {
+      name: "Instagram",
+      href: "https://instagram.com/yourprofile",
+      icon: Instagram,
+      bgColor: "bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]",
+    },
+    {
+      name: "LinkedIn",
+      href: "https://linkedin.com/in/yourprofile",
+      icon: Linkedin,
+      bgColor: "bg-[#0A66C2]",
+    },
+    {
+      name: "Email",
+      href: "mailto:hello@example.com",
+      icon: Mail,
+      bgColor: "bg-primary",
+    },
+  ];
 
   return (
     <footer className="bg-foreground text-background">
@@ -20,23 +53,19 @@ export const Footer = () => {
               Helping small businesses grow online through simple websites, Google Business optimization, 
               and practical digital marketing — delivered remotely with a personal touch.
             </p>
-            <div className="flex items-center gap-4">
-              <a
-                href="https://wa.me/1234567890"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full bg-[#25D366] flex items-center justify-center hover:scale-110 transition-transform"
-                aria-label="WhatsApp"
-              >
-                <MessageCircle className="w-5 h-5 text-white" />
-              </a>
-              <a
-                href="mailto:hello@example.com"
-                className="w-10 h-10 rounded-full bg-primary flex items-center justify-center hover:scale-110 transition-transform"
-                aria-label="Email"
-              >
-                <Mail className="w-5 h-5 text-white" />
-              </a>
+            <div className="flex items-center gap-3 flex-wrap">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-lg`}
+                  aria-label={social.name}
+                >
+                  <social.icon className="w-5 h-5 text-white" />
+                </a>
+              ))}
             </div>
           </div>
 

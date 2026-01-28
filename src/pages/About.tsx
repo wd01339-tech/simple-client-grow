@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
-import { User, Heart, Laptop, Globe, Target, MessageCircle, ArrowRight } from "lucide-react";
+import { User, Heart, Laptop, Globe, Target, MessageCircle, ArrowRight, Facebook, Instagram, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
+
+import aboutImage from "@/assets/about-consultant.jpg";
 
 const values = [
   {
@@ -24,6 +26,27 @@ const values = [
     icon: Target,
     title: "Results Over Complexity",
     description: "Simple solutions that actually work, not complicated systems you don't need.",
+  },
+];
+
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://facebook.com/yourpage",
+    icon: Facebook,
+    bgColor: "bg-[#1877F2]",
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/yourprofile",
+    icon: Instagram,
+    bgColor: "bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/yourprofile",
+    icon: Linkedin,
+    bgColor: "bg-[#0A66C2]",
   },
 ];
 
@@ -88,20 +111,39 @@ const AboutPage = () => {
                 <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
                 <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />
                 
-                <div className="relative bg-card rounded-3xl p-8 shadow-2xl border border-border/50 h-full flex flex-col justify-center">
-                  <div className="w-24 h-24 rounded-2xl gradient-bg flex items-center justify-center mb-6">
-                    <span className="text-primary-foreground font-display font-bold text-4xl">D</span>
-                  </div>
-                  <h3 className="font-display text-2xl font-bold mb-2">
-                    DigitalFreelancer
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Freelance Digital Consultant
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm">Web Design</span>
-                    <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-sm">Marketing</span>
-                    <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">SEO</span>
+                <div className="relative bg-card rounded-3xl overflow-hidden shadow-2xl border border-border/50 h-full">
+                  <img
+                    src={aboutImage}
+                    alt="Digital consultant working remotely"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 via-background/80 to-transparent p-6">
+                    <h3 className="font-display text-2xl font-bold mb-2">
+                      DigitalFreelancer
+                    </h3>
+                    <p className="text-muted-foreground mb-4">
+                      Freelance Digital Consultant
+                    </p>
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm">Web Design</span>
+                      <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-sm">Marketing</span>
+                      <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">SEO</span>
+                    </div>
+                    {/* Social Icons */}
+                    <div className="flex items-center gap-3">
+                      {socialLinks.map((social) => (
+                        <a
+                          key={social.name}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`w-9 h-9 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-md`}
+                          aria-label={`Follow on ${social.name}`}
+                        >
+                          <social.icon className="w-4 h-4 text-white" />
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
