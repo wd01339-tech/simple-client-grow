@@ -59,7 +59,7 @@ export const CTA = () => {
               asChild
             >
               <a
-                href="https://wa.me/1234567890?text=Hi! I'd like to discuss my digital needs."
+                href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
                 target="_blank"
                 rel="noopener noreferrer"
               >
