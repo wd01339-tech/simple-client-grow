@@ -147,7 +147,7 @@ const ServicesPage = () => {
                     </Button>
                     <Button variant="whatsapp" size="lg" asChild>
                       <a
-                        href="https://wa.me/1234567890?text=Hi! I'm interested in your services."
+                        href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
                         target="_blank"
                         rel="noopener noreferrer"
                       >

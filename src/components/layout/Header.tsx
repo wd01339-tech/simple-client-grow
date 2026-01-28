@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const navItems = [
@@ -70,12 +70,13 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="whatsapp" size="sm" asChild>
+            <Button variant="whatsapp" size="default" className="gap-2 font-semibold" asChild>
               <a
-                href="https://wa.me/1234567890?text=Hi! I'd like to discuss my digital needs."
+                href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
                 target="_blank"
                 rel="noopener noreferrer"
               >
+                <MessageCircle className="w-4 h-4" />
                 WhatsApp Me
               </a>
             </Button>
@@ -119,12 +120,13 @@ export const Header = () => {
                   </Link>
                 ))}
                 <div className="pt-4">
-                  <Button variant="whatsapp" className="w-full" asChild>
+                  <Button variant="whatsapp" className="w-full gap-2" asChild>
                     <a
-                      href="https://wa.me/1234567890?text=Hi! I'd like to discuss my digital needs."
+                      href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
                       target="_blank"
                       rel="noopener noreferrer"
                     >
+                      <MessageCircle className="w-4 h-4" />
                       WhatsApp Me
                     </a>
                   </Button>

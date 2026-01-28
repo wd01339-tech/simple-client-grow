@@ -6,7 +6,7 @@ import { Portfolio } from "@/components/home/Portfolio";
 import { ClientLogos } from "@/components/home/ClientLogos";
 import { LeadMagnet } from "@/components/home/LeadMagnet";
 import { Testimonials } from "@/components/home/Testimonials";
-import { CTA } from "@/components/home/CTA";
+import { Packages } from "@/components/home/Packages";
 
 const Index = () => {
   return (
@@ -14,11 +14,11 @@ const Index = () => {
       <Hero />
       <ClientLogos />
       <Services />
+      <Packages />
       <Portfolio />
       <About />
       <LeadMagnet />
       <Testimonials />
-      <CTA />
     </Layout>
   );
 };
