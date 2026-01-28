@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
-import { User, Heart, Laptop, MessageCircle } from "lucide-react";
+import { User, Heart, Laptop, MessageCircle, Facebook, Instagram, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 import aboutImage from "@/assets/about-consultant.jpg";
+import serviceWebsite from "@/assets/service-website.jpg";
+import serviceMarketing from "@/assets/service-marketing.jpg";
 
 const highlights = [
   {
@@ -20,6 +22,27 @@ const highlights = [
     icon: Heart,
     title: "Small Business Focus",
     description: "I understand your budget constraints and real needs.",
+  },
+];
+
+const socialLinks = [
+  {
+    name: "Facebook",
+    href: "https://facebook.com/yourpage",
+    icon: Facebook,
+    bgColor: "bg-[#1877F2]",
+  },
+  {
+    name: "Instagram",
+    href: "https://instagram.com/yourprofile",
+    icon: Instagram,
+    bgColor: "bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]",
+  },
+  {
+    name: "LinkedIn",
+    href: "https://linkedin.com/in/yourprofile",
+    icon: Linkedin,
+    bgColor: "bg-[#0A66C2]",
   },
 ];
 
@@ -53,12 +76,57 @@ export const About = () => {
                   <h3 className="font-display text-lg font-bold mb-1">
                     Hi, I'm Your Digital Partner
                   </h3>
-                  <div className="flex items-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                    <span className="text-sm text-muted-foreground">Available for new projects</span>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                      <span className="text-sm text-muted-foreground">Available for new projects</span>
+                    </div>
+                    {/* Social icons in overlay */}
+                    <div className="flex items-center gap-2">
+                      {socialLinks.map((social) => (
+                        <a
+                          key={social.name}
+                          href={social.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={`w-7 h-7 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform`}
+                          aria-label={social.name}
+                        >
+                          <social.icon className="w-3.5 h-3.5 text-white" />
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>
+
+              {/* Floating service images */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3, duration: 0.5 }}
+                className="absolute -right-6 top-8 w-24 h-24 rounded-xl overflow-hidden shadow-xl border-2 border-background hidden lg:block"
+              >
+                <img
+                  src={serviceWebsite}
+                  alt="Website design service"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
+              <motion.div
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.5 }}
+                className="absolute -left-6 bottom-24 w-20 h-20 rounded-xl overflow-hidden shadow-xl border-2 border-background hidden lg:block"
+              >
+                <img
+                  src={serviceMarketing}
+                  alt="Digital marketing service"
+                  className="w-full h-full object-cover"
+                />
+              </motion.div>
             </div>
           </motion.div>
           {/* Right: Content */}
@@ -111,6 +179,25 @@ export const About = () => {
                   Let's Chat
                 </a>
               </Button>
+            </div>
+
+            {/* Social Follow Section */}
+            <div className="mt-8 pt-6 border-t border-border">
+              <p className="text-sm text-muted-foreground mb-3">Follow me on social media:</p>
+              <div className="flex items-center gap-3">
+                {socialLinks.map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-10 h-10 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-md`}
+                    aria-label={`Follow on ${social.name}`}
+                  >
+                    <social.icon className="w-5 h-5 text-white" />
+                  </a>
+                ))}
+              </div>
             </div>
           </motion.div>
         </div>
