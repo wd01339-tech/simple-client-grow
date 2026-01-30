@@ -171,7 +171,7 @@ export const PaymentModal = ({ isOpen, onClose, pkg }: PaymentModalProps) => {
                 <p className="text-xs text-muted-foreground mb-2">Prefer to chat first?</p>
                 <Button variant="ghost" size="sm" className="gap-2" asChild>
                   <a
-                    href={`https://wa.me/1234567890?text=${encodeURIComponent(pkg.whatsappMessage)}`}
+                    href={`https://wa.me/918335870240?text=${encodeURIComponent(pkg.whatsappMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
