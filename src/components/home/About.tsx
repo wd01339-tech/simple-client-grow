@@ -3,7 +3,7 @@ import { User, Heart, Laptop, MessageCircle, Facebook, Instagram, Linkedin } fro
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-import aboutImage from "@/assets/about-consultant.jpg";
+import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 import serviceWebsite from "@/assets/service-website.jpg";
 import serviceMarketing from "@/assets/service-marketing.jpg";
 
@@ -60,19 +60,38 @@ export const About = () => {
             className="relative"
           >
             <div className="aspect-square max-w-md mx-auto lg:mx-0 relative">
-              {/* Decorative circles */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />
+              {/* Decorative circles - matching Hero section */}
+              <div className="absolute -top-4 -right-4 w-32 h-32 bg-primary/15 rounded-full blur-2xl" />
+              <div className="absolute -bottom-4 -left-4 w-40 h-40 bg-secondary/15 rounded-full blur-2xl" />
+              <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl" />
               
-              {/* Main image card */}
-              <div className="relative bg-card rounded-3xl overflow-hidden shadow-2xl border border-border/50 h-full">
-                <img
-                  src={aboutImage}
-                  alt="Digital consultant working remotely in a modern home office"
-                  className="w-full h-full object-cover"
-                />
+              {/* Main image card with glow effect */}
+              <div className="relative">
+                {/* Outer glow ring */}
+                <div className="absolute -inset-3 bg-gradient-to-br from-primary/25 via-secondary/15 to-accent/25 rounded-3xl blur-xl opacity-60" />
+                
+                <div className="relative bg-card rounded-2xl overflow-hidden shadow-2xl">
+                  <img
+                    src={heroConsultant}
+                    alt="Freelance digital consultant - Remote professional helping small businesses grow online"
+                    className="w-full h-full object-cover"
+                  />
+                  
+                  {/* Subtle overlay gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent pointer-events-none" />
+                </div>
+                
+                {/* Decorative border */}
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+                
                 {/* Overlay with availability badge */}
-                <div className="absolute bottom-4 left-4 right-4 bg-background/90 backdrop-blur-sm rounded-xl p-4 border border-border/50">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                  className="absolute -bottom-4 left-4 right-4 bg-background/95 backdrop-blur-sm rounded-xl p-4 border border-border/50 shadow-lg"
+                >
                   <h3 className="font-display text-lg font-bold mb-1">
                     Hi, I'm Your Digital Partner
                   </h3>
@@ -97,7 +116,7 @@ export const About = () => {
                       ))}
                     </div>
                   </div>
-                </div>
+                </motion.div>
               </div>
 
               {/* Floating service images */}
