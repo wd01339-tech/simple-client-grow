@@ -256,7 +256,7 @@ const CaseStudyDetail = () => {
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <a
-                  href="https://wa.me/1234567890?text=Hi! I saw your case study and I'd like to discuss my project."
+                  href="https://wa.me/918335870240?text=Hello, I saw your case study and I'd like to discuss my project."
                   target="_blank"
                   rel="noopener noreferrer"
                 >

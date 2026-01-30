@@ -72,7 +72,7 @@ export const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             <Button variant="whatsapp" size="default" className="gap-2 font-semibold" asChild>
               <a
-                href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
+                href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -122,7 +122,7 @@ export const Header = () => {
                 <div className="pt-4">
                   <Button variant="whatsapp" className="w-full gap-2" asChild>
                     <a
-                      href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
+                      href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
                       target="_blank"
                       rel="noopener noreferrer"
                     >

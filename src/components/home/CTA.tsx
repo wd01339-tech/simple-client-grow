@@ -59,7 +59,7 @@ export const CTA = () => {
               asChild
             >
               <a
-                href="https://wa.me/1234567890?text=Hi, I'd like to know which package is right for my business."
+                href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -68,6 +68,11 @@ export const CTA = () => {
               </a>
             </Button>
           </div>
+          
+          {/* WhatsApp CTA Microcopy */}
+          <p className="text-primary-foreground/70 text-sm mt-6">
+            Prefer WhatsApp? Message me directly at +91-8335870240
+          </p>
         </motion.div>
       </div>
     </section>

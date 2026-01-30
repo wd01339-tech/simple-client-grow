@@ -89,12 +89,18 @@ const ContactPage = () => {
                   </div>
                   <div>
                     <h3 className="font-display text-xl font-bold mb-2">WhatsApp (Fastest)</h3>
-                    <p className="text-muted-foreground mb-4">
+                    <p className="text-muted-foreground mb-2">
                       The quickest way to reach me. I typically respond within a few hours.
                     </p>
+                    <a 
+                      href="tel:+918335870240" 
+                      className="text-foreground font-semibold hover:text-primary transition-colors block mb-4"
+                    >
+                      📞 +91-8335870240
+                    </a>
                     <Button variant="whatsapp" size="lg" asChild>
                       <a
-                        href="https://wa.me/1234567890?text=Hi! I'd like to discuss my project."
+                        href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
                         target="_blank"
                         rel="noopener noreferrer"
                       >
@@ -115,10 +121,10 @@ const ContactPage = () => {
                   <div>
                     <h4 className="font-semibold mb-1">Email</h4>
                     <a
-                      href="mailto:hello@digitalfreelancer.com"
+                      href="mailto:consultantb84@gmail.com"
                       className="text-muted-foreground hover:text-primary transition-colors"
                     >
-                      hello@digitalfreelancer.com
+                      consultantb84@gmail.com
                     </a>
                   </div>
                 </div>
@@ -146,6 +152,13 @@ const ContactPage = () => {
                     </p>
                   </div>
                 </div>
+              </div>
+
+              {/* Trust Microcopy */}
+              <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
+                <p className="text-sm text-muted-foreground text-center">
+                  ✨ Direct freelancer communication · Response within 24 hours · No agencies, no middlemen
+                </p>
               </div>
 
               {/* Trust Signals */}

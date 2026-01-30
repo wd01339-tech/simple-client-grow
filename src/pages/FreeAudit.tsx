@@ -241,7 +241,7 @@ const FreeAuditPage = () => {
 
                   <Button variant="whatsapp" size="lg" className="w-full" asChild>
                     <a
-                      href="https://wa.me/1234567890?text=Hi! I'd like a free audit for my business."
+                      href="https://wa.me/918335870240?text=Hello, I'm interested in a free audit for my business."
                       target="_blank"
                       rel="noopener noreferrer"
                     >

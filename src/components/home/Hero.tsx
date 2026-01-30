@@ -113,7 +113,7 @@ export const Hero = () => {
               </Button>
               <Button variant="whatsapp" size="xl" asChild>
                 <a
-                  href="https://wa.me/1234567890?text=Hi! I'd like to discuss my digital needs."
+                  href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
                   target="_blank"
                   rel="noopener noreferrer"
                 >

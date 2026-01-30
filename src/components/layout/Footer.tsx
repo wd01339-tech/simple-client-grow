@@ -7,7 +7,7 @@ export const Footer = () => {
   const socialLinks = [
     {
       name: "WhatsApp",
-      href: "https://wa.me/1234567890?text=Hi! I'd like to discuss my project.",
+      href: "https://wa.me/918335870240?text=Hello, I'm interested in your freelance services.",
       icon: MessageCircle,
       bgColor: "bg-[#25D366]",
     },
@@ -31,7 +31,7 @@ export const Footer = () => {
     },
     {
       name: "Email",
-      href: "mailto:hello@example.com",
+      href: "mailto:consultantb84@gmail.com",
       icon: Mail,
       bgColor: "bg-primary",
     },
