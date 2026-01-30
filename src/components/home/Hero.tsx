@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { HeroCarousel } from "./HeroCarousel";
+import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 
 const benefits = [
   "Remote & Affordable",
@@ -19,7 +19,31 @@ export const Hero = () => {
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* Mobile: Photo First (visible on mobile only) */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:hidden flex justify-center"
+          >
+            <div className="relative">
+              {/* Decorative glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-2xl" />
+              
+              <div className="relative">
+                <img
+                  src={heroConsultant}
+                  alt="Digital consultant helping small businesses grow online - Remote freelance professional with laptop showing business analytics"
+                  className="w-64 h-auto rounded-2xl shadow-2xl object-cover"
+                  loading="eager"
+                />
+                {/* Subtle border glow */}
+                <div className="absolute inset-0 rounded-2xl ring-1 ring-primary/20" />
+              </div>
+            </div>
+          </motion.div>
+
           {/* Left: Content */}
           <div className="text-center lg:text-left">
             {/* Badge */}
@@ -110,19 +134,51 @@ export const Hero = () => {
             </motion.p>
           </div>
 
-          {/* Right: Image Carousel */}
+          {/* Right: Hero Image (visible on desktop only) */}
           <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="relative hidden lg:block"
+            initial={{ opacity: 0, x: 40, scale: 0.95 }}
+            animate={{ opacity: 1, x: 0, scale: 1 }}
+            transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
+            className="relative hidden lg:flex justify-center"
           >
-            <div className="aspect-[4/3] max-w-xl mx-auto">
-              {/* Decorative elements */}
-              <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/20 rounded-full blur-2xl" />
-              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-secondary/20 rounded-full blur-2xl" />
+            {/* Decorative background elements */}
+            <div className="absolute -top-8 -right-8 w-40 h-40 bg-primary/15 rounded-full blur-3xl" />
+            <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-secondary/15 rounded-full blur-3xl" />
+            <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-accent/10 rounded-full blur-2xl" />
+            
+            {/* Photo container with effects */}
+            <div className="relative">
+              {/* Outer glow ring */}
+              <div className="absolute -inset-3 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 rounded-3xl blur-xl opacity-60" />
               
-              <HeroCarousel />
+              {/* Main image */}
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
+                <img
+                  src={heroConsultant}
+                  alt="Digital consultant helping small businesses grow online - Remote freelance professional with laptop showing business analytics"
+                  className="w-full max-w-md h-auto object-cover"
+                  loading="eager"
+                />
+                
+                {/* Subtle overlay gradient for depth */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent pointer-events-none" />
+              </div>
+              
+              {/* Decorative border */}
+              <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+              
+              {/* Floating badge */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.8 }}
+                className="absolute -bottom-4 -left-4 px-4 py-2 bg-background/95 backdrop-blur-sm rounded-xl shadow-lg border border-border/50"
+              >
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+                  <span className="text-sm font-medium text-foreground">Available for Projects</span>
+                </div>
+              </motion.div>
             </div>
           </motion.div>
         </div>
