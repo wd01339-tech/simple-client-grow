@@ -6,9 +6,11 @@ import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 
 const benefits = [
   "Remote & Affordable",
-  "Personal One-to-One Support",
+  "Personal One-to-One Support", 
   "Results-Focused Solutions",
 ];
+
+const IMAGE_ALT = "Freelance digital consultant providing remote website and marketing support for small businesses";
 
 export const Hero = () => {
   return (
@@ -34,8 +36,10 @@ export const Hero = () => {
               <div className="relative">
                 <img
                   src={heroConsultant}
-                  alt="Digital consultant helping small businesses grow online - Remote freelance professional with laptop showing business analytics"
-                  className="w-64 h-auto rounded-2xl shadow-2xl object-cover"
+                  alt={IMAGE_ALT}
+                  className="w-64 h-auto rounded-2xl shadow-2xl object-cover aspect-[3/4]"
+                  width={256}
+                  height={341}
                   loading="eager"
                 />
                 {/* Subtle border glow */}
@@ -78,9 +82,8 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8"
             >
-              Simple websites, Google Business optimization, and practical digital marketing 
-              for homestays, cafés, local services, and solo entrepreneurs — delivered remotely 
-              with personal one-to-one support.
+              Remote freelance consultant helping homestays, tourism businesses, ecommerce stores, 
+              and local services improve visibility, inquiries, and online presence — without agency complexity.
             </motion.p>
 
             {/* Benefits */}
@@ -155,8 +158,10 @@ export const Hero = () => {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src={heroConsultant}
-                  alt="Digital consultant helping small businesses grow online - Remote freelance professional with laptop showing business analytics"
-                  className="w-full max-w-md h-auto object-cover"
+                  alt={IMAGE_ALT}
+                  className="w-full max-w-md h-auto object-cover aspect-[4/5]"
+                  width={400}
+                  height={500}
                   loading="eager"
                 />
                 
