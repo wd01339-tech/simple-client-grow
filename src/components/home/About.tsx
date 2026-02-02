@@ -7,6 +7,7 @@ import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 import serviceWebsite from "@/assets/service-website.jpg";
 import serviceMarketing from "@/assets/service-marketing.jpg";
 
+const IMAGE_ALT = "Freelance digital consultant providing remote website and marketing support for small businesses";
 const highlights = [
   {
     icon: User,
@@ -73,8 +74,11 @@ export const About = () => {
                 <div className="relative bg-card rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src={heroConsultant}
-                    alt="Freelance digital consultant - Remote professional helping small businesses grow online"
-                    className="w-full h-full object-cover"
+                    alt={IMAGE_ALT}
+                    className="w-full h-full object-cover aspect-square lg:aspect-[4/5]"
+                    width={400}
+                    height={500}
+                    loading="lazy"
                   />
                   
                   {/* Subtle overlay gradient */}
