@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, MessageCircle } from "lucide-react";
+import { ArrowRight, CheckCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
@@ -114,15 +114,11 @@ export const Hero = () => {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
-              <Button variant="whatsapp" size="xl" asChild>
-                <a
-                  href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Message Me on WhatsApp
-                </a>
+              <Button variant="outline" size="xl" asChild>
+                <Link to="/contact">
+                  <Calendar className="w-5 h-5" />
+                  Book a Free Discovery Call
+                </Link>
               </Button>
             </motion.div>
 

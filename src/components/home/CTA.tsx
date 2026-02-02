@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, MessageCircle, Clock, Shield } from "lucide-react";
+import { ArrowRight, Calendar, Clock, Shield, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -29,15 +29,15 @@ export const CTA = () => {
           <div className="flex flex-wrap items-center justify-center gap-6 mb-10">
             <div className="flex items-center gap-2 text-primary-foreground/80">
               <Clock className="w-5 h-5" />
-              <span className="text-sm">Quick Response</span>
+              <span className="text-sm">Response Within 24 Hours</span>
             </div>
             <div className="flex items-center gap-2 text-primary-foreground/80">
               <Shield className="w-5 h-5" />
-              <span className="text-sm">No Obligation</span>
+              <span className="text-sm">No Commitment Required</span>
             </div>
             <div className="flex items-center gap-2 text-primary-foreground/80">
-              <MessageCircle className="w-5 h-5" />
-              <span className="text-sm">Friendly Chat</span>
+              <Heart className="w-5 h-5" />
+              <span className="text-sm">Friendly & Personal</span>
             </div>
           </div>
 
@@ -54,24 +54,21 @@ export const CTA = () => {
               </Link>
             </Button>
             <Button
-              variant="whatsapp"
               size="xl"
+              variant="outline"
+              className="border-white/30 text-primary-foreground hover:bg-white/10"
               asChild
             >
-              <a
-                href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="w-5 h-5" />
-                Chat on WhatsApp
-              </a>
+              <Link to="/contact">
+                <Calendar className="w-5 h-5" />
+                Book a Free Discovery Call
+              </Link>
             </Button>
           </div>
           
-          {/* WhatsApp CTA Microcopy */}
+          {/* Microcopy */}
           <p className="text-primary-foreground/70 text-sm mt-6">
-            Prefer WhatsApp? Message me directly at +91-8335870240
+            No agencies, no middlemen — just direct freelancer support.
           </p>
         </motion.div>
       </div>

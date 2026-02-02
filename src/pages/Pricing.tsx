@@ -7,8 +7,9 @@ import { PricingFAQ } from "@/components/pricing/PricingFAQ";
 import { PaymentModal } from "@/components/pricing/PaymentModal";
 import { packages, trustSignals } from "@/data/packages";
 import type { Package } from "@/data/packages";
-import { Shield, Users, Globe, MessageCircle } from "lucide-react";
+import { Shield, Users, Globe, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const trustIcons = [Shield, Users, Globe];
 
@@ -24,23 +25,31 @@ const Pricing = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-muted/50 to-background">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="pt-32 pb-16 relative overflow-hidden">
+        {/* Background matching Hero style */}
+        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+        
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center max-w-3xl mx-auto"
           >
-            <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Simple & Transparent Pricing
-            </span>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-bg-subtle border border-primary/20 mb-8">
+              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+              <span className="text-sm font-medium text-foreground">
+                Simple & Transparent Pricing
+              </span>
+            </div>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6">
-              Invest in Your{" "}
-              <span className="gradient-text">Digital Growth</span>
+              Affordable Packages for{" "}
+              <span className="gradient-text">Real Growth</span>
             </h1>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Affordable packages designed for homestays, tourism businesses, and e-commerce stores. 
-              No hidden fees. Pay once or monthly—your choice.
+            <p className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
+              Designed for homestays, tourism businesses, and local services. 
+              No hidden fees, no agency complexity — just honest pricing.
             </p>
           </motion.div>
 
@@ -148,30 +157,39 @@ const Pricing = () => {
       </section>
 
       {/* Final CTA */}
-      <section className="py-20">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 relative overflow-hidden">
+        <div className="absolute inset-0 gradient-bg opacity-90" />
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center max-w-2xl mx-auto"
           >
-            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-              Still Have Questions?
+            <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4 text-primary-foreground">
+              Not Sure Which Package Fits?
             </h2>
-            <p className="text-muted-foreground mb-8">
-              Not sure which package is right for you? Let's chat! I'll help you choose the perfect fit for your business.
+            <p className="text-primary-foreground/80 mb-8">
+              Let's have a quick, friendly chat. I'll help you choose the right fit for your business — no pressure.
             </p>
-            <Button variant="whatsapp" size="xl" asChild>
-              <a
-                href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
-                target="_blank"
-                rel="noopener noreferrer"
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Button size="xl" className="bg-white text-foreground hover:bg-white/90" asChild>
+                <Link to="/free-audit">
+                  Get a Free Audit First
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+              <Button 
+                size="xl" 
+                variant="outline" 
+                className="border-white/30 text-primary-foreground hover:bg-white/10"
+                asChild
               >
-                <MessageCircle className="w-5 h-5" />
-                Chat on WhatsApp — Free Consultation
-              </a>
-            </Button>
+                <Link to="/contact">
+                  Book a Free Discovery Call
+                </Link>
+              </Button>
+            </div>
           </motion.div>
         </div>
       </section>

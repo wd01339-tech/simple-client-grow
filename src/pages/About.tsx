@@ -1,21 +1,23 @@
 import { motion } from "framer-motion";
-import { User, Heart, Laptop, Globe, Target, MessageCircle, ArrowRight, Facebook, Instagram, Linkedin } from "lucide-react";
+import { User, Heart, Laptop, Globe, Target, Calendar, ArrowRight, Facebook, Instagram, Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
 
-import aboutImage from "@/assets/about-consultant.jpg";
+import heroConsultant from "@/assets/hero-consultant-enhanced.png";
+
+const IMAGE_ALT = "Freelance digital consultant providing remote website and marketing support for small businesses";
 
 const values = [
   {
     icon: User,
-    title: "Personal Touch",
+    title: "Direct Communication",
     description: "Work directly with me — no account managers, no handoffs, no lost messages.",
   },
   {
     icon: Heart,
-    title: "Small Business Focus",
-    description: "I understand budget constraints and prioritize what matters most for your growth.",
+    title: "Tourism & Small Business Focus",
+    description: "I specialize in helping homestays, cafés, and local services get found online.",
   },
   {
     icon: Laptop,
@@ -24,8 +26,8 @@ const values = [
   },
   {
     icon: Target,
-    title: "Results Over Complexity",
-    description: "Simple solutions that actually work, not complicated systems you don't need.",
+    title: "Simple & Affordable",
+    description: "Practical solutions that actually work, without complicated systems or high costs.",
   },
 ];
 
@@ -56,6 +58,9 @@ const AboutPage = () => {
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
+        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+        
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             {/* Content */}
@@ -63,25 +68,31 @@ const AboutPage = () => {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
             >
-              <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-                About Me
-              </span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-bg-subtle border border-primary/20 mb-6">
+                <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                <span className="text-sm font-medium text-foreground">About Me</span>
+              </div>
+              
               <h1 className="font-display text-4xl sm:text-5xl font-bold mt-4 mb-6">
-                Hi, I'm Your{" "}
-                <span className="gradient-text">Digital Partner</span>
+                Why I Chose to Work{" "}
+                <span className="gradient-text">Remotely</span>
               </h1>
+              
               <p className="text-muted-foreground text-lg mb-6">
-                I'm a freelance digital consultant who helps small business owners, homestay 
-                operators, and solo entrepreneurs build their online presence — simply and affordably.
+                I started my freelance journey because I saw how many small business owners — 
+                especially in tourism — struggle to get online help that's <strong>affordable</strong> and <strong>personal</strong>.
               </p>
+              
               <p className="text-muted-foreground mb-6">
-                Unlike big agencies with complicated packages and high prices, I offer 
-                personal one-to-one support. You'll always know who you're working with, 
-                and I'll always be just a message away.
+                Big agencies often charge high prices for complicated solutions. I wanted to offer 
+                something different: <strong>simple websites, Google Business optimization, and practical 
+                marketing support</strong> — delivered remotely with one-to-one communication.
               </p>
+              
               <p className="text-muted-foreground mb-8">
-                My mission is simple: help small businesses get found online without 
-                overwhelming them with technical jargon or unnecessary complexity.
+                Whether you run a homestay in the mountains, a café by the beach, or a local service 
+                business, I'm here to help you get found by more customers — without the jargon or 
+                the high costs.
               </p>
 
               <div className="flex items-center gap-3 mb-8">
@@ -89,63 +100,61 @@ const AboutPage = () => {
                 <span className="text-sm text-muted-foreground">Currently accepting new clients</span>
               </div>
 
-              <Button variant="whatsapp" size="lg" asChild>
-                <a
-                  href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Let's Connect
-                </a>
-              </Button>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Button variant="hero" size="lg" asChild>
+                  <Link to="/free-audit">
+                    Get a Free Audit
+                    <ArrowRight className="w-5 h-5" />
+                  </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <Link to="/contact">
+                    <Calendar className="w-5 h-5" />
+                    Book a Discovery Call
+                  </Link>
+                </Button>
+              </div>
             </motion.div>
 
-            {/* Visual */}
+            {/* Visual - Same enhanced image as Hero */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="relative"
+              className="relative hidden lg:block"
             >
-              <div className="aspect-square max-w-md mx-auto relative">
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-primary/20 rounded-full blur-xl" />
-                <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-secondary/20 rounded-full blur-xl" />
+              <div className="max-w-md mx-auto relative">
+                {/* Decorative glow */}
+                <div className="absolute -inset-3 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 rounded-3xl blur-xl opacity-60" />
                 
-                <div className="relative bg-card rounded-3xl overflow-hidden shadow-2xl border border-border/50 h-full">
+                <div className="relative bg-card rounded-2xl overflow-hidden shadow-2xl">
                   <img
-                    src={aboutImage}
-                    alt="Digital consultant working remotely"
-                    className="w-full h-full object-cover"
+                    src={heroConsultant}
+                    alt={IMAGE_ALT}
+                    className="w-full h-auto object-cover aspect-[4/5]"
+                    width={400}
+                    height={500}
+                    loading="lazy"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/95 via-background/80 to-transparent p-6">
-                    <h3 className="font-display text-2xl font-bold mb-2">
-                      DigitalFreelancer
-                    </h3>
-                    <p className="text-muted-foreground mb-4">
-                      Freelance Digital Consultant
-                    </p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm">Web Design</span>
-                      <span className="px-3 py-1 rounded-full bg-secondary/10 text-secondary text-sm">Marketing</span>
-                      <span className="px-3 py-1 rounded-full bg-accent/10 text-accent text-sm">SEO</span>
-                    </div>
-                    {/* Social Icons */}
-                    <div className="flex items-center gap-3">
-                      {socialLinks.map((social) => (
-                        <a
-                          key={social.name}
-                          href={social.href}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className={`w-9 h-9 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-md`}
-                          aria-label={`Follow on ${social.name}`}
-                        >
-                          <social.icon className="w-4 h-4 text-white" />
-                        </a>
-                      ))}
-                    </div>
-                  </div>
+                  
+                  {/* Subtle overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent pointer-events-none" />
+                  
+                  {/* Decorative border */}
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
                 </div>
+                
+                {/* Floating badge */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: 0.5 }}
+                  className="absolute -bottom-4 -left-4 px-4 py-2 bg-background/95 backdrop-blur-sm rounded-xl shadow-lg border border-border/50"
+                >
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+                    <span className="text-sm font-medium text-foreground">Available for Projects</span>
+                  </div>
+                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -233,10 +242,10 @@ const AboutPage = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto">
             <h2 className="font-display text-3xl sm:text-4xl font-bold text-primary-foreground mb-4">
-              Ready to Work Together?
+              Ready to Grow Your Business Online?
             </h2>
             <p className="text-primary-foreground/80 mb-8">
-              Let's have a friendly chat about your business and how I can help.
+              Let's have a friendly chat about your goals. No pressure, no jargon — just honest advice.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button
@@ -249,17 +258,21 @@ const AboutPage = () => {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
-              <Button variant="whatsapp" size="xl" asChild>
-                <a
-                  href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <MessageCircle className="w-5 h-5" />
-                  Chat on WhatsApp
-                </a>
+              <Button 
+                size="xl" 
+                variant="outline"
+                className="border-white/30 text-primary-foreground hover:bg-white/10"
+                asChild
+              >
+                <Link to="/contact">
+                  <Calendar className="w-5 h-5" />
+                  Book a Discovery Call
+                </Link>
               </Button>
             </div>
+            <p className="text-primary-foreground/70 text-sm mt-6">
+              No agencies, no middlemen — direct freelancer support.
+            </p>
           </div>
         </div>
       </section>
