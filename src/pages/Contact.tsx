@@ -20,6 +20,7 @@ const ContactPage = () => {
     setIsSubmitting(true);
 
     try {
+      // Save to database
       const { error } = await supabase.from("leads").insert({
         name: formData.name.trim(),
         email: formData.email.trim(),
@@ -29,6 +30,22 @@ const ContactPage = () => {
       });
 
       if (error) throw error;
+
+      // Send email notification
+      const { error: emailError } = await supabase.functions.invoke("send-contact-email", {
+        body: {
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim() || "Contact Form Inquiry",
+          message: formData.message.trim(),
+          source: "Contact Page",
+        },
+      });
+
+      if (emailError) {
+        console.error("Email notification failed:", emailError);
+        // Don't block success - lead is saved
+      }
 
       toast.success("Message sent! I'll get back to you within 24 hours.");
       setFormData({ name: "", email: "", subject: "", message: "" });

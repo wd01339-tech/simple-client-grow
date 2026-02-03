@@ -159,7 +159,7 @@
       hsl(263 70% 50%)
     );
     background-size: 300% 100%;
-    animation: gradient-shift 3s ease infinite;
+    animation: gradient-shift 3s ease infinite, pulse-glow 2s ease-in-out infinite;
     color: hsl(0 0% 100%);
     border: none;
   }
@@ -180,6 +180,15 @@
     }
     100% {
       background-position: 0% 50%;
+    }
+  }
+
+  @keyframes pulse-glow {
+    0%, 100% {
+      box-shadow: 0 0 15px 2px hsl(263 70% 50% / 0.4), 0 0 30px 5px hsl(45 100% 55% / 0.2);
+    }
+    50% {
+      box-shadow: 0 0 25px 5px hsl(263 70% 50% / 0.6), 0 0 50px 10px hsl(45 100% 55% / 0.3);
     }
   }
 }
