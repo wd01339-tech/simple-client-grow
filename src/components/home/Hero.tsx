@@ -114,7 +114,7 @@ export const Hero = () => {
                   <ArrowRight className="w-5 h-5" />
                 </Link>
               </Button>
-              <Button variant="outline" size="xl" asChild>
+              <Button variant="animated-gradient" size="xl" asChild>
                 <Link to="/contact">
                   <Calendar className="w-5 h-5" />
                   Book a Free Discovery Call
