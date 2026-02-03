@@ -148,4 +148,38 @@
   .text-balance {
     text-wrap: balance;
   }
+
+  /* Animated gradient button for Discovery Call CTAs */
+  .animated-gradient-btn {
+    background: linear-gradient(
+      90deg,
+      hsl(263 70% 50%),
+      hsl(45 100% 55%),
+      hsl(280 70% 55%),
+      hsl(263 70% 50%)
+    );
+    background-size: 300% 100%;
+    animation: gradient-shift 3s ease infinite;
+    color: hsl(0 0% 100%);
+    border: none;
+  }
+
+  .animated-gradient-btn:hover {
+    background-size: 300% 100%;
+    animation: gradient-shift 1.5s ease infinite;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px -10px hsl(263 70% 50% / 0.5);
+  }
+
+  @keyframes gradient-shift {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }

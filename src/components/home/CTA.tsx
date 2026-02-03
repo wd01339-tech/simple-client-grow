@@ -55,8 +55,7 @@ export const CTA = () => {
             </Button>
             <Button
               size="xl"
-              variant="outline"
-              className="border-white/30 text-primary-foreground hover:bg-white/10"
+              variant="animated-gradient"
               asChild
             >
               <Link to="/contact">

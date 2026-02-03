@@ -22,6 +22,7 @@ const buttonVariants = cva(
         hero: "gradient-bg text-primary-foreground shadow-xl shadow-primary/30 hover:shadow-2xl hover:shadow-primary/40 hover:-translate-y-1 font-semibold",
         whatsapp: "bg-[#25D366] text-white shadow-lg shadow-[#25D366]/30 hover:shadow-xl hover:shadow-[#25D366]/40 hover:-translate-y-0.5 font-semibold",
         "outline-gradient": "gradient-border bg-background text-foreground hover:bg-muted",
+        "animated-gradient": "animated-gradient-btn shadow-xl hover:shadow-2xl font-semibold",
       },
       size: {
         default: "h-10 px-4 py-2",

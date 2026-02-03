@@ -7,7 +7,7 @@ import { PricingFAQ } from "@/components/pricing/PricingFAQ";
 import { PaymentModal } from "@/components/pricing/PaymentModal";
 import { packages, trustSignals } from "@/data/packages";
 import type { Package } from "@/data/packages";
-import { Shield, Users, Globe, ArrowRight } from "lucide-react";
+import { Shield, Users, Globe, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -181,11 +181,11 @@ const Pricing = () => {
               </Button>
               <Button 
                 size="xl" 
-                variant="outline" 
-                className="border-white/30 text-primary-foreground hover:bg-white/10"
+                variant="animated-gradient"
                 asChild
               >
                 <Link to="/contact">
+                  <Calendar className="w-5 h-5" />
                   Book a Free Discovery Call
                 </Link>
               </Button>
