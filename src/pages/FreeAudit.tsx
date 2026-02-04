@@ -5,6 +5,8 @@ import { Layout } from "@/components/layout/Layout";
 import { useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
 
 const auditItems = [
   {
@@ -74,7 +76,8 @@ const FreeAuditPage = () => {
   };
 
   return (
-    <Layout>
+    <Layout whatsappIntent="free-audit">
+      <SEOHead page="free-audit" />
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
@@ -239,16 +242,14 @@ const FreeAuditPage = () => {
                     Or prefer to chat directly?
                   </p>
 
-                  <Button variant="whatsapp" size="lg" className="w-full" asChild>
-                    <a
-                      href="https://wa.me/918335870240?text=Hello, I'm interested in a free audit for my business."
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <MessageCircle className="w-5 h-5" />
-                      Message on WhatsApp
-                    </a>
-                  </Button>
+                  <WhatsAppLink 
+                    intent="free-audit" 
+                    size="lg" 
+                    className="w-full"
+                    customDetails={{ businessType: formData.business || undefined }}
+                  >
+                    Message on WhatsApp
+                  </WhatsAppLink>
                 </form>
               </div>
             </motion.div>

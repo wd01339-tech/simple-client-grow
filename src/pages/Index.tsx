@@ -7,10 +7,12 @@ import { ClientLogos } from "@/components/home/ClientLogos";
 import { LeadMagnet } from "@/components/home/LeadMagnet";
 import { Testimonials } from "@/components/home/Testimonials";
 import { Packages } from "@/components/home/Packages";
+import { SEOHead } from "@/components/seo/SEOHead";
 
 const Index = () => {
   return (
-    <Layout>
+    <Layout whatsappIntent="general">
+      <SEOHead page="home" />
       <Hero />
       <ClientLogos />
       <Services />
