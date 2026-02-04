@@ -3,6 +3,8 @@ import { Globe, TrendingUp, Users, MapPin, CheckCircle, ArrowRight, MessageCircl
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
 
 const services = [
   {
@@ -74,7 +76,8 @@ const services = [
 
 const ServicesPage = () => {
   return (
-    <Layout>
+    <Layout whatsappIntent="website-help">
+      <SEOHead page="services" />
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
@@ -145,16 +148,9 @@ const ServicesPage = () => {
                         <ArrowRight className="w-4 h-4" />
                       </Link>
                     </Button>
-                    <Button variant="whatsapp" size="lg" asChild>
-                      <a
-                        href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        <MessageCircle className="w-4 h-4" />
-                        Talk on WhatsApp
-                      </a>
-                    </Button>
+                    <WhatsAppLink intent="website-help" size="lg">
+                      Talk on WhatsApp
+                    </WhatsAppLink>
                   </div>
                 </div>
 

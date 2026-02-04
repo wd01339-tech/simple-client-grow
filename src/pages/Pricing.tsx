@@ -10,6 +10,8 @@ import type { Package } from "@/data/packages";
 import { Shield, Users, Globe, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { generateFAQSchema } from "@/lib/seo";
 
 const trustIcons = [Shield, Users, Globe];
 
@@ -22,9 +24,19 @@ const Pricing = () => {
     setIsPaymentModalOpen(true);
   };
 
+  // FAQ schema for SEO
+  const faqSchema = generateFAQSchema({
+    questions: [
+      { question: "What payment methods do you accept?", answer: "We accept PayPal, Stripe, and Razorpay for secure payment processing." },
+      { question: "Do you offer refunds?", answer: "Yes, we offer a 3-day partial refund policy if you're not satisfied." },
+      { question: "How long does it take to complete a project?", answer: "Most projects are completed within 1-4 weeks depending on the package." },
+      { question: "Can I upgrade my package later?", answer: "Absolutely! You can upgrade to a higher package at any time." },
+    ],
+  });
+
   return (
-    <Layout>
-      {/* Hero Section */}
+    <Layout whatsappIntent="pricing">
+      <SEOHead page="pricing" schemas={[faqSchema]} />
       <section className="pt-32 pb-16 relative overflow-hidden">
         {/* Background matching Hero style */}
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />

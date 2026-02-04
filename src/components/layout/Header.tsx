@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -72,7 +73,7 @@ export const Header = () => {
           <div className="hidden md:flex items-center gap-3">
             <Button variant="whatsapp" size="default" className="gap-2 font-semibold" asChild>
               <a
-                href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
+                href={getWhatsAppUrl("general")}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -122,7 +123,7 @@ export const Header = () => {
                 <div className="pt-4">
                   <Button variant="whatsapp" className="w-full gap-2" asChild>
                     <a
-                      href="https://wa.me/918335870240?text=Hello, I'm interested in your freelance services."
+                      href={getWhatsAppUrl("general")}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

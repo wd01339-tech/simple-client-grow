@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, MessageCircle, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
+import { getWhatsAppUrl } from "@/lib/whatsapp";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -7,7 +8,7 @@ export const Footer = () => {
   const socialLinks = [
     {
       name: "WhatsApp",
-      href: "https://wa.me/918335870240?text=Hello, I'm interested in your freelance services.",
+      href: getWhatsAppUrl("general"),
       icon: MessageCircle,
       bgColor: "bg-[#25D366]",
     },

@@ -1,19 +1,21 @@
 import { ReactNode } from "react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { WhatsAppButton } from "./WhatsAppButton";
+import { SmartWhatsAppButton } from "@/components/whatsapp/SmartWhatsAppButton";
+import { type WhatsAppIntent } from "@/lib/whatsapp";
 
 interface LayoutProps {
   children: ReactNode;
+  whatsappIntent?: WhatsAppIntent;
 }
 
-export const Layout = ({ children }: LayoutProps) => {
+export const Layout = ({ children, whatsappIntent = "general" }: LayoutProps) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">{children}</main>
       <Footer />
-      <WhatsAppButton />
+      <SmartWhatsAppButton defaultIntent={whatsappIntent} />
     </div>
   );
 };

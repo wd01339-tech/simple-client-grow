@@ -3,6 +3,7 @@ import { User, Heart, Laptop, Globe, Target, Calendar, ArrowRight, Facebook, Ins
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
 import { Link } from "react-router-dom";
+import { SEOHead } from "@/components/seo/SEOHead";
 
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 
@@ -54,7 +55,8 @@ const socialLinks = [
 
 const AboutPage = () => {
   return (
-    <Layout>
+    <Layout whatsappIntent="consultation">
+      <SEOHead page="about" />
       {/* Hero */}
       <section className="pt-32 pb-16 relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
