@@ -1,74 +1,81 @@
-/**
- * Smart WhatsApp Click-to-Chat System
- * Context-aware pre-filled messages based on trigger point
- */
-
-const WHATSAPP_NUMBER = "918335870240";
-
-export type WhatsAppIntent = 
-  | "general"
-  | "free-audit"
-  | "consultation"
-  | "pricing"
-  | "website-help"
-  | "tourism-marketing"
-  | "gmb-help"
-  | "contact"
-  | "package-inquiry";
-
-interface WhatsAppMessageConfig {
-  greeting: string;
-  context: string;
-  question?: string;
-}
-
-const messageTemplates: Record<WhatsAppIntent, WhatsAppMessageConfig> = {
-  general: {
-    greeting: "Hello! 👋",
-    context: "I found your website and I'm interested in your freelance services.",
-    question: "Could you tell me more about how you can help my business grow online?",
-  },
-  "free-audit": {
-    greeting: "Hi! 👋",
-    context: "I'm interested in getting a free website and Google Business audit.",
-    question: "Could you review my online presence and suggest improvements?",
-  },
-  consultation: {
-    greeting: "Hello! 👋",
-    context: "I'd like to book a free 15-minute discovery call to discuss my business.",
-    question: "When would be a good time for a quick chat?",
-  },
-  pricing: {
-    greeting: "Hi! 👋",
-    context: "I was looking at your pricing packages and have some questions.",
-    question: "Could you help me choose the right package for my business?",
-  },
-  "website-help": {
-    greeting: "Hello! 👋",
-    context: "I need help with my website - it's not bringing in enough customers.",
-    question: "Can you take a look and suggest what could be improved?",
-  },
-  "tourism-marketing": {
-    greeting: "Hi! 👋",
-    context: "I run a tourism/hospitality business and need help with online marketing.",
-    question: "How can you help me get more bookings and visibility?",
-  },
-  "gmb-help": {
-    greeting: "Hello! 👋",
-    context: "I need help optimizing my Google Business Profile.",
-    question: "Can you help me appear higher in local search results?",
-  },
-  contact: {
-    greeting: "Hi! 👋",
-    context: "I'm reaching out from your contact page.",
-    question: "I'd like to discuss how you can help my business.",
-  },
-  "package-inquiry": {
-    greeting: "Hello! 👋",
-    context: "I'm interested in one of your service packages.",
-    question: "Can we discuss the details and next steps?",
-  },
-};
+ /**
+  * Smart WhatsApp Click-to-Chat System
+  * Context-aware pre-filled messages with friendly, human tone
+  * Designed for tourism & SEA markets - no pressure, trust-building
+  */
+ 
+ const WHATSAPP_NUMBER = "918335870240";
+ 
+ export type WhatsAppIntent = 
+   | "general"
+   | "free-audit"
+   | "consultation"
+   | "pricing"
+   | "website-help"
+   | "tourism-marketing"
+   | "gmb-help"
+   | "contact"
+   | "package-inquiry";
+ 
+ interface WhatsAppMessageConfig {
+   greeting: string;
+   context: string;
+   question?: string;
+ }
+ 
+ /**
+  * Friendly, human-tone message templates
+  * - No pressure, builds trust
+  * - Short messages with clear value
+  * - Easy reply path
+  */
+ const messageTemplates: Record<WhatsAppIntent, WhatsAppMessageConfig> = {
+   general: {
+     greeting: "Hi 👋",
+     context: "I found your website and I'm interested in learning how you can help my business grow online.",
+     question: "Would love to have a quick chat when you're free 😊",
+   },
+   "free-audit": {
+     greeting: "Hi 👋",
+     context: "I'd like a free website and GMB audit please.",
+     question: "Can you take a look at my online presence and share some suggestions?",
+   },
+   consultation: {
+     greeting: "Hi 👋",
+     context: "I'd like to book a quick discovery call to discuss my business.",
+     question: "When would be a good time for you?",
+   },
+   pricing: {
+     greeting: "Hi 👋",
+     context: "I was looking at your pricing packages.",
+     question: "Could you help me understand which one would work best for my needs?",
+   },
+   "website-help": {
+     greeting: "Hi 👋",
+     context: "I need some help with my website — it's not bringing in enough customers right now.",
+     question: "Would you be able to take a quick look and share your thoughts?",
+   },
+   "tourism-marketing": {
+     greeting: "Hi 👋",
+     context: "I run a homestay/tourism business and need help with online visibility.",
+     question: "How can you help me get more bookings?",
+   },
+   "gmb-help": {
+     greeting: "Hi 👋",
+     context: "I'd like help optimizing my Google Business Profile.",
+     question: "Can you help me show up better in local searches?",
+   },
+   contact: {
+     greeting: "Hi 👋",
+     context: "I'm reaching out from your website.",
+     question: "I'd love to discuss how you can help my business 😊",
+   },
+   "package-inquiry": {
+     greeting: "Hi 👋",
+     context: "I'm interested in one of your service packages.",
+     question: "Can we discuss the details and next steps?",
+   },
+ };
 
 /**
  * Build the WhatsApp message based on intent

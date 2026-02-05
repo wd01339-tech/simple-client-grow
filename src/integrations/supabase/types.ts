@@ -19,39 +19,66 @@ export type Database = {
           business_type: string | null
           created_at: string
           email: string
+          followup_count: number | null
           id: string
+          last_followup_at: string | null
           message: string | null
           name: string
+          notes: string | null
+          phone: string | null
           source: string
           status: string
           subject: string | null
           updated_at: string
+          utm_campaign: string | null
+          utm_content: string | null
+          utm_medium: string | null
+          utm_source: string | null
+          utm_term: string | null
           website: string | null
         }
         Insert: {
           business_type?: string | null
           created_at?: string
           email: string
+          followup_count?: number | null
           id?: string
+          last_followup_at?: string | null
           message?: string | null
           name: string
+          notes?: string | null
+          phone?: string | null
           source?: string
           status?: string
           subject?: string | null
           updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
           website?: string | null
         }
         Update: {
           business_type?: string | null
           created_at?: string
           email?: string
+          followup_count?: number | null
           id?: string
+          last_followup_at?: string | null
           message?: string | null
           name?: string
+          notes?: string | null
+          phone?: string | null
           source?: string
           status?: string
           subject?: string | null
           updated_at?: string
+          utm_campaign?: string | null
+          utm_content?: string | null
+          utm_medium?: string | null
+          utm_source?: string | null
+          utm_term?: string | null
           website?: string | null
         }
         Relationships: []
