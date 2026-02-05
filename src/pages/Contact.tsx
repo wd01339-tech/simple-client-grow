@@ -1,15 +1,17 @@
-import { motion } from "framer-motion";
-import { MessageCircle, Mail, MapPin, Clock, Shield, Heart } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Layout } from "@/components/layout/Layout";
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
-import { SEOHead } from "@/components/seo/SEOHead";
-import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
+ import { motion } from "framer-motion";
+ import { MessageCircle, Mail, MapPin, Clock, Shield, Heart } from "lucide-react";
+ import { Button } from "@/components/ui/button";
+ import { Layout } from "@/components/layout/Layout";
+ import { useState } from "react";
+ import { supabase } from "@/integrations/supabase/client";
+ import { toast } from "sonner";
+ import { SEOHead } from "@/components/seo/SEOHead";
+ import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
+ import { useUTMTracking } from "@/hooks/useUTMTracking";
 
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+   const utmParams = useUTMTracking();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -23,12 +25,17 @@ const ContactPage = () => {
 
     try {
       // Save to database
-      const { error } = await supabase.from("leads").insert({
+       const { error } = await supabase.from("leads").insert({
         name: formData.name.trim(),
         email: formData.email.trim(),
         subject: formData.subject.trim(),
         message: formData.message.trim(),
         source: "contact",
+         utm_source: utmParams.utm_source,
+         utm_medium: utmParams.utm_medium,
+         utm_campaign: utmParams.utm_campaign,
+         utm_term: utmParams.utm_term,
+         utm_content: utmParams.utm_content,
       });
 
       if (error) throw error;

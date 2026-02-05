@@ -1,12 +1,13 @@
-import { motion } from "framer-motion";
-import { CheckCircle, Sparkles, MessageCircle, ArrowRight, Clock, Shield, Zap } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Layout } from "@/components/layout/Layout";
-import { useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
-import { SEOHead } from "@/components/seo/SEOHead";
-import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
+ import { motion } from "framer-motion";
+ import { CheckCircle, Sparkles, ArrowRight, Clock, Shield, Zap } from "lucide-react";
+ import { Button } from "@/components/ui/button";
+ import { Layout } from "@/components/layout/Layout";
+ import { useState } from "react";
+ import { supabase } from "@/integrations/supabase/client";
+ import { toast } from "sonner";
+ import { SEOHead } from "@/components/seo/SEOHead";
+ import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
+ import { useUTMTracking } from "@/hooks/useUTMTracking";
 
 const auditItems = [
   {
@@ -41,6 +42,7 @@ const auditItems = [
 
 const FreeAuditPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+   const utmParams = useUTMTracking();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -61,6 +63,11 @@ const FreeAuditPage = () => {
         business_type: formData.business.trim(),
         message: formData.message.trim() || null,
         source: "free-audit",
+         utm_source: utmParams.utm_source,
+         utm_medium: utmParams.utm_medium,
+         utm_campaign: utmParams.utm_campaign,
+         utm_term: utmParams.utm_term,
+         utm_content: utmParams.utm_content,
       });
 
       if (error) throw error;
