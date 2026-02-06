@@ -4,10 +4,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
-import serviceWebsite from "@/assets/service-website.jpg";
-import serviceMarketing from "@/assets/service-marketing.jpg";
 
-const IMAGE_ALT = "Freelance digital consultant providing remote website and marketing support for small businesses";
+const IMAGE_ALT = "Freelance digital consultant helping small businesses, tourism brands, and local services grow online";
+
 const highlights = [
   {
     icon: User,
@@ -52,7 +51,7 @@ export const About = () => {
     <section className="py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-          {/* Left: Image/Visual */}
+          {/* Left: Image with 4:3 desktop, 4:5 mobile ratios */}
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -60,98 +59,76 @@ export const About = () => {
             transition={{ duration: 0.6 }}
             className="relative"
           >
-            <div className="aspect-square max-w-md mx-auto lg:mx-0 relative">
-              {/* Decorative circles - matching Hero section */}
-              <div className="absolute -top-4 -right-4 w-32 h-32 bg-primary/15 rounded-full blur-2xl" />
-              <div className="absolute -bottom-4 -left-4 w-40 h-40 bg-secondary/15 rounded-full blur-2xl" />
-              <div className="absolute top-1/2 right-1/4 w-20 h-20 bg-accent/10 rounded-full blur-xl" />
+            <div className="relative max-w-md mx-auto lg:mx-0">
+              {/* Extended background gradient for visual width */}
+              <div className="absolute -inset-8 bg-gradient-to-r from-primary/10 via-secondary/8 to-accent/10 rounded-3xl blur-2xl" />
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/12 rounded-full blur-2xl" />
+              <div className="absolute -bottom-6 -left-6 w-40 h-40 bg-secondary/12 rounded-full blur-2xl" />
               
-              {/* Main image card with glow effect */}
+              {/* Image container - 4:5 mobile, 4:3 desktop */}
               <div className="relative">
-                {/* Outer glow ring */}
-                <div className="absolute -inset-3 bg-gradient-to-br from-primary/25 via-secondary/15 to-accent/25 rounded-3xl blur-xl opacity-60" />
+                {/* Outer glow for extended width feel */}
+                <div className="absolute -inset-3 bg-gradient-to-br from-primary/20 via-secondary/12 to-accent/20 rounded-2xl blur-xl opacity-60" />
                 
-                <div className="relative bg-card rounded-2xl overflow-hidden shadow-2xl">
+                {/* Main image with responsive aspect ratios */}
+                <div className="relative aspect-[4/5] lg:aspect-[4/3] rounded-xl overflow-hidden shadow-[0_15px_40px_-10px_hsl(var(--primary)/0.25)]">
+                  {/* Background gradient for width extension */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
+                  
                   <img
                     src={heroConsultant}
                     alt={IMAGE_ALT}
-                    className="w-full h-full object-cover aspect-square lg:aspect-[4/5]"
+                    className="w-full h-full object-cover object-top"
                     width={400}
-                    height={500}
+                    height={300}
                     loading="lazy"
                   />
                   
-                  {/* Subtle overlay gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent pointer-events-none" />
+                  {/* Soft gradient overlays */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-background/15 via-transparent to-transparent pointer-events-none" />
+                  <div className="absolute inset-y-0 left-0 w-12 bg-gradient-to-r from-background/8 to-transparent pointer-events-none" />
+                  <div className="absolute inset-y-0 right-0 w-12 bg-gradient-to-l from-background/8 to-transparent pointer-events-none" />
                 </div>
                 
                 {/* Decorative border */}
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+                <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
                 
-                {/* Overlay with availability badge */}
+                {/* Overlay card with availability + social */}
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.4, duration: 0.5 }}
-                  className="absolute -bottom-4 left-4 right-4 bg-background/95 backdrop-blur-sm rounded-xl p-4 border border-border/50 shadow-lg"
+                  className="absolute -bottom-5 left-3 right-3 bg-background/95 backdrop-blur-sm rounded-lg p-4 border border-border/50 shadow-lg"
                 >
-                  <h3 className="font-display text-lg font-bold mb-1">
+                  <h3 className="font-display text-base font-bold mb-1">
                     Hi, I'm Your Digital Partner
                   </h3>
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-                      <span className="text-sm text-muted-foreground">Available for new projects</span>
+                      <span className="text-xs text-muted-foreground">Available for new projects</span>
                     </div>
-                    {/* Social icons in overlay */}
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5">
                       {socialLinks.map((social) => (
                         <a
                           key={social.name}
                           href={social.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className={`w-7 h-7 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform`}
+                          className={`w-6 h-6 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform`}
                           aria-label={social.name}
                         >
-                          <social.icon className="w-3.5 h-3.5 text-white" />
+                          <social.icon className="w-3 h-3 text-white" />
                         </a>
                       ))}
                     </div>
                   </div>
                 </motion.div>
               </div>
-
-              {/* Floating service images */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.5 }}
-                className="absolute -right-6 top-8 w-24 h-24 rounded-xl overflow-hidden shadow-xl border-2 border-background hidden lg:block"
-              >
-                <img
-                  src={serviceWebsite}
-                  alt="Website design service"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.5 }}
-                className="absolute -left-6 bottom-24 w-20 h-20 rounded-xl overflow-hidden shadow-xl border-2 border-background hidden lg:block"
-              >
-                <img
-                  src={serviceMarketing}
-                  alt="Digital marketing service"
-                  className="w-full h-full object-cover"
-                />
-              </motion.div>
             </div>
           </motion.div>
+
           {/* Right: Content */}
           <motion.div
             initial={{ opacity: 0, x: 20 }}

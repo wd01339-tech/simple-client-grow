@@ -10,7 +10,7 @@ const benefits = [
   "Results-Focused Solutions",
 ];
 
-const IMAGE_ALT = "Freelance digital consultant providing remote website and marketing support for small businesses";
+const IMAGE_ALT = "Freelance digital consultant helping small businesses, tourism brands, and local services grow online";
 
 export const Hero = () => {
   return (
@@ -22,29 +22,33 @@ export const Hero = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Mobile: Photo First (visible on mobile only) */}
+          {/* Mobile: Photo First (4:5 ratio) */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="lg:hidden flex justify-center"
           >
-            <div className="relative">
-              {/* Decorative glow */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-3xl blur-2xl" />
+            <div className="relative w-full max-w-[320px]">
+              {/* Extended background gradient for width illusion */}
+              <div className="absolute -inset-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-3xl blur-2xl" />
               
-              <div className="relative">
+              {/* Image container with 4:5 ratio for mobile */}
+              <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.25)]">
                 <img
                   src={heroConsultant}
                   alt={IMAGE_ALT}
-                  className="w-64 h-auto rounded-2xl shadow-2xl object-cover aspect-[3/4]"
-                  width={256}
-                  height={341}
+                  className="w-full h-full object-cover object-top"
+                  width={320}
+                  height={400}
                   loading="eager"
                 />
-                {/* Subtle border glow */}
-                <div className="absolute inset-0 rounded-2xl ring-1 ring-primary/20" />
+                {/* Subtle bottom gradient fade */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
               </div>
+              
+              {/* Soft border glow */}
+              <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
             </div>
           </motion.div>
 
@@ -133,50 +137,58 @@ export const Hero = () => {
             </motion.p>
           </div>
 
-          {/* Right: Hero Image (visible on desktop only) */}
+          {/* Right: Hero Image - Desktop (16:9 wider container) */}
           <motion.div
             initial={{ opacity: 0, x: 40, scale: 0.95 }}
             animate={{ opacity: 1, x: 0, scale: 1 }}
             transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
             className="relative hidden lg:flex justify-center"
           >
-            {/* Decorative background elements */}
-            <div className="absolute -top-8 -right-8 w-40 h-40 bg-primary/15 rounded-full blur-3xl" />
-            <div className="absolute -bottom-8 -left-8 w-48 h-48 bg-secondary/15 rounded-full blur-3xl" />
-            <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-accent/10 rounded-full blur-2xl" />
+            {/* Extended gradient background for width illusion */}
+            <div className="absolute -inset-8 bg-gradient-to-r from-primary/15 via-secondary/10 to-accent/15 rounded-3xl blur-3xl" />
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-primary/10 rounded-full blur-3xl" />
+            <div className="absolute -bottom-12 -left-12 w-56 h-56 bg-secondary/10 rounded-full blur-3xl" />
             
-            {/* Photo container with effects */}
-            <div className="relative">
-              {/* Outer glow ring */}
-              <div className="absolute -inset-3 bg-gradient-to-br from-primary/30 via-secondary/20 to-accent/30 rounded-3xl blur-xl opacity-60" />
+            {/* Wide container with 16:9 aspect ratio */}
+            <div className="relative w-full max-w-[560px]">
+              {/* Outer glow ring for extended width feel */}
+              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/20 rounded-2xl blur-xl opacity-70" />
               
-              {/* Main image */}
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl">
-                <img
-                  src={heroConsultant}
-                  alt={IMAGE_ALT}
-                  className="w-full max-w-md h-auto object-cover aspect-[4/5]"
-                  width={400}
-                  height={500}
-                  loading="eager"
-                />
+              {/* Main image container - 16:9 ratio */}
+              <div className="relative aspect-[16/9] rounded-xl overflow-hidden shadow-[0_20px_50px_-15px_hsl(var(--primary)/0.3)]">
+                {/* Gradient background to extend visual width */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-accent/5" />
                 
-                {/* Subtle overlay gradient for depth */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/10 to-transparent pointer-events-none" />
+                {/* Image positioned center with object-contain for full visibility */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <img
+                    src={heroConsultant}
+                    alt={IMAGE_ALT}
+                    className="h-full w-auto max-w-none object-cover object-top"
+                    width={560}
+                    height={315}
+                    loading="eager"
+                  />
+                </div>
+                
+                {/* Soft gradient overlays for blending */}
+                <div className="absolute inset-0 bg-gradient-to-t from-background/15 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-background/10 to-transparent pointer-events-none" />
+                <div className="absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-background/10 to-transparent pointer-events-none" />
               </div>
               
-              {/* Decorative border */}
-              <div className="absolute inset-0 rounded-2xl ring-1 ring-white/10" />
+              {/* Decorative subtle border */}
+              <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
               
               {/* Floating badge */}
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.8 }}
-                className="absolute -bottom-4 -left-4 px-4 py-2 bg-background/95 backdrop-blur-sm rounded-xl shadow-lg border border-border/50"
+                className="absolute -bottom-4 left-4 px-4 py-2 bg-background/95 backdrop-blur-sm rounded-lg shadow-lg border border-border/50"
               >
                 <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-primary animate-pulse" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
                   <span className="text-sm font-medium text-foreground">Available for Projects</span>
                 </div>
               </motion.div>
