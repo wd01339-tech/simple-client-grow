@@ -5,3 +5,6 @@ project_id = "ibfjiqbdjqyzbcoaoltz"
  
  [functions.send-lead-followup]
  verify_jwt = false
+
+ [functions.send-audit-notification]
+ verify_jwt = false
