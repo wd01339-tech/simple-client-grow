@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
 import { useUTMTracking } from "@/hooks/useUTMTracking";
+import SampleAuditPreview from "@/components/audit/SampleAuditPreview";
 
 const auditItems = [
   {
@@ -362,6 +363,8 @@ const FreeAuditPage = () => {
           </div>
         </div>
       </section>
+
+      <SampleAuditPreview />
     </Layout>
   );
 };
