@@ -17,6 +17,7 @@ export type Database = {
       leads: {
         Row: {
           business_type: string | null
+          company: string | null
           created_at: string
           email: string
           followup_count: number | null
@@ -26,6 +27,7 @@ export type Database = {
           name: string
           notes: string | null
           phone: string | null
+          preferred_followup_time: string | null
           source: string
           status: string
           subject: string | null
@@ -39,6 +41,7 @@ export type Database = {
         }
         Insert: {
           business_type?: string | null
+          company?: string | null
           created_at?: string
           email: string
           followup_count?: number | null
@@ -48,6 +51,7 @@ export type Database = {
           name: string
           notes?: string | null
           phone?: string | null
+          preferred_followup_time?: string | null
           source?: string
           status?: string
           subject?: string | null
@@ -61,6 +65,7 @@ export type Database = {
         }
         Update: {
           business_type?: string | null
+          company?: string | null
           created_at?: string
           email?: string
           followup_count?: number | null
@@ -70,6 +75,7 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string | null
+          preferred_followup_time?: string | null
           source?: string
           status?: string
           subject?: string | null

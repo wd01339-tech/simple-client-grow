@@ -1,13 +1,13 @@
- import { motion } from "framer-motion";
- import { CheckCircle, Sparkles, ArrowRight, Clock, Shield, Zap } from "lucide-react";
- import { Button } from "@/components/ui/button";
- import { Layout } from "@/components/layout/Layout";
- import { useState } from "react";
- import { supabase } from "@/integrations/supabase/client";
- import { toast } from "sonner";
- import { SEOHead } from "@/components/seo/SEOHead";
- import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
- import { useUTMTracking } from "@/hooks/useUTMTracking";
+import { motion } from "framer-motion";
+import { CheckCircle, Sparkles, ArrowRight, Clock, Shield, Zap } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Layout } from "@/components/layout/Layout";
+import { useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { toast } from "sonner";
+import { SEOHead } from "@/components/seo/SEOHead";
+import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
+import { useUTMTracking } from "@/hooks/useUTMTracking";
 
 const auditItems = [
   {
@@ -40,15 +40,23 @@ const auditItems = [
   },
 ];
 
+const quickActions = [
+  "Schedule my audit now",
+  "View sample audit",
+  "Talk to a consultant",
+];
+
 const FreeAuditPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-   const utmParams = useUTMTracking();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const utmParams = useUTMTracking();
   const [formData, setFormData] = useState({
     name: "",
+    company: "",
     email: "",
     website: "",
-    business: "",
-    message: "",
+    challenges: "",
+    preferred_followup_time: "",
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,20 +68,39 @@ const FreeAuditPage = () => {
         name: formData.name.trim(),
         email: formData.email.trim(),
         website: formData.website.trim() || null,
-        business_type: formData.business.trim(),
-        message: formData.message.trim() || null,
+        company: formData.company.trim() || null,
+        business_type: formData.company.trim() || null,
+        message: formData.challenges.trim() || null,
+        preferred_followup_time: formData.preferred_followup_time.trim() || null,
         source: "free-audit",
-         utm_source: utmParams.utm_source,
-         utm_medium: utmParams.utm_medium,
-         utm_campaign: utmParams.utm_campaign,
-         utm_term: utmParams.utm_term,
-         utm_content: utmParams.utm_content,
+        utm_source: utmParams.utm_source,
+        utm_medium: utmParams.utm_medium,
+        utm_campaign: utmParams.utm_campaign,
+        utm_term: utmParams.utm_term,
+        utm_content: utmParams.utm_content,
       });
 
       if (error) throw error;
 
-      toast.success("Audit request submitted! I'll be in touch within 24-48 hours.");
-      setFormData({ name: "", email: "", website: "", business: "", message: "" });
+      // Send notification email to consultant
+      try {
+        await supabase.functions.invoke("send-audit-notification", {
+          body: {
+            name: formData.name.trim(),
+            company: formData.company.trim(),
+            email: formData.email.trim(),
+            website: formData.website.trim(),
+            challenges: formData.challenges.trim(),
+            preferred_followup_time: formData.preferred_followup_time.trim(),
+          },
+        });
+      } catch (emailErr) {
+        console.error("Email notification failed (lead still saved):", emailErr);
+      }
+
+      setIsSubmitted(true);
+      toast.success("Audit request submitted! We'll be in touch within 24–48 hours.");
+      setFormData({ name: "", company: "", email: "", website: "", challenges: "", preferred_followup_time: "" });
     } catch (error) {
       console.error("Error submitting form:", error);
       toast.error("Something went wrong. Please try WhatsApp instead.");
@@ -102,12 +129,12 @@ const FreeAuditPage = () => {
             </div>
             
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mb-6">
-              Free 7-Point Website &{" "}
-              <span className="gradient-text">GMB Audit</span>
+              Get a Free Website & GMB Audit —{" "}
+              <span className="gradient-text">Instant Insights for Growth</span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl">
-              Get a personalized review of your online presence. Discover what's working, 
-              what's not, and simple fixes to improve your visibility and attract more customers.
+              Complete the form below and receive a comprehensive audit report. 
+              A dedicated consultant will follow up via email to discuss actionable next steps.
             </p>
           </motion.div>
 
@@ -115,7 +142,7 @@ const FreeAuditPage = () => {
           <div className="flex flex-wrap items-center justify-center gap-6 mb-12">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Clock className="w-5 h-5 text-primary" />
-              <span className="text-sm">Delivered in 24-48 hours</span>
+              <span className="text-sm">Delivered in 24–48 hours</span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Shield className="w-5 h-5 text-primary" />
@@ -160,104 +187,176 @@ const FreeAuditPage = () => {
                   </motion.div>
                 ))}
               </div>
+
+              {/* Quick Action Phrases */}
+              <div className="mt-8">
+                <p className="text-sm font-medium text-muted-foreground mb-3">Quick actions:</p>
+                <div className="flex flex-wrap gap-2">
+                  {quickActions.map((action) => (
+                    <WhatsAppLink
+                      key={action}
+                      intent="free-audit"
+                      size="sm"
+                      variant="outline"
+                      customDetails={{ businessType: action }}
+                    >
+                      {action}
+                    </WhatsAppLink>
+                  ))}
+                </div>
+              </div>
             </motion.div>
 
-            {/* Form */}
+            {/* Form / Success */}
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
               <div className="bg-card rounded-2xl p-8 shadow-xl border border-border/50 sticky top-24">
-                <h3 className="font-display text-2xl font-bold mb-2">Request Your Free Audit</h3>
-                <p className="text-muted-foreground mb-6">
-                  Fill in your details and I'll get back to you within 24-48 hours.
-                </p>
+                {isSubmitted ? (
+                  <div className="text-center py-8 space-y-4">
+                    <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto">
+                      <CheckCircle className="w-8 h-8 text-primary" />
+                    </div>
+                    <h3 className="font-display text-2xl font-bold">Thank You!</h3>
+                    <p className="text-muted-foreground">
+                      Your Free Website & GMB Audit is being prepared. A confirmation email has been sent 
+                      with next steps. If you don't see it within 5 minutes, please check your spam/junk folder.
+                    </p>
+                    <div className="pt-4 space-y-3">
+                      <p className="text-sm font-medium">What happens next:</p>
+                      <ul className="text-sm text-muted-foreground space-y-2 text-left max-w-sm mx-auto">
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary font-bold">1.</span>
+                          An audit report will be emailed to you within 24–48 hours.
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <span className="text-primary font-bold">2.</span>
+                          Our senior consultant will reach out to schedule a 20–30 minute follow-up call.
+                        </li>
+                      </ul>
+                    </div>
+                    <div className="pt-4">
+                      <WhatsAppLink intent="free-audit" size="lg" className="w-full">
+                        Expedite — Message on WhatsApp
+                      </WhatsAppLink>
+                    </div>
+                    <button
+                      onClick={() => setIsSubmitted(false)}
+                      className="text-sm text-muted-foreground underline hover:text-foreground transition-colors"
+                    >
+                      Submit another request
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <h3 className="font-display text-2xl font-bold mb-2">Request Your Free Audit</h3>
+                    <p className="text-muted-foreground mb-6">
+                      Fill in your details and receive a comprehensive audit report within 24–48 hours.
+                    </p>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Your Name</label>
-                    <input
-                      type="text"
-                      required
-                      maxLength={100}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                      placeholder="John Doe"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      required
-                      maxLength={255}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                      placeholder="john@example.com"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Website URL (if you have one)</label>
-                    <input
-                      type="url"
-                      maxLength={500}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                      placeholder="https://yourwebsite.com"
-                      value={formData.website}
-                      onChange={(e) => setFormData({ ...formData, website: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Business Type</label>
-                    <input
-                      type="text"
-                      required
-                      maxLength={100}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
-                      placeholder="Homestay, Café, Tour Guide, etc."
-                      value={formData.business}
-                      onChange={(e) => setFormData({ ...formData, business: e.target.value })}
-                    />
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium mb-2">What would you like help with?</label>
-                    <textarea
-                      rows={3}
-                      maxLength={1000}
-                      className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
-                      placeholder="Tell me a bit about your business and what you're hoping to achieve..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    />
-                  </div>
+                    <form onSubmit={handleSubmit} className="space-y-4">
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Name *</label>
+                        <input
+                          type="text"
+                          required
+                          maxLength={100}
+                          className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          placeholder="John Doe"
+                          value={formData.name}
+                          onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Company</label>
+                        <input
+                          type="text"
+                          maxLength={100}
+                          className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          placeholder="Your Company Name"
+                          value={formData.company}
+                          onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Email Address *</label>
+                        <input
+                          type="email"
+                          required
+                          maxLength={255}
+                          className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          placeholder="john@example.com"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Website URL</label>
+                        <input
+                          type="url"
+                          maxLength={500}
+                          className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          placeholder="https://yourwebsite.com"
+                          value={formData.website}
+                          onChange={(e) => setFormData({ ...formData, website: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Current Challenges</label>
+                        <textarea
+                          rows={3}
+                          maxLength={1000}
+                          className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all resize-none"
+                          placeholder="What challenges are you facing with your online presence?"
+                          value={formData.challenges}
+                          onChange={(e) => setFormData({ ...formData, challenges: e.target.value })}
+                        />
+                      </div>
+                      <div>
+                        <label className="block text-sm font-medium mb-2">Preferred Follow-up Time</label>
+                        <input
+                          type="text"
+                          maxLength={100}
+                          className="w-full px-4 py-3 rounded-xl border border-border bg-background focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+                          placeholder="e.g. Weekday mornings, After 3 PM IST"
+                          value={formData.preferred_followup_time}
+                          onChange={(e) => setFormData({ ...formData, preferred_followup_time: e.target.value })}
+                        />
+                      </div>
 
-                  <Button 
-                    variant="hero" 
-                    size="xl" 
-                    className="w-full" 
-                    type="submit"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Submitting..." : "Get My Free Audit"}
-                    <ArrowRight className="w-5 h-5" />
-                  </Button>
+                      <Button 
+                        variant="hero" 
+                        size="xl" 
+                        className="w-full" 
+                        type="submit"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? "Submitting..." : "Get My Free Audit"}
+                        <ArrowRight className="w-5 h-5" />
+                      </Button>
 
-                  <p className="text-center text-sm text-muted-foreground">
-                    Or prefer to chat directly?
-                  </p>
+                      <p className="text-center text-sm text-muted-foreground">
+                        Or prefer to chat directly?
+                      </p>
 
-                  <WhatsAppLink 
-                    intent="free-audit" 
-                    size="lg" 
-                    className="w-full"
-                    customDetails={{ businessType: formData.business || undefined }}
-                  >
-                    Message on WhatsApp
-                  </WhatsAppLink>
-                </form>
+                      <WhatsAppLink 
+                        intent="free-audit" 
+                        size="lg" 
+                        className="w-full"
+                        customDetails={{ businessType: formData.company || undefined }}
+                      >
+                        Message on WhatsApp
+                      </WhatsAppLink>
+
+                      <p className="text-xs text-muted-foreground text-center mt-4">
+                        By submitting, you consent to receive follow-up communications regarding your audit. 
+                        You can opt out at any time by replying "stop".
+                      </p>
+                    </form>
+                  </>
+                )}
               </div>
             </motion.div>
           </div>
