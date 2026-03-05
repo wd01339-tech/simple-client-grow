@@ -3,6 +3,7 @@ import { MessageCircle, X, Send } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { getWhatsAppUrl, whatsAppFlowOptions, type WhatsAppIntent } from "@/lib/whatsapp";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 interface SmartWhatsAppButtonProps {
   defaultIntent?: WhatsAppIntent;
@@ -15,6 +16,7 @@ export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsApp
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOptionClick = (intent: WhatsAppIntent) => {
+    trackEvent(ConversionEvents.WHATSAPP_CLICK, { intent, source: "floating_button" });
     window.open(getWhatsAppUrl(intent), "_blank", "noopener,noreferrer");
     setIsOpen(false);
   };

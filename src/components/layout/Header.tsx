@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -76,6 +77,7 @@ export const Header = () => {
                 href={getWhatsAppUrl("general")}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header" })}
               >
                 <MessageCircle className="w-4 h-4" />
                 WhatsApp Me
@@ -126,6 +128,7 @@ export const Header = () => {
                       href={getWhatsAppUrl("general")}
                       target="_blank"
                       rel="noopener noreferrer"
+                      onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_mobile" })}
                     >
                       <MessageCircle className="w-4 h-4" />
                       WhatsApp Me

@@ -3,6 +3,7 @@ import { Check, Star, MessageCircle, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Package } from "@/data/packages";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 interface PackageCardProps {
   pkg: Package;
@@ -110,6 +111,7 @@ export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
             href={getWhatsAppUrl(pkg.whatsappMessage)}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "package_card", package: pkg.name })}
           >
             <MessageCircle className="w-4 h-4" />
             Ask Before Buying

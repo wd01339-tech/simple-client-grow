@@ -2,6 +2,7 @@ import { ReactNode } from "react";
 import { getWhatsAppUrl, type WhatsAppIntent } from "@/lib/whatsapp";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 interface WhatsAppLinkProps extends Omit<ButtonProps, "asChild"> {
   intent?: WhatsAppIntent;
@@ -29,9 +30,13 @@ export const WhatsAppLink = ({
 }: WhatsAppLinkProps) => {
   const url = getWhatsAppUrl(intent, customDetails);
 
+  const handleClick = () => {
+    trackEvent(ConversionEvents.WHATSAPP_CLICK, { intent, source: "whatsapp_link" });
+  };
+
   return (
     <Button variant={variant} {...buttonProps} asChild>
-      <a href={url} target="_blank" rel="noopener noreferrer">
+      <a href={url} target="_blank" rel="noopener noreferrer" onClick={handleClick}>
         {showIcon && <MessageCircle className="w-5 h-5" />}
         {children || "Message on WhatsApp"}
       </a>
