@@ -3,6 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+import { initGA } from "@/lib/analytics";
+import { usePageTracking } from "@/hooks/usePageTracking";
 import Index from "./pages/Index";
 import Services from "./pages/Services";
 import Pricing from "./pages/Pricing";
@@ -17,7 +20,15 @@ import Blog from "./pages/Blog";
 import BlogPostDetail from "./pages/BlogPostDetail";
 import NotFound from "./pages/NotFound";
 
+// Initialize GA on app load
+initGA();
+
 const queryClient = new QueryClient();
+
+const PageTracker = ({ children }: { children: React.ReactNode }) => {
+  usePageTracking();
+  return <>{children}</>;
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -25,6 +36,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <PageTracker>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/services" element={<Services />} />
@@ -41,6 +53,7 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
+        </PageTracker>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

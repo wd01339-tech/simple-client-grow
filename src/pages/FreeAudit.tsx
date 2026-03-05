@@ -2,12 +2,13 @@ import { motion } from "framer-motion";
 import { CheckCircle, Sparkles, ArrowRight, Clock, Shield, Zap } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Layout } from "@/components/layout/Layout";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
 import { useUTMTracking } from "@/hooks/useUTMTracking";
+import { trackEvent, ConversionEvents } from "@/lib/analytics";
 import SampleAuditPreview from "@/components/audit/SampleAuditPreview";
 
 const auditItems = [
@@ -60,6 +61,11 @@ const FreeAuditPage = () => {
     preferred_followup_time: "",
   });
 
+  // Track page view as conversion funnel entry
+  useEffect(() => {
+    trackEvent(ConversionEvents.AUDIT_FORM_VIEW, { page: "/free-audit" });
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -100,6 +106,10 @@ const FreeAuditPage = () => {
       }
 
       setIsSubmitted(true);
+      trackEvent(ConversionEvents.AUDIT_FORM_SUBMIT, {
+        source: utmParams.utm_source || "direct",
+        campaign: utmParams.utm_campaign || "none",
+      });
       toast.success("Audit request submitted! We'll be in touch within 24–48 hours.");
       setFormData({ name: "", company: "", email: "", website: "", challenges: "", preferred_followup_time: "" });
     } catch (error) {
