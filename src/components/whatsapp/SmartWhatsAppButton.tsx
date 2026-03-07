@@ -1,16 +1,25 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { MessageCircle, X, Send } from "lucide-react";
+import { MessageCircle, X, Send, Search, Globe, MapPin, TrendingUp, Tag, HelpCircle, Phone } from "lucide-react";
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
 import { getWhatsAppUrl, whatsAppFlowOptions, type WhatsAppIntent } from "@/lib/whatsapp";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
+
+const iconMap = {
+  search: Search,
+  globe: Globe,
+  "map-pin": MapPin,
+  "trending-up": TrendingUp,
+  tag: Tag,
+  "help-circle": HelpCircle,
+  phone: Phone,
+} as const;
 
 interface SmartWhatsAppButtonProps {
   defaultIntent?: WhatsAppIntent;
 }
 
 /**
- * Smart WhatsApp Floating Button with Quick Options
+ * Smart WhatsApp Floating Button with 7-option menu
  */
 export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsAppButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +39,7 @@ export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsApp
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/20 z-40 md:hidden"
+            className="fixed inset-0 bg-black/20 z-40"
             onClick={() => setIsOpen(false)}
           />
         )}
@@ -44,14 +53,14 @@ export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsApp
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             transition={{ type: "spring", damping: 25 }}
-            className="fixed bottom-24 right-6 z-50 w-72 bg-card rounded-2xl shadow-2xl border border-border/50 overflow-hidden"
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-80 max-w-80 bg-card rounded-2xl shadow-2xl border border-border/50 overflow-hidden"
           >
             {/* Header */}
             <div className="bg-[#25D366] px-4 py-3 text-white">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <MessageCircle className="w-5 h-5" />
-                  <span className="font-semibold">Hi! How can I help?</span>
+                  <span className="font-semibold text-sm">Hi! How can I help? 👋</span>
                 </div>
                 <button
                   onClick={() => setIsOpen(false)}
@@ -61,34 +70,42 @@ export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsApp
                   <X className="w-4 h-4" />
                 </button>
               </div>
-              <p className="text-white/80 text-sm mt-1">
-                Select an option to start a conversation
+              <p className="text-white/80 text-xs mt-1">
+                Choose an option to start chatting
               </p>
             </div>
 
             {/* Options */}
-            <div className="p-3 space-y-2">
-              {whatsAppFlowOptions.map((option) => (
-                <button
-                  key={option.id}
-                  onClick={() => handleOptionClick(option.intent)}
-                  className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-muted/50 hover:bg-[#25D366]/10 hover:border-[#25D366]/30 border border-transparent transition-all text-left group"
-                >
-                  <span className="flex-shrink-0 w-6 h-6 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center text-sm font-semibold">
-                    {option.id}
-                  </span>
-                  <span className="text-sm font-medium text-foreground group-hover:text-[#25D366] transition-colors">
-                    {option.label}
-                  </span>
-                </button>
-              ))}
+            <div className="p-2 space-y-1 max-h-[50vh] overflow-y-auto">
+              {whatsAppFlowOptions.map((option) => {
+                const Icon = iconMap[option.icon];
+                return (
+                  <button
+                    key={option.id}
+                    onClick={() => handleOptionClick(option.intent)}
+                    className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl bg-muted/50 hover:bg-[#25D366]/10 hover:border-[#25D366]/30 border border-transparent transition-all text-left group"
+                  >
+                    <span className="flex-shrink-0 w-8 h-8 rounded-full bg-[#25D366]/10 text-[#25D366] flex items-center justify-center">
+                      <Icon className="w-4 h-4" />
+                    </span>
+                    <div className="min-w-0">
+                      <span className="text-sm font-medium text-foreground group-hover:text-[#25D366] transition-colors block">
+                        {option.label}
+                      </span>
+                      <span className="text-xs text-muted-foreground block truncate">
+                        {option.description}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
             </div>
 
-            {/* Direct Message Option */}
-            <div className="px-3 pb-3">
+            {/* Direct Message */}
+            <div className="px-2 pb-2">
               <button
                 onClick={() => handleOptionClick(defaultIntent)}
-                className="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#25D366] text-white font-medium hover:bg-[#20BD5C] transition-colors"
+                className="w-full flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] text-white font-medium text-sm hover:bg-[#20BD5C] transition-colors"
               >
                 <Send className="w-4 h-4" />
                 Send a Direct Message
@@ -98,7 +115,7 @@ export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsApp
             {/* Footer */}
             <div className="px-4 py-2 bg-muted/30 border-t border-border/30">
               <p className="text-xs text-muted-foreground text-center">
-                ✨ I usually respond within a few hours
+                ✨ Usually responds within a few hours
               </p>
             </div>
           </motion.div>
