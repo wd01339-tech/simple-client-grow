@@ -8,3 +8,6 @@ project_id = "ibfjiqbdjqyzbcoaoltz"
 
  [functions.send-audit-notification]
  verify_jwt = false
+
+ [functions.ai-chat]
+ verify_jwt = false
