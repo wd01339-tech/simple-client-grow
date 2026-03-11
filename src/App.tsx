@@ -21,6 +21,7 @@ import BlogPostDetail from "./pages/BlogPostDetail";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import ConversationFlowchart from "./pages/ConversationFlowchart";
 
 // Initialize GA on app load
 initGA();

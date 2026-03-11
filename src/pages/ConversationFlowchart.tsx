@@ -97,9 +97,10 @@ const ConversationFlowchart = () => {
   return (
     <Layout>
       <SEOHead
-        title="Conversation Flowchart — System Architecture"
-        description="Visual documentation of the AI chatbot paths, WhatsApp qualification flows, and conversion funnels."
-        path="/flowchart"
+        customSEO={{
+          title: "Conversation Flowchart — System Architecture",
+          description: "Visual documentation of the AI chatbot paths, WhatsApp qualification flows, and conversion funnels.",
+        }}
       />
 
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12 sm:py-16 space-y-16">
