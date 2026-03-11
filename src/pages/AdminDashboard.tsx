@@ -3,7 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import {
   Users, TrendingUp, MessageSquare, LogOut, RefreshCw,
-  Flame, Thermometer, Snowflake, Zap, BarChart3, Clock
+  Flame, Thermometer, Snowflake, Zap, BarChart3, Clock,
+  Phone, Send, ArrowUpDown, MessageCircle
 } from "lucide-react";
 
 interface Lead {
@@ -30,6 +31,18 @@ interface ChatMsg {
   created_at: string;
 }
 
+interface WhatsAppMsg {
+  id: string;
+  message_id: string | null;
+  customer_phone: string;
+  customer_name: string | null;
+  message_text: string;
+  direction: string;
+  conversation_status: string;
+  detected_intent: string | null;
+  created_at: string;
+}
+
 const priorityConfig: Record<string, { label: string; color: string; icon: typeof Flame }> = {
   ready: { label: "Ready to Buy", color: "bg-red-100 text-red-700 border-red-200", icon: Zap },
   hot: { label: "Hot Lead", color: "bg-orange-100 text-orange-700 border-orange-200", icon: Flame },
@@ -40,23 +53,28 @@ const priorityConfig: Record<string, { label: string; color: string; icon: typeo
 const AdminDashboard = () => {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [chats, setChats] = useState<ChatMsg[]>([]);
+  const [whatsappMsgs, setWhatsappMsgs] = useState<WhatsAppMsg[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"leads" | "chats" | "analytics">("leads");
+  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics">("leads");
+  const [replyPhone, setReplyPhone] = useState("");
+  const [replyText, setReplyText] = useState("");
+  const [sending, setSending] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
-    const [leadsRes, chatsRes] = await Promise.all([
+    const [leadsRes, chatsRes, waRes] = await Promise.all([
       supabase.from("leads").select("*").order("created_at", { ascending: false }).limit(200),
       supabase.from("chat_conversations").select("*").order("created_at", { ascending: false }).limit(500),
+      supabase.from("whatsapp_messages").select("*").order("created_at", { ascending: false }).limit(500),
     ]);
     if (leadsRes.data) setLeads(leadsRes.data as Lead[]);
     if (chatsRes.data) setChats(chatsRes.data as ChatMsg[]);
+    if (waRes.data) setWhatsappMsgs(waRes.data as WhatsAppMsg[]);
     setLoading(false);
   };
 
   useEffect(() => {
-    // Check auth
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) { navigate("/admin/login"); return; }
       supabase.from("user_roles").select("role").eq("user_id", user.id).then(({ data }) => {
@@ -64,6 +82,16 @@ const AdminDashboard = () => {
         fetchData();
       });
     });
+
+    // Realtime WhatsApp messages
+    const channel = supabase
+      .channel("whatsapp-realtime")
+      .on("postgres_changes", { event: "INSERT", schema: "public", table: "whatsapp_messages" }, (payload) => {
+        setWhatsappMsgs((prev) => [payload.new as WhatsAppMsg, ...prev]);
+      })
+      .subscribe();
+
+    return () => { supabase.removeChannel(channel); };
   }, []);
 
   const handleScoreUpdate = async (leadId: string, delta: number) => {
@@ -72,6 +100,26 @@ const AdminDashboard = () => {
     const newScore = Math.max(0, lead.lead_score + delta);
     await supabase.from("leads").update({ lead_score: newScore }).eq("id", leadId);
     setLeads((prev) => prev.map((l) => l.id === leadId ? { ...l, lead_score: newScore, lead_priority: newScore >= 70 ? "ready" : newScore >= 41 ? "hot" : newScore >= 21 ? "warm" : "cold" } : l));
+  };
+
+  const handleSendWhatsApp = async () => {
+    if (!replyPhone || !replyText) return;
+    setSending(true);
+    try {
+      const { data: { session } } = await supabase.auth.getSession();
+      const res = await supabase.functions.invoke("whatsapp-send", {
+        body: { to: replyPhone, message: replyText },
+        headers: { Authorization: `Bearer ${session?.access_token}` },
+      });
+      if (res.error) {
+        console.error("Send error:", res.error);
+      } else {
+        setReplyText("");
+      }
+    } catch (e) {
+      console.error("Send failed:", e);
+    }
+    setSending(false);
   };
 
   const handleLogout = async () => {
@@ -89,9 +137,26 @@ const AdminDashboard = () => {
   const chatSessions = new Set(chats.map((c) => c.session_id)).size;
   const userMessages = chats.filter((c) => c.role === "user").length;
 
+  // WhatsApp analytics
+  const waIncoming = whatsappMsgs.filter((m) => m.direction === "incoming").length;
+  const waOutgoing = whatsappMsgs.filter((m) => m.direction === "outgoing").length;
+  const waUniquePhones = new Set(whatsappMsgs.map((m) => m.customer_phone)).size;
+  const waIntents = whatsappMsgs.reduce((acc, m) => {
+    if (m.detected_intent) acc[m.detected_intent] = (acc[m.detected_intent] || 0) + 1;
+    return acc;
+  }, {} as Record<string, number>);
+  const topIntents = Object.entries(waIntents).sort((a, b) => b[1] - a[1]).slice(0, 5);
+
+  // Group WhatsApp messages by phone for conversation view
+  const waConversations = new Map<string, WhatsAppMsg[]>();
+  whatsappMsgs.forEach((msg) => {
+    const existing = waConversations.get(msg.customer_phone) || [];
+    existing.push(msg);
+    waConversations.set(msg.customer_phone, existing);
+  });
+
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
       <header className="bg-card border-b border-border px-4 sm:px-6 py-3 flex items-center justify-between sticky top-0 z-10">
         <div className="flex items-center gap-3">
           <BarChart3 className="w-6 h-6 text-primary" />
@@ -112,19 +177,19 @@ const AdminDashboard = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
           <StatCard icon={Users} label="Total Leads" value={totalLeads} />
           <StatCard icon={Flame} label="Hot / Ready" value={hotLeads} accent />
-          <StatCard icon={MessageSquare} label="Chat Sessions" value={chatSessions} />
-          <StatCard icon={TrendingUp} label="User Messages" value={userMessages} />
+          <StatCard icon={Phone} label="WhatsApp Chats" value={waUniquePhones} />
+          <StatCard icon={MessageSquare} label="AI Sessions" value={chatSessions} />
         </div>
 
         {/* Tabs */}
         <div className="flex gap-1 bg-muted rounded-lg p-1">
-          {(["leads", "chats", "analytics"] as const).map((t) => (
+          {(["leads", "whatsapp", "chats", "analytics"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
               className={`flex-1 py-2 px-3 text-sm font-medium rounded-md transition-colors capitalize ${tab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
             >
-              {t}
+              {t === "whatsapp" ? "WhatsApp" : t}
             </button>
           ))}
         </div>
@@ -182,6 +247,108 @@ const AdminDashboard = () => {
                   )}
                 </tbody>
               </table>
+            </div>
+          </div>
+        )}
+
+        {/* WhatsApp Tab */}
+        {tab === "whatsapp" && (
+          <div className="space-y-4">
+            {/* Manual Reply Box */}
+            <div className="bg-card rounded-xl border border-border p-4">
+              <h3 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+                <Send className="w-4 h-4 text-primary" /> Send WhatsApp Message
+              </h3>
+              <div className="flex flex-col sm:flex-row gap-2">
+                <input
+                  type="text"
+                  placeholder="Phone (e.g. 918335870240)"
+                  value={replyPhone}
+                  onChange={(e) => setReplyPhone(e.target.value)}
+                  className="flex-shrink-0 sm:w-48 px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground"
+                />
+                <input
+                  type="text"
+                  placeholder="Type your message..."
+                  value={replyText}
+                  onChange={(e) => setReplyText(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSendWhatsApp()}
+                  className="flex-1 px-3 py-2 text-sm rounded-lg border border-border bg-background text-foreground placeholder:text-muted-foreground"
+                />
+                <button
+                  onClick={handleSendWhatsApp}
+                  disabled={sending || !replyPhone || !replyText}
+                  className="px-4 py-2 text-sm font-medium rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center gap-1"
+                >
+                  <Send className="w-3 h-3" /> {sending ? "Sending..." : "Send"}
+                </button>
+              </div>
+            </div>
+
+            {/* Conversations */}
+            <div className="bg-card rounded-xl border border-border overflow-hidden">
+              <div className="px-4 py-3 border-b border-border bg-muted/50 flex items-center justify-between">
+                <h3 className="font-semibold text-foreground flex items-center gap-2">
+                  <MessageCircle className="w-4 h-4" /> Conversations ({waUniquePhones})
+                </h3>
+                <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1"><ArrowUpDown className="w-3 h-3" /> {waIncoming} in / {waOutgoing} out</span>
+                </div>
+              </div>
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b border-border bg-muted/30">
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Phone</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Name</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Direction</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Message</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Intent</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Status</th>
+                      <th className="text-left px-4 py-2 font-medium text-muted-foreground">Time</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {whatsappMsgs.slice(0, 100).map((msg) => (
+                      <tr
+                        key={msg.id}
+                        className={`border-b border-border/50 hover:bg-muted/30 transition-colors ${msg.direction === "incoming" ? "bg-primary/[0.02]" : ""}`}
+                        onClick={() => { setReplyPhone(msg.customer_phone); }}
+                      >
+                        <td className="px-4 py-2 font-mono text-xs text-muted-foreground cursor-pointer hover:text-primary">
+                          +{msg.customer_phone}
+                        </td>
+                        <td className="px-4 py-2 text-foreground">{msg.customer_name || "—"}</td>
+                        <td className="px-4 py-2">
+                          <span className={`text-xs px-2 py-0.5 rounded-full ${msg.direction === "incoming" ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground"}`}>
+                            {msg.direction === "incoming" ? "↓ in" : "↑ out"}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-foreground max-w-xs truncate">{msg.message_text}</td>
+                        <td className="px-4 py-2">
+                          {msg.detected_intent && (
+                            <span className="text-xs px-2 py-0.5 rounded-full bg-accent/10 text-accent-foreground">{msg.detected_intent}</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-2">
+                          <span className={`text-xs px-2 py-0.5 rounded-full ${
+                            msg.conversation_status === "active" ? "bg-green-100 text-green-700" :
+                            msg.conversation_status === "handover" ? "bg-orange-100 text-orange-700" :
+                            msg.conversation_status === "waiting" ? "bg-yellow-100 text-yellow-700" :
+                            "bg-muted text-muted-foreground"
+                          }`}>
+                            {msg.conversation_status}
+                          </span>
+                        </td>
+                        <td className="px-4 py-2 text-xs text-muted-foreground">{new Date(msg.created_at).toLocaleString()}</td>
+                      </tr>
+                    ))}
+                    {whatsappMsgs.length === 0 && (
+                      <tr><td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">No WhatsApp messages yet</td></tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         )}
@@ -279,7 +446,25 @@ const AdminDashboard = () => {
             </div>
 
             <div className="bg-card rounded-xl border border-border p-5">
-              <h3 className="font-semibold text-foreground mb-4">Chat Analytics</h3>
+              <h3 className="font-semibold text-foreground mb-4">WhatsApp Analytics</h3>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Unique Conversations</span>
+                  <span className="text-lg font-bold text-foreground">{waUniquePhones}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Incoming Messages</span>
+                  <span className="text-lg font-bold text-foreground">{waIncoming}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Outgoing Messages</span>
+                  <span className="text-lg font-bold text-foreground">{waOutgoing}</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h3 className="font-semibold text-foreground mb-4">AI Chat Analytics</h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Total Sessions</span>
@@ -293,6 +478,19 @@ const AdminDashboard = () => {
                   <span className="text-sm text-muted-foreground">Avg Messages/Session</span>
                   <span className="text-lg font-bold text-foreground">{chatSessions ? (userMessages / chatSessions).toFixed(1) : 0}</span>
                 </div>
+              </div>
+            </div>
+
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h3 className="font-semibold text-foreground mb-4">Top WhatsApp Intents</h3>
+              <div className="space-y-3">
+                {topIntents.map(([intent, count]) => (
+                  <div key={intent} className="flex items-center justify-between">
+                    <span className="text-sm text-muted-foreground">{intent}</span>
+                    <span className="text-sm font-medium text-foreground">{count}</span>
+                  </div>
+                ))}
+                {topIntents.length === 0 && <p className="text-sm text-muted-foreground">No data yet</p>}
               </div>
             </div>
           </div>
