@@ -11,3 +11,12 @@ project_id = "ibfjiqbdjqyzbcoaoltz"
 
  [functions.ai-chat]
  verify_jwt = false
+
+ [functions.whatsapp-webhook]
+ verify_jwt = false
+
+ [functions.whatsapp-send]
+ verify_jwt = false
+
+ [functions.whatsapp-followup]
+ verify_jwt = false
