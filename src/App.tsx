@@ -21,6 +21,7 @@ import BlogPostDetail from "./pages/BlogPostDetail";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
+import ConversationFlowchart from "./pages/ConversationFlowchart";
 
 // Initialize GA on app load
 initGA();
@@ -54,6 +55,7 @@ const App = () => (
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/flowchart" element={<ConversationFlowchart />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
