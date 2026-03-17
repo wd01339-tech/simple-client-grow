@@ -14,8 +14,9 @@ export const Footer = () => {
     },
     {
       name: "Facebook",
-      href: "https://facebook.com/yourpage",
+      href: "https://www.facebook.com/share/189bAHVJS1/",
       icon: Facebook,
+      title: "Follow us on Facebook",
       bgColor: "bg-[#1877F2]",
     },
     {
