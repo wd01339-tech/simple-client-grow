@@ -73,7 +73,6 @@ export const Footer = () => {
             <p className="text-background/50 text-sm mt-4">
               Follow us on Facebook for updates, client results & marketing tips
             </p>
-            </div>
           </div>
 
           {/* Quick Links */}
