@@ -28,21 +28,24 @@ const highlights = [
 const socialLinks = [
   {
     name: "Facebook",
-    href: "https://facebook.com/yourpage",
+    href: "https://www.facebook.com/share/189bAHVJS1/",
     icon: Facebook,
     bgColor: "bg-[#1877F2]",
+    title: "Follow us on Facebook",
   },
   {
     name: "Instagram",
-    href: "https://instagram.com/yourprofile",
+    href: "https://www.instagram.com/freelancedigitalconsultant",
     icon: Instagram,
     bgColor: "bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]",
+    title: "Follow us on Instagram",
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/yourprofile",
+    href: "https://www.linkedin.com/in/freelancedigitalconsultant",
     icon: Linkedin,
     bgColor: "bg-[#0A66C2]",
+    title: "Connect on LinkedIn",
   },
 ];
 
