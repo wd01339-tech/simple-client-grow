@@ -1,5 +1,5 @@
  import { motion } from "framer-motion";
- import { MessageCircle, Mail, MapPin, Clock, Shield, Heart } from "lucide-react";
+ import { MessageCircle, Mail, MapPin, Clock, Shield, Heart, Facebook, Instagram, Linkedin } from "lucide-react";
  import { Button } from "@/components/ui/button";
  import { Layout } from "@/components/layout/Layout";
  import { useState } from "react";
