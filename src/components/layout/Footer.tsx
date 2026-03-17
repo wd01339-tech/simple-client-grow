@@ -61,13 +61,18 @@ export const Footer = () => {
                   key={social.name}
                   href={social.href}
                   target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-10 h-10 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-lg`}
+                  rel="noopener noreferrer me"
+                  className={`w-11 h-11 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 hover:opacity-85 transition-all duration-300 shadow-lg`}
                   aria-label={social.name}
+                  title={(social as any).title || social.name}
                 >
                   <social.icon className="w-5 h-5 text-white" />
                 </a>
               ))}
+            </div>
+            <p className="text-background/50 text-sm mt-4">
+              Follow us on Facebook for updates, client results & marketing tips
+            </p>
             </div>
           </div>
 
