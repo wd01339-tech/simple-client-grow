@@ -28,21 +28,24 @@ const highlights = [
 const socialLinks = [
   {
     name: "Facebook",
-    href: "https://facebook.com/yourpage",
+    href: "https://www.facebook.com/share/189bAHVJS1/",
     icon: Facebook,
     bgColor: "bg-[#1877F2]",
+    title: "Follow us on Facebook",
   },
   {
     name: "Instagram",
-    href: "https://instagram.com/yourprofile",
+    href: "https://www.instagram.com/freelancedigitalconsultant",
     icon: Instagram,
     bgColor: "bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]",
+    title: "Follow us on Instagram",
   },
   {
     name: "LinkedIn",
-    href: "https://linkedin.com/in/yourprofile",
+    href: "https://www.linkedin.com/in/freelancedigitalconsultant",
     icon: Linkedin,
     bgColor: "bg-[#0A66C2]",
+    title: "Connect on LinkedIn",
   },
 ];
 
@@ -115,9 +118,10 @@ export const About = () => {
                           key={social.name}
                           href={social.href}
                           target="_blank"
-                          rel="noopener noreferrer"
-                          className={`w-6 h-6 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform`}
+                          rel="noopener noreferrer me"
+                          className={`w-6 h-6 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 hover:opacity-85 transition-all duration-300`}
                           aria-label={social.name}
+                          title={social.title}
                         >
                           <social.icon className="w-3 h-3 text-white" />
                         </a>
@@ -190,9 +194,10 @@ export const About = () => {
                     key={social.name}
                     href={social.href}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-10 h-10 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-md`}
+                    rel="noopener noreferrer me"
+                    className={`w-11 h-11 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 hover:opacity-85 transition-all duration-300 shadow-md`}
                     aria-label={`Follow on ${social.name}`}
+                    title={social.title}
                   >
                     <social.icon className="w-5 h-5 text-white" />
                   </a>
