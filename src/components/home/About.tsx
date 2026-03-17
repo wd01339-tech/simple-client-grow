@@ -118,9 +118,10 @@ export const About = () => {
                           key={social.name}
                           href={social.href}
                           target="_blank"
-                          rel="noopener noreferrer"
-                          className={`w-6 h-6 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform`}
+                          rel="noopener noreferrer me"
+                          className={`w-6 h-6 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 hover:opacity-85 transition-all duration-300`}
                           aria-label={social.name}
+                          title={social.title}
                         >
                           <social.icon className="w-3 h-3 text-white" />
                         </a>
