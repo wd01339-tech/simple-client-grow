@@ -194,9 +194,10 @@ export const About = () => {
                     key={social.name}
                     href={social.href}
                     target="_blank"
-                    rel="noopener noreferrer"
-                    className={`w-10 h-10 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 transition-transform shadow-md`}
+                    rel="noopener noreferrer me"
+                    className={`w-11 h-11 rounded-full ${social.bgColor} flex items-center justify-center hover:scale-110 hover:opacity-85 transition-all duration-300 shadow-md`}
                     aria-label={`Follow on ${social.name}`}
+                    title={social.title}
                   >
                     <social.icon className="w-5 h-5 text-white" />
                   </a>

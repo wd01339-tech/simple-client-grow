@@ -174,6 +174,33 @@ const ContactPage = () => {
                 </div>
               </div>
 
+              {/* Social Media Connect */}
+              <div className="bg-muted/50 rounded-2xl p-6 mt-6">
+                <p className="font-semibold mb-3">Stay connected on social media</p>
+                <div className="flex items-center gap-3">
+                  {[
+                    { name: "Facebook", href: "https://www.facebook.com/share/189bAHVJS1/", icon: Facebook, bg: "bg-[#1877F2]", title: "Follow us on Facebook" },
+                    { name: "Instagram", href: "https://www.instagram.com/freelancedigitalconsultant", icon: Instagram, bg: "bg-gradient-to-br from-[#833AB4] via-[#FD1D1D] to-[#F77737]", title: "Follow us on Instagram" },
+                    { name: "LinkedIn", href: "https://www.linkedin.com/in/freelancedigitalconsultant", icon: Linkedin, bg: "bg-[#0A66C2]", title: "Connect on LinkedIn" },
+                  ].map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer me"
+                      className={`w-11 h-11 rounded-full ${s.bg} flex items-center justify-center hover:scale-110 hover:opacity-85 transition-all duration-300 shadow-md`}
+                      aria-label={s.name}
+                      title={s.title}
+                    >
+                      <s.icon className="w-5 h-5 text-white" />
+                    </a>
+                  ))}
+                </div>
+                <p className="text-xs text-muted-foreground mt-2">
+                  Follow our Facebook page for client results, marketing tips & latest offers
+                </p>
+              </div>
+
               {/* Trust Microcopy */}
               <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
                 <p className="text-sm text-muted-foreground text-center">
