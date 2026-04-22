@@ -14,7 +14,7 @@ const IMAGE_ALT = "Freelance digital consultant helping small businesses, touris
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" aria-label="Freelance Digital Consultant for Small Business Growth">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -63,7 +63,7 @@ export const Hero = () => {
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-foreground">
-                Freelance Digital Consultant
+              Freelance Digital Consultant — Remote & Affordable
               </span>
             </motion.div>
 
@@ -74,9 +74,9 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.1 }}
               className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6"
             >
-              Helping Small Businesses{" "}
+              Affordable Website Design & Digital Marketing for Small Businesses —{" "}
               <span className="gradient-text">Grow Online</span>{" "}
-              — Simply & Affordably
+              Simply & Effectively
             </motion.h1>
 
             {/* Subheadline */}
@@ -86,8 +86,9 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8"
             >
-              Remote freelance consultant helping homestays, tourism businesses, ecommerce stores, 
-              and local services improve visibility, inquiries, and online presence — without agency complexity.
+              Remote freelance digital consultant specializing in affordable website design, Google Business Profile optimization, 
+              local SEO, and practical digital marketing for homestays, tourism businesses, ecommerce stores, 
+              and local services — without agency prices or complexity.
             </motion.p>
 
             {/* Benefits */}
@@ -133,7 +134,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.6 }}
               className="mt-8 text-sm text-muted-foreground"
             >
-              ✨ Free audit includes website & Google Business Profile review
+              ✨ Free website audit & Google Business Profile review — actionable SEO recommendations included
             </motion.p>
           </div>
 
