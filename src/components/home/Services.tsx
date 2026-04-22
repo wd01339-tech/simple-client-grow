@@ -77,16 +77,16 @@ export const Services = () => {
           viewport={{ once: true }}
           className="text-center max-w-2xl mx-auto mb-16"
         >
-          <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            What I Do
+          <span className="text-primary font-semibold text-sm uppercase tracking-wider" id="digital-services">
+            Freelance Digital Services
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Simple Digital Solutions for{" "}
-            <span className="gradient-text">Real Results</span>
+            Website Design, SEO & Marketing Solutions for{" "}
+            <span className="gradient-text">Small Business Growth</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            No complicated packages or confusing tech talk. Just practical support 
-            that helps your business get found online and attract more customers.
+            Affordable freelance web design, Google Business optimization, local SEO, and 
+            digital marketing services that help small businesses get found online and attract more customers.
           </p>
         </motion.div>
 

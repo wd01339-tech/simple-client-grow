@@ -25,7 +25,7 @@ export const Packages = () => {
   };
 
   return (
-    <section id="packages" className="py-24 bg-gradient-to-b from-background via-muted/30 to-background">
+    <section id="packages" className="py-24 bg-gradient-to-b from-background via-muted/30 to-background" aria-label="Affordable Digital Service Packages and Pricing">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -35,15 +35,15 @@ export const Packages = () => {
           className="text-center max-w-3xl mx-auto mb-16"
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Simple & Transparent Pricing
+            Affordable Website & Marketing Packages
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Invest in Your{" "}
-            <span className="gradient-text">Digital Growth</span>
+            Affordable Website Design & SEO Packages for{" "}
+            <span className="gradient-text">Small Business Growth</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Affordable packages designed for homestays, tourism businesses, and e-commerce stores. 
-            No hidden fees. Pay once or monthly—your choice.
+            Transparent pricing for website design, Google Business optimization, local SEO, and digital marketing. 
+            Packages designed for homestays, tourism businesses, cafés, and e-commerce stores. No hidden fees.
           </p>
         </motion.div>
 

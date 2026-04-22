@@ -140,7 +140,7 @@ export const Portfolio = () => {
   const activeStudy = caseStudies[activeIndex];
 
   return (
-    <section className="py-24 bg-muted/30">
+    <section className="py-24 bg-muted/30" aria-label="Portfolio Case Studies and Before After Results">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -150,15 +150,15 @@ export const Portfolio = () => {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Portfolio
+            Portfolio & Case Studies
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Real Results for{" "}
-            <span className="gradient-text">Real Businesses</span>
+            Website Redesign & SEO Results for{" "}
+            <span className="gradient-text">Small Businesses</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            See the transformation. Drag the slider to compare before and after 
-            results from actual client projects.
+            See real before-and-after transformations from website redesign, Google Business optimization, 
+            and digital marketing projects for homestays, cafés, and local service businesses.
           </p>
         </motion.div>
 

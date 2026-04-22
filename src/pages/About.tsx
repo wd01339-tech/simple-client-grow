@@ -79,13 +79,14 @@ const AboutPage = () => {
               </div>
               
               <h1 className="font-display text-4xl sm:text-5xl font-bold mt-4 mb-6">
-                Why I Chose to Work{" "}
-                <span className="gradient-text">Remotely</span>
+                Remote Freelance Digital Consultant —{" "}
+                <span className="gradient-text">Affordable Website & Marketing Help</span>
               </h1>
               
               <p className="text-muted-foreground text-lg mb-6">
-                I started my freelance journey because I saw how many small business owners — 
-                especially in tourism — struggle to get online help that's <strong>affordable</strong> and <strong>personal</strong>.
+                I started freelancing because too many small business owners — especially in tourism, 
+                hospitality, and local services — struggle to find <strong>affordable website design</strong> and 
+                <strong>personal digital marketing support</strong> without paying agency prices.
               </p>
               
               <p className="text-muted-foreground mb-6">
@@ -176,11 +177,11 @@ const AboutPage = () => {
             className="text-center max-w-2xl mx-auto mb-16"
           >
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-              Why Work With a Freelancer?
+              Why Hire a Freelance Digital Consultant Instead of an Agency?
             </h2>
             <p className="text-muted-foreground text-lg">
-              Big agencies often mean big prices and impersonal service. 
-              Here's what makes working with me different.
+              Digital marketing agencies charge high fees for impersonal service. 
+              A freelance consultant delivers affordable, direct, and results-focused website and SEO support.
             </p>
           </motion.div>
 
@@ -215,11 +216,11 @@ const AboutPage = () => {
               viewport={{ once: true }}
             >
               <h2 className="font-display text-3xl sm:text-4xl font-bold mb-6">
-                Who I Love Working With
+                Ideal Clients: Homestays, Cafés, Tourism & Local Services
               </h2>
               <p className="text-muted-foreground text-lg mb-8">
-                My ideal clients are small business owners who need practical digital support 
-                without the complexity and high costs of traditional agencies.
+                I specialize in helping small business owners who need affordable website design, Google Business optimization, 
+                and local SEO — without the complexity and high costs of traditional marketing agencies.
               </p>
 
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">

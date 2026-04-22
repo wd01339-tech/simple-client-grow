@@ -21,7 +21,7 @@ const duplicatedClients = [...clients, ...clients];
 
 export const ClientLogos = () => {
   return (
-    <section className="py-16 bg-muted/30 overflow-hidden">
+    <section className="py-16 bg-muted/30 overflow-hidden" aria-label="Trusted Client Brands">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -30,10 +30,10 @@ export const ClientLogos = () => {
           className="text-center"
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Trusted By
+            Trusted By Small Businesses Worldwide
           </span>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold mt-3">
-            Businesses We've Helped Grow
+          <h2 className="font-display text-2xl sm:text-3xl font-bold mt-3" id="client-portfolio">
+            Hotels, Cafés & Local Services We've Helped Grow Online
           </h2>
         </motion.div>
       </div>

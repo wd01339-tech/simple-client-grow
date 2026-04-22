@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SEOHead } from "@/components/seo/SEOHead";
 import {
   blogPosts,
   blogCategories,
@@ -27,6 +28,7 @@ const Blog = () => {
 
   return (
     <Layout>
+      <SEOHead page="blog" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,15 +38,15 @@ const Blog = () => {
             className="text-center max-w-3xl mx-auto"
           >
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              Our Blog
+              Digital Marketing Blog
             </span>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6">
               Digital Marketing{" "}
               <span className="gradient-text">Insights & Tips</span>
             </h1>
             <p className="text-muted-foreground text-lg md:text-xl mb-8">
-              Practical strategies, tips, and guides to help your local business
-              grow online. No fluff—just actionable advice.
+              Practical SEO strategies, Google Business tips, and website optimization guides 
+              to help your local business grow online. Expert freelance digital marketing advice — no fluff, just actionable results.
             </p>
 
             {/* Search */}
@@ -66,7 +68,7 @@ const Blog = () => {
       {!searchQuery && selectedCategory === "All" && (
         <section className="py-12 bg-muted/30">
           <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="font-display text-2xl font-bold mb-8">
+            <h2 className="font-display text-2xl font-bold mb-8" id="featured-articles">
               Featured Articles
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -209,9 +211,8 @@ const Blog = () => {
               <span className="gradient-text">Growth Advice?</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              Get a free, no-obligation audit of your website and online
-              presence. We'll show you exactly what's holding you back and how
-              to fix it.
+              Get a free, no-obligation audit of your website and Google Business Profile. 
+              Our freelance digital consultant will show you exactly what's holding your business back online and how to fix it.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>
