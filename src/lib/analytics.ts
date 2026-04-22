@@ -85,4 +85,6 @@ export const ConversionEvents = {
   WHATSAPP_CLICK: "whatsapp_click",
   SAMPLE_AUDIT_VIEW: "sample_audit_view",
   CTA_CLICK: "cta_click",
+  CALL_CTA_CLICK: "call_cta_click",
+  AB_TEST_CLICK: "ab_test_click",
 } as const;
