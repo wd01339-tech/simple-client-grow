@@ -51,7 +51,7 @@ const socialLinks = [
 
 export const About = () => {
   return (
-    <section className="py-24">
+    <section className="py-24" aria-label="About the Freelance Digital Consultant">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Image with 4:3 desktop, 4:5 mobile ratios */}
@@ -141,16 +141,16 @@ export const About = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              About Me
+              About Your Freelance Digital Consultant
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold mt-4 mb-6">
-              Personal Digital Support for{" "}
-              <span className="gradient-text">Growing Businesses</span>
+              Remote Freelance Website & Marketing Support for{" "}
+              <span className="gradient-text">Small Business Owners</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              I'm a remote freelance digital consultant who works one-to-one with small business 
-              owners, homestay operators, and solo entrepreneurs. No complicated systems or expensive 
-              packages — just practical solutions that fit your budget and actually work.
+              I'm a remote freelance digital consultant specializing in affordable website design, 
+              Google Business optimization, and local SEO for small business owners, homestay operators, 
+              cafés, and solo entrepreneurs. No agency overhead — just practical, budget-friendly solutions that deliver real results.
             </p>
 
             {/* Highlights */}
