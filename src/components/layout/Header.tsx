@@ -173,9 +173,6 @@ export const Header = () => {
         </AnimatePresence>
       </nav>
     </motion.header>
-      <div className="mt-2">
-        <WhatsAppFAQBanner />
-      </div>
     </>
   );
 };
