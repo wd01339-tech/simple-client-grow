@@ -30,7 +30,7 @@ const testimonials = [
 
 export const Testimonials = () => {
   return (
-    <section className="py-24 bg-muted/30">
+    <section className="py-24 bg-muted/30" aria-label="Client Testimonials and Reviews">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div
@@ -40,14 +40,14 @@ export const Testimonials = () => {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-            Testimonials
+            Client Reviews & Testimonials
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Trusted by Small Business Owners{" "}
+            Trusted by Homestay Owners, Cafés & Local Businesses{" "}
             <span className="gradient-text">Worldwide</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Real feedback from real business owners who wanted simple, affordable digital support.
+            Real reviews from small business owners who grew their online presence with affordable freelance digital consulting, website design, and Google Business optimization.
           </p>
         </motion.div>
 

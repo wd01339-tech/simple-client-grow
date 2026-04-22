@@ -15,7 +15,7 @@ const auditIncludes = [
 
 export const LeadMagnet = () => {
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-24 relative overflow-hidden" aria-label="Free Website and Google Business Audit">
       {/* Background */}
       <div className="absolute inset-0 gradient-bg opacity-5" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-r from-primary/20 via-secondary/20 to-accent/20 rounded-full blur-3xl" />
@@ -43,12 +43,12 @@ export const LeadMagnet = () => {
                 {/* Left: Content */}
                 <div>
                   <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-                    Free 7-Point Website & GMB Audit
+                    Free 7-Point Website & Google Business Profile Audit
                   </h2>
                   <p className="text-muted-foreground text-lg mb-6">
-                    Get a personalized review of your website and Google Business Profile — 
-                    discover what's working, what's not, and simple fixes to improve your 
-                    online visibility.
+                    Get a personalized SEO review of your website and Google Business Profile — 
+                    discover what's working, what's holding back your search rankings, and get simple, actionable 
+                    fixes to improve your local SEO visibility and attract more customers.
                   </p>
 
                   <Button variant="hero" size="xl" className="w-full sm:w-auto" asChild>
@@ -59,7 +59,7 @@ export const LeadMagnet = () => {
                   </Button>
 
                   <p className="mt-4 text-sm text-muted-foreground">
-                    Takes 2 minutes • No credit card • No spam
+                    Takes 2 minutes • No credit card required • No spam • 100% free
                   </p>
                 </div>
 
