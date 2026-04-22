@@ -83,12 +83,12 @@ const ContactPage = () => {
               Contact
             </span>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6">
-              Let's Start a{" "}
-              <span className="gradient-text">Conversation</span>
+              Contact Your Freelance Digital Consultant —{" "}
+              <span className="gradient-text">Free Consultation</span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl">
-              Have a project in mind? Need help with your online presence? 
-              I'm just a message away. Let's chat!
+              Need affordable website design, Google Business optimization, or digital marketing help? 
+              Get a free consultation via WhatsApp, email, or the contact form below. I respond within 24 hours.
             </p>
           </motion.div>
         </div>
@@ -105,7 +105,7 @@ const ContactPage = () => {
               viewport={{ once: true }}
             >
               <h2 className="font-display text-2xl sm:text-3xl font-bold mb-8">
-                Get in Touch
+                Get Free Digital Marketing Advice
               </h2>
 
               {/* WhatsApp Primary */}

@@ -144,8 +144,9 @@ const FreeAuditPage = () => {
               <span className="gradient-text">Instant Insights for Growth</span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl">
-              Complete the form below and receive a comprehensive audit report. 
-              A dedicated consultant will follow up via email to discuss actionable next steps.
+              Get a free comprehensive SEO audit of your website and Google Business Profile. 
+              Receive actionable recommendations for improving search rankings, local visibility, and online conversions. 
+              Your dedicated freelance consultant will follow up within 24–48 hours.
             </p>
           </motion.div>
 
@@ -178,7 +179,7 @@ const FreeAuditPage = () => {
               viewport={{ once: true }}
             >
               <h2 className="font-display text-2xl sm:text-3xl font-bold mb-8">
-                What's Included in Your Free Audit:
+                What's Included in Your Free Website & SEO Audit:
               </h2>
               <div className="space-y-4">
                 {auditItems.map((item, index) => (

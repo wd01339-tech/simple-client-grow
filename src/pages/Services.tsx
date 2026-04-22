@@ -91,12 +91,12 @@ const ServicesPage = () => {
               Services
             </span>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6">
-              Simple Digital Solutions for{" "}
-              <span className="gradient-text">Real Results</span>
+              Affordable Website Design, SEO & Digital Marketing for{" "}
+              <span className="gradient-text">Small Businesses</span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl">
-              No complicated packages or confusing tech talk. Just practical support 
-              that helps your business get found online and attract more customers.
+              Expert freelance web design, Google Business optimization, local SEO, and lead generation services. 
+              Affordable, practical digital support that helps homestays, cafés, and local businesses get found online.
             </p>
           </motion.div>
         </div>
