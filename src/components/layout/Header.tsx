@@ -72,15 +72,16 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
-            <Button variant="whatsapp" size="default" className="gap-2 font-semibold" asChild>
+            <Button variant="whatsapp" size="default" className="gap-2 font-semibold animate-whatsapp-pulse" asChild>
               <a
-                href={getWhatsAppUrl("general")}
+                href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header" })}
+                title="Chat instantly on WhatsApp"
               >
                 <MessageCircle className="w-4 h-4" />
-                WhatsApp Me
+                WhatsApp Now
               </a>
             </Button>
           </div>
@@ -125,13 +126,14 @@ export const Header = () => {
                 <div className="pt-4">
                   <Button variant="whatsapp" className="w-full gap-2" asChild>
                     <a
-                      href={getWhatsAppUrl("general")}
+                      href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_mobile" })}
+                      title="Chat instantly on WhatsApp"
                     >
                       <MessageCircle className="w-4 h-4" />
-                      WhatsApp Me
+                      WhatsApp Now
                     </a>
                   </Button>
                 </div>
