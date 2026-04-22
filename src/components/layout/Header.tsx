@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle } from "lucide-react";
+import { Menu, X, MessageCircle, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
+import { useABTest } from "@/hooks/useABTest";
+import { WhatsAppFAQBanner } from "@/components/home/WhatsAppFAQBanner";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -20,6 +22,9 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const { variant, trackClick: trackABClick } = useABTest("header_cta_copy");
+
+  const ctaText = variant === "A" ? "WhatsApp Now" : "Get Instant Help";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,16 +77,29 @@ export const Header = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
+            <Button variant="outline" size="default" className="gap-2 font-semibold" asChild>
+              <a
+                href="tel:+918335870240"
+                onClick={() => trackEvent("call_cta_click", { source: "header_desktop" })}
+                title="Call us directly"
+              >
+                <Phone className="w-4 h-4" />
+                Call Now
+              </a>
+            </Button>
             <Button variant="whatsapp" size="default" className="gap-2 font-semibold animate-whatsapp-pulse" asChild>
               <a
                 href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
                 target="_blank"
                 rel="noopener noreferrer"
-                onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header" })}
+                onClick={() => {
+                  trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_desktop", variant });
+                  trackABClick();
+                }}
                 title="Chat instantly on WhatsApp"
               >
                 <MessageCircle className="w-4 h-4" />
-                WhatsApp Now
+                {ctaText}
               </a>
             </Button>
           </div>
@@ -124,16 +142,27 @@ export const Header = () => {
                   </Link>
                 ))}
                 <div className="pt-4">
+                  <Button variant="outline" className="w-full gap-2 mb-2" asChild>
+                    <a
+                      href="tel:+918335870240"
+                      onClick={() => trackEvent("call_cta_click", { source: "header_mobile" })}
+                    >
+                      <Phone className="w-4 h-4" />
+                      Call Now
+                    </a>
+                  </Button>
                   <Button variant="whatsapp" className="w-full gap-2" asChild>
                     <a
                       href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
                       target="_blank"
                       rel="noopener noreferrer"
-                      onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_mobile" })}
-                      title="Chat instantly on WhatsApp"
+                      onClick={() => {
+                        trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_mobile", variant });
+                        trackABClick();
+                      }}
                     >
                       <MessageCircle className="w-4 h-4" />
-                      WhatsApp Now
+                      {ctaText}
                     </a>
                   </Button>
                 </div>
@@ -143,5 +172,7 @@ export const Header = () => {
         </AnimatePresence>
       </nav>
     </motion.header>
+      <WhatsAppFAQBanner />
+    </>
   );
 };
