@@ -42,7 +42,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background">
+    <footer className="bg-foreground text-background" role="contentinfo" aria-label="DigitalFreelancer Footer">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -54,8 +54,9 @@ export const Footer = () => {
               <span className="font-display font-bold text-xl">DigitalFreelancer</span>
             </div>
             <p className="text-background/70 max-w-md mb-6">
-              Helping small businesses grow online through simple websites, Google Business optimization, 
-              and practical digital marketing — delivered remotely with a personal touch.
+              Affordable freelance digital consultant helping small businesses, homestays, cafés, and local services 
+              grow online through professional website design, Google Business Profile optimization, local SEO, 
+              and practical digital marketing — delivered remotely with personal, one-to-one support worldwide.
             </p>
             <div className="flex items-center gap-3 flex-wrap">
               {socialLinks.map((social) => (
@@ -79,8 +80,8 @@ export const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display font-semibold text-lg mb-4">Quick Links</h4>
-            <nav className="space-y-3">
+            <h4 className="font-display font-semibold text-lg mb-4">Explore</h4>
+            <nav className="space-y-3" aria-label="Quick navigation links">
               <Link to="/" className="block text-background/70 hover:text-background transition-colors">
                 Home
               </Link>
@@ -101,19 +102,25 @@ export const Footer = () => {
 
           {/* Services */}
           <div>
-            <h4 className="font-display font-semibold text-lg mb-4">Services</h4>
-            <nav className="space-y-3">
+            <h4 className="font-display font-semibold text-lg mb-4">Digital Services</h4>
+            <nav className="space-y-3" aria-label="Digital services links">
               <Link to="/services" className="block text-background/70 hover:text-background transition-colors">
-                Website Support
+                Affordable Website Design
               </Link>
               <Link to="/services" className="block text-background/70 hover:text-background transition-colors">
-                Digital Marketing
+                Digital Marketing Services
               </Link>
               <Link to="/services" className="block text-background/70 hover:text-background transition-colors">
-                Lead Generation
+                Lead Generation & Social Media
               </Link>
               <Link to="/services" className="block text-background/70 hover:text-background transition-colors">
-                Google Business
+                Google Business Optimization
+              </Link>
+              <Link to="/blog" className="block text-background/70 hover:text-background transition-colors">
+                SEO Tips & Blog
+              </Link>
+              <Link to="/pricing" className="block text-background/70 hover:text-background transition-colors">
+                Pricing & Packages
               </Link>
             </nav>
           </div>
