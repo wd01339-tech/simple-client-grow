@@ -39,6 +39,7 @@ export const Header = () => {
   }, [location]);
 
   return (
+    <>
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
