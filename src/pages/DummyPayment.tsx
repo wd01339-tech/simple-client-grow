@@ -14,7 +14,7 @@ const DummyPayment = () => {
   const pkg = packages.find((item) => item.id === packageId) || packages[1];
 
   return (
-    <Layout whatsappIntent="payment">
+    <Layout whatsappIntent="pricing">
       <SEOHead page="pricing" />
       <section className="pt-32 pb-20 bg-gradient-to-b from-background via-muted/30 to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
