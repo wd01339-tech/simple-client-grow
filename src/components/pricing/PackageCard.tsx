@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Package } from "@/data/packages";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
+import { Link } from "react-router-dom";
 
 interface PackageCardProps {
   pkg: Package;
@@ -95,10 +96,15 @@ export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
           variant={pkg.popular ? "gradient" : "default"} 
           size="lg"
           className="w-full gap-2 font-semibold"
-          onClick={() => onPayment(pkg, "stripe")}
+          asChild
         >
-          <CreditCard className="w-4 h-4" />
-          {pkg.ctaLabel}
+          <Link
+            to={`/dummy-payment?package=${pkg.id}&method=stripe`}
+            onClick={() => onPayment(pkg, "dummy-payment")}
+          >
+            <CreditCard className="w-4 h-4" />
+            {pkg.ctaLabel}
+          </Link>
         </Button>
         
         <Button 
