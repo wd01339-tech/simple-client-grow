@@ -18,6 +18,7 @@ import Portfolio from "./pages/Portfolio";
 import CaseStudyDetail from "./pages/CaseStudyDetail";
 import Blog from "./pages/Blog";
 import BlogPostDetail from "./pages/BlogPostDetail";
+import DummyPayment from "./pages/DummyPayment";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
@@ -53,6 +54,7 @@ const App = () => (
           <Route path="/portfolio/:slug" element={<CaseStudyDetail />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
+          <Route path="/dummy-payment" element={<DummyPayment />} />
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin" element={<AdminDashboard />} />
           <Route path="/flowchart" element={<ConversationFlowchart />} />
