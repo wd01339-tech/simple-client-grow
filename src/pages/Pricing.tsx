@@ -1,12 +1,9 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { Layout } from "@/components/layout/Layout";
 import { PackageCard } from "@/components/pricing/PackageCard";
 import { ComparisonTable } from "@/components/pricing/ComparisonTable";
 import { PricingFAQ } from "@/components/pricing/PricingFAQ";
-import { PaymentModal } from "@/components/pricing/PaymentModal";
 import { packages, trustSignals } from "@/data/packages";
-import type { Package } from "@/data/packages";
 import { Shield, Users, Globe, ArrowRight, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -16,13 +13,7 @@ import { generateFAQSchema } from "@/lib/seo";
 const trustIcons = [Shield, Users, Globe];
 
 const Pricing = () => {
-  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-
-  const handlePayment = (pkg: Package, method: string) => {
-    setSelectedPackage(pkg);
-    setIsPaymentModalOpen(true);
-  };
+  const handlePayment = () => undefined;
 
   // FAQ schema for SEO
   const faqSchema = generateFAQSchema({
@@ -205,13 +196,6 @@ const Pricing = () => {
           </motion.div>
         </div>
       </section>
-
-      {/* Payment Modal */}
-      <PaymentModal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        pkg={selectedPackage}
-      />
     </Layout>
   );
 };
