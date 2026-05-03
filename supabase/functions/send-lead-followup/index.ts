@@ -222,6 +222,17 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY is not configured");
     }
 
+    // Authorization: require shared CRON secret for ANY invocation.
+    // This function processes leads in bulk and sends emails — must never be public.
+    const CRON_SECRET = Deno.env.get("CRON_SECRET");
+    const provided = req.headers.get("x-cron-secret");
+    if (!CRON_SECRET || provided !== CRON_SECRET) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
     const { leadId, processAll }: FollowupRequest = await req.json();
 
