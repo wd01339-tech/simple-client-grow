@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X, Clock } from "lucide-react";
+import { useLocation } from "react-router-dom";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
 
 type UserType = "new" | "returning" | "highIntent";
@@ -71,6 +72,62 @@ const AB_VARIATIONS = [
   "🚀 Grow faster — book a free 15-min strategy call",
   "💼 Affordable website setup starting this week",
 ];
+const AB_LABELS = ["audit_discount", "strategy_call", "affordable_setup"];
+
+// Segment persistence keys + 30-day expiry for stable classification
+const SEG_KEY = "visitor_segment_v1";
+const SEG_TTL_MS = 30 * 24 * 60 * 60 * 1000;
+const FIRST_SEEN_KEY = "visitor_first_seen";
+const LAST_SEEN_KEY = "visitor_last_seen";
+const VISIT_COUNT_KEY = "visitor_visit_count";
+const HIGH_INTENT_PATHS = ["/pricing", "/services", "/free-audit"];
+
+interface StoredSegment {
+  type: UserType;
+  updatedAt: number;
+  reason: string;
+}
+
+function readSegment(): StoredSegment | null {
+  try {
+    const raw = localStorage.getItem(SEG_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as StoredSegment;
+    if (Date.now() - parsed.updatedAt > SEG_TTL_MS) return null;
+    return parsed;
+  } catch {
+    return null;
+  }
+}
+
+function writeSegment(type: UserType, reason: string) {
+  try {
+    const payload: StoredSegment = { type, updatedAt: Date.now(), reason };
+    localStorage.setItem(SEG_KEY, JSON.stringify(payload));
+  } catch {
+    /* noop */
+  }
+}
+
+function classifyOnLoad(): { type: UserType; reason: string } {
+  if (typeof window === "undefined") return { type: "new", reason: "ssr" };
+  const stored = readSegment();
+  const now = Date.now();
+  const firstSeen = Number(localStorage.getItem(FIRST_SEEN_KEY) || 0);
+  const visits = Number(localStorage.getItem(VISIT_COUNT_KEY) || 0);
+
+  // High-intent persists if previously set within TTL
+  if (stored?.type === "highIntent") return { type: "highIntent", reason: "persisted_high_intent" };
+  // Returning if we've seen them before this session OR multiple visits
+  if (firstSeen && now - firstSeen > 5 * 60 * 1000) return { type: "returning", reason: "seen_before" };
+  if (visits >= 1) return { type: "returning", reason: "visit_count" };
+  return { type: "new", reason: "first_visit" };
+}
+
+function makeCampaignId(region: Region, userType: UserType, abVariant: number) {
+  const month = new Date().toISOString().slice(0, 7); // YYYY-MM
+  return `sob_${month}_${region}_${userType}_v${abVariant}`;
+}
 
 const INDIA_TZ = ["Asia/Kolkata", "Asia/Calcutta"];
 const SEA_TZ = [
@@ -126,39 +183,60 @@ export const SmartOfferBanner = () => {
   const [region, setRegion] = useState<Region>("GLOBAL");
   const [now, setNow] = useState(Date.now());
   const [abVariant] = useState(() => Math.floor(Math.random() * AB_VARIATIONS.length));
+  const [hiding, setHiding] = useState(false);
+  const location = useLocation();
 
-  // Init: detect region, user type, dismiss state
+  // Init once: detect region, classify segment, bump visit counters
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (sessionStorage.getItem("offer_banner_dismissed") === "1") {
-      setDismissed(true);
-    }
-    setRegion(detectRegion());
-    setUserType(detectUserType());
-    localStorage.setItem("visited", "1");
+    if (sessionStorage.getItem("offer_banner_dismissed") === "1") setDismissed(true);
 
-    // Behavior: pricing visit → high intent
-    if (window.location.pathname.includes("/pricing")) {
-      sessionStorage.setItem("clickedCTA", "1");
-      setUserType("highIntent");
-    }
+    const detectedRegion = detectRegion();
+    setRegion(detectedRegion);
 
-    // Behavior: stay > 30s on page → high intent
-    const timer = window.setTimeout(() => {
-      if (sessionStorage.getItem("clickedCTA") !== "1") {
-        sessionStorage.setItem("clickedCTA", "1");
-        setUserType("highIntent");
-      }
-    }, 30000);
+    const { type, reason } = classifyOnLoad();
+    setUserType(type);
+    if (!readSegment()) writeSegment(type, reason);
+
+    // Persist visit metadata
+    if (!localStorage.getItem(FIRST_SEEN_KEY)) {
+      localStorage.setItem(FIRST_SEEN_KEY, String(Date.now()));
+    }
+    localStorage.setItem(LAST_SEEN_KEY, String(Date.now()));
+    const visits = Number(localStorage.getItem(VISIT_COUNT_KEY) || 0) + 1;
+    localStorage.setItem(VISIT_COUNT_KEY, String(visits));
 
     trackEvent("smart_offer_view", {
-      region: detectRegion(),
-      user_type: detectUserType(),
+      region: detectedRegion,
+      user_type: type,
       ab_variant: abVariant,
+      ab_label: AB_LABELS[abVariant],
     });
-
-    return () => window.clearTimeout(timer);
   }, [abVariant]);
+
+  // Behavior: route-based high-intent triggers (pricing/services/free-audit)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const path = location.pathname;
+    if (HIGH_INTENT_PATHS.some((p) => path.startsWith(p))) {
+      setUserType("highIntent");
+      writeSegment("highIntent", `route:${path}`);
+      trackEvent("smart_offer_segment_change", { to: "highIntent", reason: `route:${path}` });
+    }
+  }, [location.pathname]);
+
+  // Behavior: dwell > 30s on any page promotes to high-intent
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setUserType((prev) => {
+        if (prev === "highIntent") return prev;
+        writeSegment("highIntent", "dwell_30s");
+        trackEvent("smart_offer_segment_change", { to: "highIntent", reason: "dwell_30s" });
+        return "highIntent";
+      });
+    }, 30000);
+    return () => window.clearTimeout(timer);
+  }, [location.pathname]);
 
   // Countdown tick
   useEffect(() => {
@@ -171,21 +249,45 @@ export const SmartOfferBanner = () => {
   const endTs = useMemo(() => getMonthlyEndTimestamp(), []);
   const timeLeft = formatTimeLeft(endTs - now);
 
-  const waUrl = `https://wa.me/918335870240?text=${encodeURIComponent(offer.waMessage)}`;
+  const campaignId = useMemo(
+    () => makeCampaignId(region, userType, abVariant),
+    [region, userType, abVariant]
+  );
+  const waUrl = useMemo(() => {
+    const utm = new URLSearchParams({
+      utm_source: "whatsapp",
+      utm_medium: "smart_offer_banner",
+      utm_campaign: campaignId,
+      utm_content: AB_LABELS[abVariant],
+      utm_term: `${region}_${userType}`,
+    }).toString();
+    const text = `${offer.waMessage}\n\nRef: ${campaignId}\n${utm}`;
+    return `https://wa.me/918335870240?text=${encodeURIComponent(text)}`;
+  }, [offer.waMessage, campaignId, region, userType, abVariant]);
 
   const handleClick = () => {
-    sessionStorage.setItem("clickedCTA", "1");
+    writeSegment("highIntent", "wa_click");
     trackEvent(ConversionEvents.WHATSAPP_CLICK, {
       source: "smart_offer_banner",
       region,
       user_type: userType,
       ab_variant: abVariant,
+      ab_label: AB_LABELS[abVariant],
+      campaign_id: campaignId,
     });
     trackEvent("smart_offer_click", {
       region,
       user_type: userType,
       ab_variant: abVariant,
+      ab_label: AB_LABELS[abVariant],
+      campaign_id: campaignId,
     });
+    // Smooth auto-hide after WhatsApp click
+    setHiding(true);
+    window.setTimeout(() => {
+      sessionStorage.setItem("offer_banner_dismissed", "1");
+      setDismissed(true);
+    }, 1200);
   };
 
   const handleDismiss = () => {
@@ -198,6 +300,7 @@ export const SmartOfferBanner = () => {
 
   return (
     <AnimatePresence>
+      {!hiding && (
       <motion.div
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
@@ -211,10 +314,10 @@ export const SmartOfferBanner = () => {
         role="region"
         aria-label="Special offer"
       >
-        <div className="container mx-auto px-3 sm:px-6 py-2 flex items-center gap-2 sm:gap-4 text-xs sm:text-sm">
+        <div className="container mx-auto px-3 sm:px-6 py-2 flex items-center gap-2 sm:gap-4 text-[11px] sm:text-sm">
           <Sparkles className="w-4 h-4 shrink-0 hidden sm:block" />
-          <p className="flex-1 truncate sm:whitespace-normal font-medium">
-            <span>{headline}</span>
+          <p className="flex-1 min-w-0 truncate sm:whitespace-normal font-medium">
+            <span className="block sm:inline truncate sm:overflow-visible">{headline}</span>
             <span className="hidden md:inline-flex items-center gap-1 ml-3 opacity-90">
               <Clock className="w-3.5 h-3.5" />
               {timeLeft}
@@ -225,19 +328,21 @@ export const SmartOfferBanner = () => {
             target="_blank"
             rel="noopener noreferrer"
             onClick={handleClick}
-            className="shrink-0 inline-flex items-center gap-1 rounded-md bg-white/15 hover:bg-white/25 backdrop-blur px-3 py-1 font-semibold transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.4)]"
+            data-campaign-id={campaignId}
+            className="shrink-0 inline-flex items-center gap-1 rounded-md bg-white/20 hover:bg-white/30 backdrop-blur px-2.5 sm:px-3 py-1 font-semibold transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] whitespace-nowrap"
           >
             {offer.cta}
           </a>
           <button
             onClick={handleDismiss}
             aria-label="Dismiss offer"
-            className="shrink-0 p-1 rounded hover:bg-white/15 transition-colors"
+            className="shrink-0 p-1 rounded hover:bg-white/15 transition-colors hidden sm:inline-flex"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
       </motion.div>
+      )}
     </AnimatePresence>
   );
 };
