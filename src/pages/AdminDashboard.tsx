@@ -524,6 +524,76 @@ const AdminDashboard = () => {
             </div>
           </div>
         )}
+
+        {/* Settings Tab */}
+        {tab === "settings" && settings && (
+          <div className="space-y-6">
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h3 className="font-semibold text-foreground mb-1 flex items-center gap-2">
+                <SettingsIcon className="w-4 h-4 text-primary" /> Scoring Weights
+              </h3>
+              <p className="text-xs text-muted-foreground mb-4">Points added to a lead's score when each event fires.</p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {Object.entries(settings.scoring_weights).map(([key, val]) => (
+                  <label key={key} className="flex items-center gap-3">
+                    <span className="text-sm text-foreground flex-1 capitalize">{key.replaceAll("_", " ")}</span>
+                    <input
+                      type="number"
+                      value={val}
+                      onChange={(e) => setSettings({ ...settings, scoring_weights: { ...settings.scoring_weights, [key]: Number(e.target.value) } })}
+                      className="w-24 px-2 py-1 text-sm rounded border border-border bg-background text-foreground"
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h3 className="font-semibold text-foreground mb-1">Stage Thresholds</h3>
+              <p className="text-xs text-muted-foreground mb-4">Minimum lead score required to advance to each stage.</p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                {(["engaged","qualified","proposal_sent","client"] as const).map((stage) => (
+                  <label key={stage} className="flex items-center gap-3">
+                    <span className="text-sm text-foreground flex-1 capitalize">{stage.replace("_"," ")}</span>
+                    <input
+                      type="number"
+                      value={settings.stage_thresholds[stage] ?? 0}
+                      onChange={(e) => setSettings({ ...settings, stage_thresholds: { ...settings.stage_thresholds, [stage]: Number(e.target.value) } })}
+                      className="w-24 px-2 py-1 text-sm rounded border border-border bg-background text-foreground"
+                    />
+                  </label>
+                ))}
+              </div>
+              <p className="text-xs text-muted-foreground mt-3">Note: a paid event always moves the lead to <b>Client</b>; a booked consultation always advances at least to <b>Proposal Sent</b>.</p>
+            </div>
+
+            <div className="bg-card rounded-xl border border-border p-5">
+              <h3 className="font-semibold text-foreground mb-1">Priority Thresholds</h3>
+              <p className="text-xs text-muted-foreground mb-4">Score required for each priority badge (cold is anything below warm).</p>
+              <div className="grid sm:grid-cols-3 gap-3">
+                {(["warm","hot","ready"] as const).map((p) => (
+                  <label key={p} className="flex items-center gap-3">
+                    <span className="text-sm text-foreground flex-1 capitalize">{p}</span>
+                    <input
+                      type="number"
+                      value={settings.priority_thresholds[p] ?? 0}
+                      onChange={(e) => setSettings({ ...settings, priority_thresholds: { ...settings.priority_thresholds, [p]: Number(e.target.value) } })}
+                      className="w-24 px-2 py-1 text-sm rounded border border-border bg-background text-foreground"
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <button
+              onClick={saveSettings}
+              disabled={savingSettings}
+              className="px-5 py-2.5 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:opacity-50 transition-colors flex items-center gap-2 font-medium"
+            >
+              <Save className="w-4 h-4" /> {savingSettings ? "Saving..." : "Save Settings"}
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
