@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   Users, TrendingUp, MessageSquare, LogOut, RefreshCw,
   Flame, Thermometer, Snowflake, Zap, BarChart3, Clock,
-  Phone, Send, ArrowUpDown, MessageCircle
+  Phone, Send, ArrowUpDown, MessageCircle, Settings as SettingsIcon, Save
 } from "lucide-react";
 
 interface Lead {
@@ -16,6 +16,7 @@ interface Lead {
   status: string;
   lead_score: number;
   lead_priority: string;
+  lifecycle_stage?: string;
   country: string | null;
   inquiry_topic: string | null;
   created_at: string;
@@ -55,22 +56,34 @@ const AdminDashboard = () => {
   const [chats, setChats] = useState<ChatMsg[]>([]);
   const [whatsappMsgs, setWhatsappMsgs] = useState<WhatsAppMsg[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics">("leads");
+  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics" | "settings">("leads");
   const [replyPhone, setReplyPhone] = useState("");
   const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
+  const [settings, setSettings] = useState<{
+    scoring_weights: Record<string, number>;
+    stage_thresholds: Record<string, number>;
+    priority_thresholds: Record<string, number>;
+  } | null>(null);
+  const [savingSettings, setSavingSettings] = useState(false);
   const navigate = useNavigate();
 
   const fetchData = async () => {
     setLoading(true);
-    const [leadsRes, chatsRes, waRes] = await Promise.all([
+    const [leadsRes, chatsRes, waRes, settingsRes] = await Promise.all([
       supabase.from("leads").select("*").order("created_at", { ascending: false }).limit(200),
       supabase.from("chat_conversations").select("*").order("created_at", { ascending: false }).limit(500),
       supabase.from("whatsapp_messages").select("*").order("created_at", { ascending: false }).limit(500),
+      supabase.from("crm_settings").select("*").eq("id", "global").maybeSingle(),
     ]);
     if (leadsRes.data) setLeads(leadsRes.data as Lead[]);
     if (chatsRes.data) setChats(chatsRes.data as ChatMsg[]);
     if (waRes.data) setWhatsappMsgs(waRes.data as WhatsAppMsg[]);
+    if (settingsRes.data) setSettings({
+      scoring_weights: (settingsRes.data as any).scoring_weights ?? {},
+      stage_thresholds: (settingsRes.data as any).stage_thresholds ?? {},
+      priority_thresholds: (settingsRes.data as any).priority_thresholds ?? {},
+    });
     setLoading(false);
   };
 
@@ -125,6 +138,22 @@ const AdminDashboard = () => {
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/admin/login");
+  };
+
+  const saveSettings = async () => {
+    if (!settings) return;
+    setSavingSettings(true);
+    const { error } = await supabase
+      .from("crm_settings")
+      .update({
+        scoring_weights: settings.scoring_weights,
+        stage_thresholds: settings.stage_thresholds,
+        priority_thresholds: settings.priority_thresholds,
+      })
+      .eq("id", "global");
+    setSavingSettings(false);
+    if (error) alert("Save failed: " + error.message);
+    else alert("Settings saved.");
   };
 
   // Analytics
@@ -183,7 +212,7 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <div className="flex gap-1 bg-muted rounded-lg p-1">
-          {(["leads", "whatsapp", "chats", "analytics"] as const).map((t) => (
+          {(["leads", "whatsapp", "chats", "analytics", "settings"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
