@@ -20,3 +20,6 @@ project_id = "ibfjiqbdjqyzbcoaoltz"
 
  [functions.whatsapp-followup]
  verify_jwt = false
+
+ [functions.record-conversion]
+ verify_jwt = false
