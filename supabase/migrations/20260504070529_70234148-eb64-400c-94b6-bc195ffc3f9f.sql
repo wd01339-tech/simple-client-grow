@@ -1,0 +1,1 @@
+DROP POLICY IF EXISTS "Service can read settings" ON public.crm_settings;

@@ -1,17 +1,70 @@
 import { Link, useSearchParams } from "react-router-dom";
+import { useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowLeft, CheckCircle2, CreditCard, Lock, MessageCircle } from "lucide-react";
+import { ArrowLeft, CheckCircle2, CreditCard, Lock, MessageCircle, CalendarCheck } from "lucide-react";
 import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { packages } from "@/data/packages";
+import { recordConversion } from "@/lib/conversions";
+import { toast } from "sonner";
 
 const DummyPayment = () => {
   const [searchParams] = useSearchParams();
   const packageId = searchParams.get("package") || "growth";
   const method = searchParams.get("method") || "card";
   const pkg = packages.find((item) => item.id === packageId) || packages[1];
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
+  const [paying, setPaying] = useState(false);
+  const [booking, setBooking] = useState(false);
+  const [paid, setPaid] = useState(false);
+
+  const handlePay = async () => {
+    if (!name || !email) {
+      toast.error("Please enter your name and email");
+      return;
+    }
+    setPaying(true);
+    await recordConversion({
+      event_type: "payment_completed",
+      lead: {
+        name,
+        email,
+        phone,
+        source: "dummy_payment",
+        inquiry_topic: pkg.name,
+      },
+      attribution: { package_id: pkg.id, package_name: pkg.name, method },
+      metadata: { price: pkg.priceDisplay, price_type: pkg.priceType },
+    });
+    setPaying(false);
+    setPaid(true);
+    toast.success(`Payment confirmed — ${pkg.name} (demo). Lead moved to Client stage.`);
+  };
+
+  const handleBookConsultation = async () => {
+    if (!name || !email) {
+      toast.error("Please enter your name and email");
+      return;
+    }
+    setBooking(true);
+    await recordConversion({
+      event_type: "consultation_booked",
+      lead: {
+        name,
+        email,
+        phone,
+        source: "dummy_payment_consultation",
+        inquiry_topic: pkg.name,
+      },
+      attribution: { package_id: pkg.id, package_name: pkg.name },
+    });
+    setBooking(false);
+    toast.success("Consultation booked — lead moved to Proposal Sent.");
+  };
 
   return (
     <Layout whatsappIntent="pricing">
@@ -43,6 +96,23 @@ const DummyPayment = () => {
               </p>
 
               <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div>
+                    <label className="text-sm font-medium">Your name</label>
+                    <input value={name} onChange={(e) => setName(e.target.value)} placeholder="Jane Doe"
+                      className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-medium">Email</label>
+                    <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="jane@example.com"
+                      className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm" />
+                  </div>
+                </div>
+                <div>
+                  <label className="text-sm font-medium">Phone (optional)</label>
+                  <input value={phone} onChange={(e) => setPhone(e.target.value)} placeholder="+91 ..."
+                    className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 text-sm" />
+                </div>
                 <div>
                   <label className="text-sm font-medium">Card number</label>
                   <div className="mt-2 flex items-center gap-3 rounded-xl border border-border bg-background px-4 py-3 text-muted-foreground">
@@ -50,21 +120,16 @@ const DummyPayment = () => {
                     4242 4242 4242 4242
                   </div>
                 </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium">Expiry</label>
-                    <div className="mt-2 rounded-xl border border-border bg-background px-4 py-3 text-muted-foreground">12 / 30</div>
-                  </div>
-                  <div>
-                    <label className="text-sm font-medium">CVC</label>
-                    <div className="mt-2 rounded-xl border border-border bg-background px-4 py-3 text-muted-foreground">123</div>
-                  </div>
-                </div>
               </div>
 
-              <Button variant="gradient" size="xl" className="w-full mt-8 gap-2">
+              <Button variant="gradient" size="xl" className="w-full mt-8 gap-2" onClick={handlePay} disabled={paying || paid}>
                 <CheckCircle2 className="w-5 h-5" />
-                Pay {pkg.priceDisplay}{pkg.priceType === "monthly" ? "/month" : ""} — Demo
+                {paid ? "Payment Confirmed ✓" : paying ? "Processing..." : `Pay ${pkg.priceDisplay}${pkg.priceType === "monthly" ? "/month" : ""} — Demo`}
+              </Button>
+
+              <Button variant="outline" size="lg" className="w-full mt-3 gap-2" onClick={handleBookConsultation} disabled={booking}>
+                <CalendarCheck className="w-5 h-5" />
+                {booking ? "Booking..." : "Book a Consultation Instead"}
               </Button>
             </motion.div>
 
