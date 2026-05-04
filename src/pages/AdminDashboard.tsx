@@ -536,7 +536,7 @@ const AdminDashboard = () => {
               <div className="grid sm:grid-cols-2 gap-3">
                 {Object.entries(settings.scoring_weights).map(([key, val]) => (
                   <label key={key} className="flex items-center gap-3">
-                    <span className="text-sm text-foreground flex-1 capitalize">{key.replaceAll("_", " ")}</span>
+                    <span className="text-sm text-foreground flex-1 capitalize">{key.replace(/_/g, " ")}</span>
                     <input
                       type="number"
                       value={val}
