@@ -235,6 +235,7 @@ const AdminDashboard = () => {
                     <th className="text-left px-4 py-3 font-medium text-muted-foreground">Source</th>
                     <th className="text-left px-4 py-3 font-medium text-muted-foreground">Score</th>
                     <th className="text-left px-4 py-3 font-medium text-muted-foreground">Priority</th>
+                    <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden lg:table-cell">Stage</th>
                     <th className="text-left px-4 py-3 font-medium text-muted-foreground hidden md:table-cell">Date</th>
                     <th className="text-left px-4 py-3 font-medium text-muted-foreground">Actions</th>
                   </tr>
@@ -259,6 +260,11 @@ const AdminDashboard = () => {
                             <PriIcon className="w-3 h-3" /> {pri.label}
                           </span>
                         </td>
+                        <td className="px-4 py-3 hidden lg:table-cell">
+                          <span className="text-xs px-2 py-0.5 rounded-full bg-muted text-foreground capitalize">
+                            {(lead.lifecycle_stage || "lead").replace(/_/g, " ")}
+                          </span>
+                        </td>
                         <td className="px-4 py-3 hidden md:table-cell text-muted-foreground text-xs">
                           <div className="flex items-center gap-1"><Clock className="w-3 h-3" /> {new Date(lead.created_at).toLocaleDateString()}</div>
                         </td>
@@ -272,7 +278,7 @@ const AdminDashboard = () => {
                     );
                   })}
                   {leads.length === 0 && (
-                    <tr><td colSpan={7} className="px-4 py-8 text-center text-muted-foreground">No leads yet</td></tr>
+                    <tr><td colSpan={8} className="px-4 py-8 text-center text-muted-foreground">No leads yet</td></tr>
                   )}
                 </tbody>
               </table>
