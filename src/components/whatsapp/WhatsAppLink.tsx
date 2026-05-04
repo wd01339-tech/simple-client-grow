@@ -3,6 +3,7 @@ import { getWhatsAppUrl, type WhatsAppIntent } from "@/lib/whatsapp";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { MessageCircle } from "lucide-react";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
+import { recordConversion } from "@/lib/conversions";
 
 interface WhatsAppLinkProps extends Omit<ButtonProps, "asChild"> {
   intent?: WhatsAppIntent;
@@ -32,6 +33,11 @@ export const WhatsAppLink = ({
 
   const handleClick = () => {
     trackEvent(ConversionEvents.WHATSAPP_CLICK, { intent, source: "whatsapp_link" });
+    recordConversion({
+      event_type: "whatsapp_click",
+      attribution: { intent, package_name: customDetails?.packageName },
+      metadata: { intent, ...customDetails },
+    });
   };
 
   return (

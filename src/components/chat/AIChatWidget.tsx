@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send, Loader2, ExternalLink } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import { recordConversion } from "@/lib/conversions";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -109,6 +110,15 @@ export const AIChatWidget = () => {
 
   const send = useCallback(async (text: string) => {
     if (!text.trim() || isLoading) return;
+
+    // First user message in this session = chatbot opt-in
+    if (messages.length === 0) {
+      recordConversion({
+        event_type: "chatbot_optin",
+        attribution: { source: "ai_chat_widget" },
+        metadata: { first_message: text.trim().slice(0, 200) },
+      });
+    }
 
     const userMsg: Msg = { role: "user", content: text.trim() };
     const newMessages = [...messages, userMsg];

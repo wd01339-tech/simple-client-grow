@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
+import { recordConversion } from "@/lib/conversions";
 
 const MONTHLY_OFFERS = [
   "🔥 January Special: Free Website & GMB Audit – This Week Only!",
@@ -37,6 +38,11 @@ export const MarqueeOfferBanner = () => {
 
   const handleClick = () => {
     trackEvent("marquee_offer_click", {});
+    recordConversion({
+      event_type: "marquee_offer_click",
+      attribution: { offer_text: offer, cta: "marquee_banner" },
+      metadata: { offer_text: offer },
+    });
     window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
   };
 
