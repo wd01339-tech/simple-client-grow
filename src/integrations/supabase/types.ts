@@ -41,8 +41,74 @@ export type Database = {
         }
         Relationships: []
       }
+      conversion_events: {
+        Row: {
+          created_at: string
+          event_type: string
+          id: string
+          lead_id: string | null
+          metadata: Json | null
+          score_delta: number
+          session_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          event_type: string
+          id?: string
+          lead_id?: string | null
+          metadata?: Json | null
+          score_delta?: number
+          session_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          event_type?: string
+          id?: string
+          lead_id?: string | null
+          metadata?: Json | null
+          score_delta?: number
+          session_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "conversion_events_lead_id_fkey"
+            columns: ["lead_id"]
+            isOneToOne: false
+            referencedRelation: "leads"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      crm_settings: {
+        Row: {
+          id: string
+          priority_thresholds: Json
+          scoring_weights: Json
+          stage_thresholds: Json
+          updated_at: string
+          updated_by: string | null
+        }
+        Insert: {
+          id: string
+          priority_thresholds: Json
+          scoring_weights: Json
+          stage_thresholds: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Update: {
+          id?: string
+          priority_thresholds?: Json
+          scoring_weights?: Json
+          stage_thresholds?: Json
+          updated_at?: string
+          updated_by?: string | null
+        }
+        Relationships: []
+      }
       leads: {
         Row: {
+          attribution: Json | null
           business_type: string | null
           company: string | null
           country: string | null
@@ -54,6 +120,7 @@ export type Database = {
           last_followup_at: string | null
           lead_priority: string
           lead_score: number
+          lifecycle_stage: string
           message: string | null
           name: string
           notes: string | null
@@ -71,6 +138,7 @@ export type Database = {
           website: string | null
         }
         Insert: {
+          attribution?: Json | null
           business_type?: string | null
           company?: string | null
           country?: string | null
@@ -82,6 +150,7 @@ export type Database = {
           last_followup_at?: string | null
           lead_priority?: string
           lead_score?: number
+          lifecycle_stage?: string
           message?: string | null
           name: string
           notes?: string | null
@@ -99,6 +168,7 @@ export type Database = {
           website?: string | null
         }
         Update: {
+          attribution?: Json | null
           business_type?: string | null
           company?: string | null
           country?: string | null
@@ -110,6 +180,7 @@ export type Database = {
           last_followup_at?: string | null
           lead_priority?: string
           lead_score?: number
+          lifecycle_stage?: string
           message?: string | null
           name?: string
           notes?: string | null
