@@ -22,7 +22,12 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-      <HeroOfferWidget />
+      {/* Offers panel — repositioned from top header into hero upper-right */}
+      <div className="absolute top-24 right-4 sm:right-6 z-30 w-[92%] sm:w-[360px] lg:w-[340px] mx-auto sm:mx-0 left-0 sm:left-auto flex flex-col gap-2 [&_.sticky]:!static [&>*]:rounded-xl [&>*]:overflow-hidden [&>*]:shadow-2xl">
+        <MarqueeOfferBanner />
+        <SmartOfferBanner />
+        <HeroOfferWidget />
+      </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
