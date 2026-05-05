@@ -15,13 +15,13 @@ const IMAGE_ALT = "Freelance digital consultant helping small businesses, touris
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden" aria-label="Freelance Digital Consultant for Small Business Growth">
+    <section className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden" aria-label="Freelance Digital Consultant for Small Business Growth">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
-      {/* Offers panel — repositioned from top header into hero upper-right */}
-      <div className="absolute top-24 right-4 sm:right-6 z-30 w-[92%] sm:w-[360px] lg:w-[340px] mx-auto sm:mx-0 left-0 sm:left-auto flex flex-col gap-2 [&_.sticky]:!static [&>*]:rounded-xl [&>*]:overflow-hidden [&>*]:shadow-2xl">
+      {/* Offers panel — desktop/tablet only to keep mobile CTAs above the fold */}
+      <div className="absolute top-24 right-4 sm:right-6 z-30 sm:w-[340px] lg:w-[340px] hidden md:flex flex-col gap-2 [&_.sticky]:!static [&>*]:rounded-xl [&>*]:overflow-hidden [&>*]:shadow-2xl">
         <SmartOfferBanner />
       </div>
 
@@ -64,7 +64,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-bg-subtle border border-primary/20 mb-8"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-bg-subtle border border-primary/20 mt-4 sm:mt-0 mb-4 sm:mb-8"
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-foreground">
@@ -77,7 +77,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display text-4xl sm:text-5xl md:text-6xl font-bold leading-tight mb-6"
+              className="font-display text-3xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 sm:mb-6"
             >
               Affordable Website Design & Digital Marketing for Small Businesses —{" "}
               <span className="gradient-text">Grow Online</span>{" "}
@@ -89,7 +89,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-8"
+              className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-5 sm:mb-8"
             >
               Remote freelance digital consultant specializing in affordable website design, Google Business Profile optimization, 
               local SEO, and practical digital marketing for homestays, tourism businesses, ecommerce stores, 
@@ -101,7 +101,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-4 mb-10"
+              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-10"
             >
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-2 text-muted-foreground">
@@ -137,7 +137,7 @@ export const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="mt-8 text-sm text-muted-foreground"
+              className="mt-5 sm:mt-8 text-sm text-muted-foreground"
             >
               ✨ Free website audit & Google Business Profile review — actionable SEO recommendations included
             </motion.p>
