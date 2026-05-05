@@ -3,9 +3,7 @@ import { ArrowRight, CheckCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
-import { HeroOfferWidget } from "@/components/marketing/HeroOfferWidget";
 import { SmartOfferBanner } from "@/components/marketing/SmartOfferBanner";
-import { MarqueeOfferBanner } from "@/components/marketing/MarqueeOfferBanner";
 
 const benefits = [
   "Remote & Affordable",
@@ -24,9 +22,7 @@ export const Hero = () => {
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
       {/* Offers panel — repositioned from top header into hero upper-right */}
       <div className="absolute top-24 right-4 sm:right-6 z-30 w-[92%] sm:w-[360px] lg:w-[340px] mx-auto sm:mx-0 left-0 sm:left-auto flex flex-col gap-2 [&_.sticky]:!static [&>*]:rounded-xl [&>*]:overflow-hidden [&>*]:shadow-2xl">
-        <MarqueeOfferBanner />
         <SmartOfferBanner />
-        <HeroOfferWidget />
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
