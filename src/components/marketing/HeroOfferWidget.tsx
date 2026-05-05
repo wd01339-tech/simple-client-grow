@@ -123,7 +123,7 @@ export const HeroOfferWidget = () => {
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: -10 }}
         transition={{ duration: 0.5, ease: "easeOut" }}
-        className="lg:absolute lg:top-24 lg:right-6 z-20 mx-auto lg:mx-0 mt-4 lg:mt-0 w-[92%] sm:w-[320px] lg:w-[280px] rounded-xl border border-white/10 shadow-2xl backdrop-blur-md"
+        className="w-full rounded-xl border border-white/10 shadow-2xl backdrop-blur-md"
         style={{
           background:
             "linear-gradient(135deg, hsl(var(--primary) / 0.92), hsl(var(--secondary) / 0.92))",
