@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
+import { HeroOfferWidget } from "@/components/marketing/HeroOfferWidget";
 
 const benefits = [
   "Remote & Affordable",
@@ -19,6 +20,7 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-secondary/10 rounded-full blur-3xl" />
+      <HeroOfferWidget />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
