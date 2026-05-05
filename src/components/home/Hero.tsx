@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 import { HeroOfferWidget } from "@/components/marketing/HeroOfferWidget";
+import { SmartOfferBanner } from "@/components/marketing/SmartOfferBanner";
+import { MarqueeOfferBanner } from "@/components/marketing/MarqueeOfferBanner";
 
 const benefits = [
   "Remote & Affordable",
