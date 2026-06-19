@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 import { SmartOfferBanner } from "@/components/marketing/SmartOfferBanner";
+import { IntroVideoCard } from "@/components/home/IntroVideoCard";
 
 const benefits = [
   "Remote & Affordable",
@@ -56,6 +57,11 @@ export const Hero = () => {
               <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
             </div>
           </motion.div>
+
+          {/* Mobile/Tablet: Intro video below photo, before text */}
+          <div className="lg:hidden w-full">
+            <IntroVideoCard />
+          </div>
 
           {/* Left: Content */}
           <div className="text-center lg:text-left">
@@ -200,6 +206,11 @@ export const Hero = () => {
               </motion.div>
             </div>
           </motion.div>
+
+          {/* Desktop: Intro video below the hero image, spans right column */}
+          <div className="hidden lg:block lg:col-start-2">
+            <IntroVideoCard />
+          </div>
         </div>
       </div>
     </section>
