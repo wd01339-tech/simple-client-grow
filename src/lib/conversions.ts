@@ -9,7 +9,8 @@ export type ConversionEventType =
   | "payment_completed"
   | "audit_request"
   | "contact_form"
-  | "pricing_view";
+  | "pricing_view"
+  | "video_engagement";
 
 interface RecordOpts {
   event_type: ConversionEventType;
