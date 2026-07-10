@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle, Phone } from "lucide-react";
+import { Menu, X, MessageCircle, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
@@ -88,7 +88,19 @@ export const Header = () => {
                 Call Now
               </a>
             </Button>
-            <Button variant="whatsapp" size="default" className="gap-2 font-semibold animate-whatsapp-pulse" asChild>
+            <Button variant="animated-gradient" size="default" className="gap-2 font-semibold" asChild>
+              <a
+                href="https://calendly.com/consultantb84/30min"
+                aria-label="Book a free 30-minute discovery call"
+                rel="noopener"
+                onClick={() => trackEvent("calendly_cta_click", { source: "header_desktop" })}
+                title="Book a free 30-minute discovery call"
+              >
+                <Calendar className="w-4 h-4" />
+                Book Free Call
+              </a>
+            </Button>
+            <Button variant="whatsapp" size="default" className="gap-2 font-semibold" asChild>
               <a
                 href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
                 target="_blank"
@@ -143,6 +155,17 @@ export const Header = () => {
                   </Link>
                 ))}
                 <div className="pt-4">
+                  <Button variant="animated-gradient" className="w-full gap-2 mb-2" asChild>
+                    <a
+                      href="https://calendly.com/consultantb84/30min"
+                      aria-label="Book a free 30-minute discovery call"
+                      rel="noopener"
+                      onClick={() => trackEvent("calendly_cta_click", { source: "header_mobile" })}
+                    >
+                      <Calendar className="w-4 h-4" />
+                      Book Free Call
+                    </a>
+                  </Button>
                   <Button variant="outline" className="w-full gap-2 mb-2" asChild>
                     <a
                       href="tel:+918335870240"
