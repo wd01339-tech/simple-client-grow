@@ -8,6 +8,19 @@ import {
 import { faqItems } from "@/data/packages";
 
 export const PricingFAQ = () => {
+  const faqJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqItems.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -15,6 +28,11 @@ export const PricingFAQ = () => {
       viewport={{ once: true }}
       className="max-w-3xl mx-auto"
     >
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
       <div className="text-center mb-10">
         <h2 className="font-display text-2xl sm:text-3xl font-bold mb-4">
           Frequently Asked Questions

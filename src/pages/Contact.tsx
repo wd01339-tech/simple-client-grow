@@ -8,6 +8,7 @@
  import { SEOHead } from "@/components/seo/SEOHead";
  import { WhatsAppLink } from "@/components/whatsapp/WhatsAppLink";
  import { useUTMTracking } from "@/hooks/useUTMTracking";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -126,9 +127,10 @@ const ContactPage = () => {
                       asChild
                     >
                       <a
-                        href="https://calendly.com/consultantb84/30min"
+                        href={buildCalendlyUrl({ source: "contact_page" })}
                         aria-label="Book a free 30-minute discovery call"
                         rel="noopener"
+                        onClick={() => trackCalendlyClick({ source: "contact_page" })}
                       >
                         <Calendar className="w-4 h-4" />
                         Schedule Free Call
