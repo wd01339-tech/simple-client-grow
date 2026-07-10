@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, MessageCircle, MapPin, Facebook, Instagram, Linkedin } from "lucide-react";
 import { getWhatsAppUrl } from "@/lib/whatsapp";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -92,9 +93,10 @@ export const Footer = () => {
                 About Me
               </Link>
               <a
-                href="https://calendly.com/consultantb84/30min"
+                href={buildCalendlyUrl({ source: "footer" })}
                 aria-label="Book a free 30-minute discovery call"
                 rel="noopener"
+                onClick={() => trackCalendlyClick({ source: "footer" })}
                 className="block text-background/70 hover:text-background transition-colors"
               >
                 Book Free Discovery Call
