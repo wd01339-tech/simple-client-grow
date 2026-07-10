@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 import { SmartOfferBanner } from "@/components/marketing/SmartOfferBanner";
 import { IntroVideoCard } from "@/components/home/IntroVideoCard";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 const benefits = [
   "Remote & Affordable",
@@ -126,9 +127,10 @@ export const Hero = () => {
             >
               <Button variant="animated-gradient" size="xl" asChild>
                 <a
-                  href="https://calendly.com/consultantb84/30min"
+                  href={buildCalendlyUrl({ source: "hero" })}
                   aria-label="Book a free 30-minute discovery call"
                   rel="noopener"
+                  onClick={() => trackCalendlyClick({ source: "hero" })}
                 >
                   <Calendar className="w-5 h-5" />
                   Book My Free Discovery Call
