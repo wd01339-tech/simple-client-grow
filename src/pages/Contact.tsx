@@ -1,5 +1,5 @@
  import { motion } from "framer-motion";
- import { MessageCircle, Mail, MapPin, Clock, Shield, Heart, Facebook, Instagram, Linkedin } from "lucide-react";
+ import { MessageCircle, Mail, MapPin, Clock, Shield, Heart, Calendar, Facebook, Instagram, Linkedin } from "lucide-react";
  import { Button } from "@/components/ui/button";
  import { Layout } from "@/components/layout/Layout";
  import { useState } from "react";
@@ -108,7 +108,37 @@ const ContactPage = () => {
                 Get Free Digital Marketing Advice
               </h2>
 
-              {/* WhatsApp Primary */}
+              {/* Calendly Primary */}
+              <div className="rounded-2xl p-8 border border-primary/20 mb-6 gradient-bg text-primary-foreground shadow-xl">
+                <div className="flex items-start gap-4">
+                  <div className="w-14 h-14 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center shrink-0">
+                    <Calendar className="w-7 h-7 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-display text-xl font-bold mb-2">Book a Free 30-Minute Discovery Call</h3>
+                    <p className="text-primary-foreground/85 mb-4">
+                      Schedule your complimentary discovery call and receive practical
+                      recommendations for your business — no obligation.
+                    </p>
+                    <Button
+                      size="lg"
+                      className="bg-white text-foreground hover:bg-white/90 shadow-lg"
+                      asChild
+                    >
+                      <a
+                        href="https://calendly.com/consultantb84/30min"
+                        aria-label="Book a free 30-minute discovery call"
+                        rel="noopener"
+                      >
+                        <Calendar className="w-4 h-4" />
+                        Schedule Free Call
+                      </a>
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* WhatsApp Secondary */}
               <div className="bg-[#25D366]/10 rounded-2xl p-8 border border-[#25D366]/20 mb-8">
                 <div className="flex items-start gap-4">
                   <div className="w-14 h-14 rounded-xl bg-[#25D366] flex items-center justify-center">
