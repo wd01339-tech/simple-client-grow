@@ -7,6 +7,7 @@ import { getWhatsAppUrl } from "@/lib/whatsapp";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
 import { useABTest } from "@/hooks/useABTest";
 import { WhatsAppFAQBanner } from "@/components/home/WhatsAppFAQBanner";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -90,10 +91,10 @@ export const Header = () => {
             </Button>
             <Button variant="animated-gradient" size="default" className="gap-2 font-semibold" asChild>
               <a
-                href="https://calendly.com/consultantb84/30min"
+                href={buildCalendlyUrl({ source: "header_desktop" })}
                 aria-label="Book a free 30-minute discovery call"
                 rel="noopener"
-                onClick={() => trackEvent("calendly_cta_click", { source: "header_desktop" })}
+                onClick={() => trackCalendlyClick({ source: "header_desktop" })}
                 title="Book a free 30-minute discovery call"
               >
                 <Calendar className="w-4 h-4" />
@@ -157,10 +158,10 @@ export const Header = () => {
                 <div className="pt-4">
                   <Button variant="animated-gradient" className="w-full gap-2 mb-2" asChild>
                     <a
-                      href="https://calendly.com/consultantb84/30min"
+                      href={buildCalendlyUrl({ source: "header_mobile" })}
                       aria-label="Book a free 30-minute discovery call"
                       rel="noopener"
-                      onClick={() => trackEvent("calendly_cta_click", { source: "header_mobile" })}
+                      onClick={() => trackCalendlyClick({ source: "header_mobile" })}
                     >
                       <Calendar className="w-4 h-4" />
                       Book Free Call
