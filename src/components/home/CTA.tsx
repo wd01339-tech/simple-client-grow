@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock, Shield, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 export const CTA = () => {
   return (
@@ -49,9 +50,10 @@ export const CTA = () => {
               asChild
             >
               <a
-                href="https://calendly.com/consultantb84/30min"
+                href={buildCalendlyUrl({ source: "final_cta" })}
                 aria-label="Book a free 30-minute discovery call"
                 rel="noopener"
+                onClick={() => trackCalendlyClick({ source: "final_cta" })}
               >
                 <Calendar className="w-5 h-5" />
                 Book My Free Discovery Call
