@@ -48,19 +48,23 @@ export const CTA = () => {
               className="bg-white text-foreground hover:bg-white/90 shadow-xl"
               asChild
             >
-              <Link to="/free-audit">
-                Get Your Free Audit
-                <ArrowRight className="w-5 h-5" />
-              </Link>
+              <a
+                href="https://calendly.com/consultantb84/30min"
+                aria-label="Book a free 30-minute discovery call"
+                rel="noopener"
+              >
+                <Calendar className="w-5 h-5" />
+                Book My Free Discovery Call
+              </a>
             </Button>
             <Button
               size="xl"
               variant="animated-gradient"
               asChild
             >
-              <Link to="/contact">
-                <Calendar className="w-5 h-5" />
-                Book a Free Discovery Call
+              <Link to="/free-audit">
+                Get Your Free Audit
+                <ArrowRight className="w-5 h-5" />
               </Link>
             </Button>
           </div>

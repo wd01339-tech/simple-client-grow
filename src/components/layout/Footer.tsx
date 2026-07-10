@@ -91,6 +91,14 @@ export const Footer = () => {
               <Link to="/about" className="block text-background/70 hover:text-background transition-colors">
                 About Me
               </Link>
+              <a
+                href="https://calendly.com/consultantb84/30min"
+                aria-label="Book a free 30-minute discovery call"
+                rel="noopener"
+                className="block text-background/70 hover:text-background transition-colors"
+              >
+                Book Free Discovery Call
+              </a>
               <Link to="/free-audit" className="block text-background/70 hover:text-background transition-colors">
                 Free Audit
               </Link>
