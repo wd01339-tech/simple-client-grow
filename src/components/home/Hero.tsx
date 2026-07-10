@@ -124,16 +124,20 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.4 }}
               className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
             >
+              <Button variant="animated-gradient" size="xl" asChild>
+                <a
+                  href="https://calendly.com/consultantb84/30min"
+                  aria-label="Book a free 30-minute discovery call"
+                  rel="noopener"
+                >
+                  <Calendar className="w-5 h-5" />
+                  Book My Free Discovery Call
+                </a>
+              </Button>
               <Button variant="hero" size="xl" asChild>
                 <Link to="/free-audit">
                   Get a Free Website & GMB Audit
                   <ArrowRight className="w-5 h-5" />
-                </Link>
-              </Button>
-              <Button variant="animated-gradient" size="xl" asChild>
-                <Link to="/contact">
-                  <Calendar className="w-5 h-5" />
-                  Book a Free Discovery Call
                 </Link>
               </Button>
             </motion.div>
