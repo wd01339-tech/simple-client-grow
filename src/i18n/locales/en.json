@@ -1,0 +1,36 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "pricing": "Pricing",
+    "portfolio": "Portfolio",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact"
+  },
+  "cta": {
+    "bookCall": "Book Free Call",
+    "bookCallAria": "Book a free 30-minute discovery call",
+    "callNow": "Call Now",
+    "whatsapp": "WhatsApp Now",
+    "freeAudit": "Get a Free Website & GMB Audit",
+    "skipToContent": "Skip to main content"
+  },
+  "hero": {
+    "badge": "Freelance Digital Consultant — Remote & Affordable",
+    "headlineStart": "Affordable Website Design & Digital Marketing for Small Businesses —",
+    "headlineAccent": "Grow Online",
+    "headlineEnd": "Simply & Effectively",
+    "subheadline": "Remote freelance digital consultant specializing in affordable website design, Google Business Profile optimization, local SEO, and practical digital marketing for homestays, tourism businesses, ecommerce stores, and local services — without agency prices or complexity.",
+    "benefits": {
+      "remote": "Remote & Affordable",
+      "personal": "Personal One-to-One Support",
+      "results": "Results-Focused Solutions"
+    },
+    "trustLine": "Free website audit & Google Business Profile review — actionable SEO recommendations included"
+  },
+  "footer": {
+    "rightsReserved": "All rights reserved.",
+    "tagline": "Remote freelance digital consultant helping small businesses grow online."
+  }
+}
