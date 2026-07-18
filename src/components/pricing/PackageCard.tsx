@@ -12,12 +12,10 @@ interface PackageCardProps {
   onPayment: (pkg: Package, method: string) => void;
 }
 
+const CALENDLY_URL =
+  "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=package_card";
+
 export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
-  const phoneNumber = "1234567890";
-  
-  const getWhatsAppUrl = (message: string) => {
-    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-  };
 
   return (
     <motion.div
@@ -114,13 +112,13 @@ export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
           asChild
         >
           <a
-            href={getWhatsAppUrl(pkg.whatsappMessage)}
+            href={CALENDLY_URL}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "package_card", package: pkg.name })}
+            onClick={() => trackEvent("calendly_cta_click", { source: "package_card", package: pkg.name })}
           >
             <MessageCircle className="w-4 h-4" />
-            Ask Before Buying
+            Book Free Discovery Call
           </a>
         </Button>
 
