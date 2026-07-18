@@ -173,9 +173,16 @@ export function getWhatsAppUrl(
     country?: string;
   }
 ): string {
-  const message = buildWhatsAppMessage(intent, customDetails);
-  const encodedMessage = encodeURIComponent(message);
-  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodedMessage}`;
+  // All previous WhatsApp CTAs now route to the Calendly Discovery Call
+  // to consolidate lead capture into scheduled consultations.
+  const params = new URLSearchParams({
+    utm_source: "website",
+    utm_medium: "cta_button",
+    utm_campaign: "discovery_call",
+    utm_term: `whatsapp_${intent}`,
+    utm_content: customDetails?.packageName || intent,
+  });
+  return `https://calendly.com/consultantb84/30min?${params.toString()}`;
 }
 
 /**
