@@ -25,7 +25,7 @@ export const Header = () => {
   const location = useLocation();
   const { variant, trackClick: trackABClick } = useABTest("header_cta_copy");
 
-  const ctaText = variant === "A" ? "WhatsApp Now" : "Get Instant Help";
+  const ctaText = variant === "A" ? "Book Free Call" : "Reserve Free Session";
 
   useEffect(() => {
     const handleScroll = () => {
