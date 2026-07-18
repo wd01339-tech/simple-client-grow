@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Lock, Mail, ArrowRight, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
@@ -11,6 +11,19 @@ const AdminLogin = () => {
   const [isSignUp, setIsSignUp] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+
+  const nextTarget = (() => {
+    const raw = searchParams.get("next");
+    if (!raw) return "/admin";
+    try {
+      const url = new URL(raw, window.location.origin);
+      if (url.origin !== window.location.origin) return "/admin";
+      return url.pathname + url.search + url.hash;
+    } catch {
+      return "/admin";
+    }
+  })();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,14 +47,19 @@ const AdminLogin = () => {
             .eq("user_id", user.id);
 
           const isAdmin = roles?.some((r: any) => r.role === "admin");
-          if (!isAdmin) {
+          const isConsent = nextTarget.startsWith("/.lovable/oauth/consent");
+          if (!isAdmin && !isConsent) {
             await supabase.auth.signOut();
             toast({ title: "Access Denied", description: "You don't have admin privileges.", variant: "destructive" });
             setLoading(false);
             return;
           }
         }
-        navigate("/admin");
+        if (nextTarget.startsWith("/.lovable/")) {
+          window.location.href = nextTarget;
+        } else {
+          navigate(nextTarget);
+        }
       }
     } catch (err: any) {
       toast({ title: "Error", description: err.message, variant: "destructive" });
