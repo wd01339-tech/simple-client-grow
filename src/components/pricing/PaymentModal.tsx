@@ -44,14 +44,11 @@ export const PaymentModal = ({ isOpen, onClose, pkg }: PaymentModalProps) => {
   const handlePayment = async () => {
     setIsProcessing(true);
     
-    // TODO: Integrate with actual payment gateways
-    // For now, show a message directing to WhatsApp
-    const phoneNumber = "1234567890";
-    const message = `Hi! I'd like to pay for the ${pkg.name} package (${pkg.priceDisplay}${pkg.priceType === "monthly" ? "/month" : ""}). Please send me the payment link.`;
-    
-    // Simulate processing then redirect to WhatsApp
+    // Route to Calendly Discovery Call instead of WhatsApp
+    const calendlyUrl =
+      "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=payment_modal";
     setTimeout(() => {
-      window.open(`https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`, "_blank");
+      window.open(calendlyUrl, "_blank");
       setIsProcessing(false);
       onClose();
     }, 1500);
@@ -166,17 +163,17 @@ export const PaymentModal = ({ isOpen, onClose, pkg }: PaymentModalProps) => {
                 )}
               </Button>
 
-              {/* WhatsApp Alternative */}
+              {/* Discovery Call Alternative */}
               <div className="text-center">
-                <p className="text-xs text-muted-foreground mb-2">Prefer to chat first?</p>
+                <p className="text-xs text-muted-foreground mb-2">Prefer to talk first?</p>
                 <Button variant="ghost" size="sm" className="gap-2" asChild>
                   <a
-                    href={`https://wa.me/918335870240?text=${encodeURIComponent(pkg.whatsappMessage)}`}
+                    href="https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=payment_modal_footer"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    Chat on WhatsApp Before Paying
+                    Book Free Discovery Call Before Paying
                   </a>
                 </Button>
               </div>
