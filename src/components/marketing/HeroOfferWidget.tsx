@@ -85,13 +85,12 @@ export const HeroOfferWidget = () => {
   const waUrl = useMemo(() => {
     const campaignId = `hero_offer_${new Date().toISOString().slice(0, 7)}_${userType}`;
     const utm = new URLSearchParams({
-      utm_source: "whatsapp",
+      utm_source: "website",
       utm_medium: "hero_offer_widget",
       utm_campaign: campaignId,
       utm_content: userType,
     }).toString();
-    const text = `${offer.wa}\n\nRef: ${campaignId}\n${utm}`;
-    return `https://wa.me/918335870240?text=${encodeURIComponent(text)}`;
+    return `https://calendly.com/consultantb84/30min?${utm}`;
   }, [offer.wa, userType]);
 
   const handleClick = () => {
