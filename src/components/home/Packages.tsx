@@ -13,11 +13,9 @@ const trustIcons = [Shield, Users, Globe];
 export const Packages = () => {
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
   const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const phoneNumber = "1234567890";
-
-  const getWhatsAppUrl = (message: string) => {
-    return `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
-  };
+  const CALENDLY_URL =
+    "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=packages_section";
+  const getWhatsAppUrl = (_message: string) => CALENDLY_URL;
 
   const handlePayment = (pkg: Package) => {
     setSelectedPackage(pkg);
@@ -154,7 +152,7 @@ export const Packages = () => {
                     rel="noopener noreferrer"
                   >
                     <MessageCircle className="w-4 h-4" />
-                    Ask Before Buying
+                    Book Free Discovery Call
                   </a>
                 </Button>
                 <p className="text-xs text-center text-muted-foreground">
@@ -196,7 +194,7 @@ export const Packages = () => {
               rel="noopener noreferrer"
             >
               <MessageCircle className="w-5 h-5" />
-              Chat on WhatsApp — I'll Help You Choose
+              Book Your Free 30-Minute Discovery Call
             </a>
           </Button>
         </motion.div>
