@@ -17,9 +17,8 @@ const MONTHLY_OFFERS = [
   "🎁 December Finale: Free SEO + GMB Audit – Year-End Special!",
 ];
 
-const WHATSAPP_URL =
-  "https://wa.me/918335870240?text=" +
-  encodeURIComponent("Hi! I want to claim this week's special offer 🎯");
+const CLAIM_URL =
+  "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=monthly_offer&utm_term=marquee_banner";
 
 export const MarqueeOfferBanner = () => {
   const [visible, setVisible] = useState(false);
@@ -43,7 +42,7 @@ export const MarqueeOfferBanner = () => {
       attribution: { offer_text: offer, cta: "marquee_banner" },
       metadata: { offer_text: offer },
     });
-    window.open(WHATSAPP_URL, "_blank", "noopener,noreferrer");
+    window.open(CLAIM_URL, "_blank", "noopener,noreferrer");
   };
 
   return (
@@ -51,7 +50,7 @@ export const MarqueeOfferBanner = () => {
       onClick={handleClick}
       role="button"
       tabIndex={0}
-      aria-label="Claim this week's special offer on WhatsApp"
+      aria-label="Claim this week's special offer — book your free discovery call"
       className="w-full overflow-hidden whitespace-nowrap text-white text-center sticky top-0 z-[60] cursor-pointer hover:brightness-110 transition"
       style={{
         background:
@@ -62,7 +61,7 @@ export const MarqueeOfferBanner = () => {
         className="inline-block py-2 text-sm font-medium tracking-wide"
         style={{ animation: "marquee 18s linear infinite" }}
       >
-        {offer}  &nbsp;•&nbsp;  Tap to claim on WhatsApp 👉
+        {offer}  &nbsp;•&nbsp;  Tap to book your free discovery call 👉
       </div>
       <style>{`
         @keyframes marquee {
