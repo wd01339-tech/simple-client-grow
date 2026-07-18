@@ -255,14 +255,13 @@ export const SmartOfferBanner = () => {
   );
   const waUrl = useMemo(() => {
     const utm = new URLSearchParams({
-      utm_source: "whatsapp",
+      utm_source: "website",
       utm_medium: "smart_offer_banner",
       utm_campaign: campaignId,
       utm_content: AB_LABELS[abVariant],
       utm_term: `${region}_${userType}`,
     }).toString();
-    const text = `${offer.waMessage}\n\nRef: ${campaignId}\n${utm}`;
-    return `https://wa.me/918335870240?text=${encodeURIComponent(text)}`;
+    return `https://calendly.com/consultantb84/30min?${utm}`;
   }, [offer.waMessage, campaignId, region, userType, abVariant]);
 
   const handleClick = () => {

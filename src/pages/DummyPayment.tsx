@@ -158,9 +158,13 @@ const DummyPayment = () => {
               </div>
 
               <Button variant="outline" className="w-full gap-2" asChild>
-                <a href={`https://wa.me/918335870240?text=${encodeURIComponent(pkg.whatsappMessage)}`} target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=dummy_payment"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   <MessageCircle className="w-4 h-4" />
-                  Ask Before Paying
+                  Book Free Discovery Call
                 </a>
               </Button>
             </motion.aside>
