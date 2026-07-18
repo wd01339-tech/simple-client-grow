@@ -101,18 +101,18 @@ export const Header = () => {
                 Book Free Call
               </a>
             </Button>
-            <Button variant="whatsapp" size="default" className="gap-2 font-semibold" asChild>
+            <Button variant="animated-gradient" size="default" className="gap-2 font-semibold" asChild>
               <a
-                href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
+                href={buildCalendlyUrl({ source: "header_desktop_cta" })}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => {
-                  trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_desktop", variant });
+                  trackCalendlyClick({ source: "header_desktop_cta", content: variant });
                   trackABClick();
                 }}
-                title="Chat instantly on WhatsApp"
+                title="Book your free 30-minute discovery call"
               >
-                <MessageCircle className="w-4 h-4" />
+                <Calendar className="w-4 h-4" />
                 {ctaText}
               </a>
             </Button>
@@ -179,17 +179,17 @@ export const Header = () => {
                       Call Now
                     </a>
                   </Button>
-                  <Button variant="whatsapp" className="w-full gap-2" asChild>
+                  <Button variant="animated-gradient" className="w-full gap-2" asChild>
                     <a
-                      href="https://wa.me/918335870240?text=Hello%2C%20I%20visited%20your%20website%20and%20want%20to%20know%20more%20about%20your%20services.%20Can%20you%20help%20me%3F"
+                      href={buildCalendlyUrl({ source: "header_mobile_cta" })}
                       target="_blank"
                       rel="noopener noreferrer"
                       onClick={() => {
-                        trackEvent(ConversionEvents.WHATSAPP_CLICK, { source: "header_mobile", variant });
+                        trackCalendlyClick({ source: "header_mobile_cta", content: variant });
                         trackABClick();
                       }}
                     >
-                      <MessageCircle className="w-4 h-4" />
+                      <Calendar className="w-4 h-4" />
                       {ctaText}
                     </a>
                   </Button>
