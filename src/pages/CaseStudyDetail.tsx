@@ -256,11 +256,11 @@ const CaseStudyDetail = () => {
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <a
-                  href="https://wa.me/918335870240?text=Hello, I saw your case study and I'd like to discuss my project."
+                  href="https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=case_study"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Chat on WhatsApp
+                  Book Free Discovery Call
                 </a>
               </Button>
             </div>
