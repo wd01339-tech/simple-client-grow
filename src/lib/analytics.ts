@@ -87,4 +87,6 @@ export const ConversionEvents = {
   CTA_CLICK: "cta_click",
   CALL_CTA_CLICK: "call_cta_click",
   AB_TEST_CLICK: "ab_test_click",
+  CALENDLY_CTA_CLICK: "calendly_cta_click",
+  GENERATE_LEAD: "generate_lead",
 } as const;

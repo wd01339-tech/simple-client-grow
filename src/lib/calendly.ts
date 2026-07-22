@@ -62,6 +62,17 @@ export function trackCalendlyClick(opts: CalendlyCTAOptions): void {
     source,
     page,
   });
+  // GA4 recommended conversion event for booked-call intent.
+  // Mark as a conversion in GA4 → Admin → Events for reporting.
+  trackEvent(ConversionEvents.GENERATE_LEAD, {
+    method: "calendly",
+    source,
+    campaign,
+    content: content ?? page,
+    page,
+    value: 1,
+    currency: "INR",
+  });
 
   // CRM / Supabase conversion pipeline
   void recordConversion({
