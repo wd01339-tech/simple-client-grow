@@ -4,6 +4,7 @@ import { Footer } from "./Footer";
 import { SmartWhatsAppButton } from "@/components/whatsapp/SmartWhatsAppButton";
 import { AIChatWidget } from "@/components/chat/AIChatWidget";
 import { BreadcrumbSchema } from "@/components/seo/BreadcrumbSchema";
+import { MobileStickyCalendlyCTA } from "@/components/marketing/MobileStickyCalendlyCTA";
 import { type WhatsAppIntent } from "@/lib/whatsapp";
 
 interface LayoutProps {
@@ -28,6 +29,7 @@ export const Layout = ({ children, whatsappIntent = "general" }: LayoutProps) =>
       <Footer />
       <SmartWhatsAppButton defaultIntent={whatsappIntent} />
       <AIChatWidget />
+      <MobileStickyCalendlyCTA />
     </div>
   );
 };
