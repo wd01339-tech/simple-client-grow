@@ -4,7 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   Users, TrendingUp, MessageSquare, LogOut, RefreshCw,
   Flame, Thermometer, Snowflake, Zap, BarChart3, Clock,
-  Phone, Send, ArrowUpDown, MessageCircle, Settings as SettingsIcon, Save
+  Phone, Send, ArrowUpDown, MessageCircle, Settings as SettingsIcon, Save,
+  Calendar as CalendarIcon
 } from "lucide-react";
 
 interface Lead {
@@ -22,6 +23,12 @@ interface Lead {
   created_at: string;
   followup_count: number | null;
   website: string | null;
+  utm_source?: string | null;
+  utm_medium?: string | null;
+  utm_campaign?: string | null;
+  utm_term?: string | null;
+  utm_content?: string | null;
+  attribution?: Record<string, any> | null;
 }
 
 interface ChatMsg {
@@ -56,7 +63,7 @@ const AdminDashboard = () => {
   const [chats, setChats] = useState<ChatMsg[]>([]);
   const [whatsappMsgs, setWhatsappMsgs] = useState<WhatsAppMsg[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics" | "settings">("leads");
+  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics" | "bookings" | "settings">("leads");
   const [replyPhone, setReplyPhone] = useState("");
   const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
@@ -212,7 +219,7 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <div className="flex gap-1 bg-muted rounded-lg p-1">
-          {(["leads", "whatsapp", "chats", "analytics", "settings"] as const).map((t) => (
+          {(["leads", "bookings", "whatsapp", "chats", "analytics", "settings"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
@@ -531,6 +538,11 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {/* Bookings Tab */}
+        {tab === "bookings" && (
+          <BookingsPanel leads={leads} />
+        )}
+
         {/* Settings Tab */}
         {tab === "settings" && settings && (
           <div className="space-y-6">
@@ -616,3 +628,114 @@ const StatCard = ({ icon: Icon, label, value, accent }: { icon: typeof Users; la
 );
 
 export default AdminDashboard;
+
+// ---- Bookings panel: attribution for Calendly-sourced leads ----
+function BookingsPanel({ leads }: { leads: Lead[] }) {
+  const bookings = leads.filter((l) => l.source === "calendly_booking");
+
+  const groupBy = (key: (l: Lead) => string) => {
+    const map = new Map<string, number>();
+    for (const l of bookings) {
+      const k = key(l) || "(none)";
+      map.set(k, (map.get(k) ?? 0) + 1);
+    }
+    return Array.from(map.entries()).sort((a, b) => b[1] - a[1]);
+  };
+
+  const byCampaign = groupBy((l) => l.utm_campaign ?? "");
+  const bySource = groupBy((l) => l.utm_source ?? "");
+  // utm_term stores the CTA placement (hero / footer / mobile_sticky / …)
+  const byLocation = groupBy((l) => l.utm_term ?? "");
+
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <StatCard icon={CalendarIcon} label="Total Bookings" value={bookings.length} accent />
+        <StatCard icon={TrendingUp} label="Unique Campaigns" value={byCampaign.length} />
+        <StatCard icon={BarChart3} label="CTA Locations" value={byLocation.length} />
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        <BreakdownCard title="By CTA Location" subtitle="utm_term" rows={byLocation} />
+        <BreakdownCard title="By Campaign" subtitle="utm_campaign" rows={byCampaign} />
+        <BreakdownCard title="By UTM Source" subtitle="utm_source" rows={bySource} />
+      </div>
+
+      <div className="bg-card rounded-xl border border-border overflow-hidden">
+        <div className="px-4 py-3 border-b border-border">
+          <h3 className="font-semibold text-foreground">Recent Bookings</h3>
+          <p className="text-xs text-muted-foreground">Attributed via UTM parameters echoed back by Calendly.</p>
+        </div>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead className="bg-muted/50 text-xs">
+              <tr>
+                <th className="text-left px-4 py-2 font-medium text-muted-foreground">Name</th>
+                <th className="text-left px-4 py-2 font-medium text-muted-foreground hidden sm:table-cell">Email</th>
+                <th className="text-left px-4 py-2 font-medium text-muted-foreground">CTA</th>
+                <th className="text-left px-4 py-2 font-medium text-muted-foreground hidden md:table-cell">Campaign</th>
+                <th className="text-left px-4 py-2 font-medium text-muted-foreground hidden lg:table-cell">Start Time</th>
+                <th className="text-left px-4 py-2 font-medium text-muted-foreground hidden md:table-cell">Booked</th>
+              </tr>
+            </thead>
+            <tbody>
+              {bookings.map((b) => (
+                <tr key={b.id} className="border-t border-border">
+                  <td className="px-4 py-2 font-medium text-foreground">{b.name}</td>
+                  <td className="px-4 py-2 hidden sm:table-cell text-muted-foreground">{b.email}</td>
+                  <td className="px-4 py-2">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs bg-primary/10 text-primary border border-primary/20">
+                      {b.utm_term || "unknown"}
+                    </span>
+                  </td>
+                  <td className="px-4 py-2 hidden md:table-cell text-muted-foreground">{b.utm_campaign || "—"}</td>
+                  <td className="px-4 py-2 hidden lg:table-cell text-muted-foreground text-xs">
+                    {b.attribution?.calendly_start_time
+                      ? new Date(b.attribution.calendly_start_time).toLocaleString()
+                      : "—"}
+                  </td>
+                  <td className="px-4 py-2 hidden md:table-cell text-muted-foreground text-xs">
+                    {new Date(b.created_at).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))}
+              {bookings.length === 0 && (
+                <tr>
+                  <td colSpan={6} className="px-4 py-8 text-center text-sm text-muted-foreground">
+                    No Calendly bookings yet. Connect the Calendly webhook to <code className="text-xs">/functions/v1/calendly-webhook</code> to start collecting attribution.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function BreakdownCard({ title, subtitle, rows }: { title: string; subtitle: string; rows: [string, number][] }) {
+  const total = rows.reduce((s, [, n]) => s + n, 0) || 1;
+  return (
+    <div className="bg-card rounded-xl border border-border p-4">
+      <div className="mb-3">
+        <h3 className="font-semibold text-foreground text-sm">{title}</h3>
+        <p className="text-xs text-muted-foreground">{subtitle}</p>
+      </div>
+      <div className="space-y-2">
+        {rows.slice(0, 8).map(([label, count]) => (
+          <div key={label}>
+            <div className="flex items-center justify-between text-xs mb-1">
+              <span className="text-foreground truncate mr-2">{label}</span>
+              <span className="text-muted-foreground tabular-nums">{count}</span>
+            </div>
+            <div className="h-1.5 rounded bg-muted overflow-hidden">
+              <div className="h-full bg-primary" style={{ width: `${(count / total) * 100}%` }} />
+            </div>
+          </div>
+        ))}
+        {rows.length === 0 && <p className="text-xs text-muted-foreground">No data yet</p>}
+      </div>
+    </div>
+  );
+}
