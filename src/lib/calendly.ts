@@ -9,6 +9,28 @@ import { recordConversion } from "@/lib/conversions";
 
 const CALENDLY_BASE = "https://calendly.com/consultantb84/30min";
 
+/**
+ * Idempotency map: `${source}:${campaign}` → last-fired epoch ms.
+ * Prevents double-fires from rapid double-taps, React StrictMode double-invokes,
+ * or a user hitting Back and clicking again within a short window.
+ */
+const CLICK_DEDUP_WINDOW_MS = 3000;
+const recentClicks = new Map<string, number>();
+
+function shouldFire(key: string): boolean {
+  const now = Date.now();
+  const last = recentClicks.get(key) ?? 0;
+  if (now - last < CLICK_DEDUP_WINDOW_MS) return false;
+  recentClicks.set(key, now);
+  // Opportunistic cleanup so the map cannot grow unbounded in a long session.
+  if (recentClicks.size > 50) {
+    for (const [k, ts] of recentClicks) {
+      if (now - ts > CLICK_DEDUP_WINDOW_MS * 4) recentClicks.delete(k);
+    }
+  }
+  return true;
+}
+
 export interface CalendlyCTAOptions {
   /** Placement identifier, e.g. "hero", "header_desktop", "footer". */
   source: string;
@@ -45,6 +67,9 @@ export function buildCalendlyUrl(opts: CalendlyCTAOptions): string {
  */
 export function trackCalendlyClick(opts: CalendlyCTAOptions): void {
   const { source, campaign = "discovery_call", content } = opts;
+  const dedupKey = `${source}:${campaign}:${content ?? ""}`;
+  if (!shouldFire(dedupKey)) return;
+
   const page =
     typeof window !== "undefined" && window.location?.pathname
       ? window.location.pathname
