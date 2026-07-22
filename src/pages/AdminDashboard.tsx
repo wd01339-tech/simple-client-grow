@@ -4,7 +4,8 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   Users, TrendingUp, MessageSquare, LogOut, RefreshCw,
   Flame, Thermometer, Snowflake, Zap, BarChart3, Clock,
-  Phone, Send, ArrowUpDown, MessageCircle, Settings as SettingsIcon, Save
+  Phone, Send, ArrowUpDown, MessageCircle, Settings as SettingsIcon, Save,
+  Calendar as CalendarIcon
 } from "lucide-react";
 
 interface Lead {
@@ -22,6 +23,12 @@ interface Lead {
   created_at: string;
   followup_count: number | null;
   website: string | null;
+  utm_source?: string | null;
+  utm_medium?: string | null;
+  utm_campaign?: string | null;
+  utm_term?: string | null;
+  utm_content?: string | null;
+  attribution?: Record<string, any> | null;
 }
 
 interface ChatMsg {
@@ -56,7 +63,7 @@ const AdminDashboard = () => {
   const [chats, setChats] = useState<ChatMsg[]>([]);
   const [whatsappMsgs, setWhatsappMsgs] = useState<WhatsAppMsg[]>([]);
   const [loading, setLoading] = useState(true);
-  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics" | "settings">("leads");
+  const [tab, setTab] = useState<"leads" | "chats" | "whatsapp" | "analytics" | "bookings" | "settings">("leads");
   const [replyPhone, setReplyPhone] = useState("");
   const [replyText, setReplyText] = useState("");
   const [sending, setSending] = useState(false);
@@ -212,7 +219,7 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <div className="flex gap-1 bg-muted rounded-lg p-1">
-          {(["leads", "whatsapp", "chats", "analytics", "settings"] as const).map((t) => (
+          {(["leads", "bookings", "whatsapp", "chats", "analytics", "settings"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
