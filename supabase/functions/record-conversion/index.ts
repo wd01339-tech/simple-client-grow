@@ -25,6 +25,38 @@ interface Payload {
 
 const STAGE_ORDER = ["lead", "engaged", "qualified", "proposal_sent", "client", "lost"];
 
+const ALLOWED_EVENT_TYPES = new Set([
+  "marquee_offer_click",
+  "chatbot_optin",
+  "whatsapp_click",
+  "consultation_booked",
+  "payment_completed",
+  "audit_request",
+  "contact_form",
+  "pricing_view",
+  "video_engagement",
+]);
+
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function clampStr(v: unknown, max: number): string | null {
+  if (typeof v !== "string") return null;
+  const t = v.trim();
+  if (!t) return null;
+  return t.slice(0, max);
+}
+
+function sanitizeJson(v: unknown, maxBytes = 4000): Record<string, unknown> | null {
+  if (!v || typeof v !== "object" || Array.isArray(v)) return null;
+  try {
+    const s = JSON.stringify(v);
+    if (s.length > maxBytes) return null;
+    return JSON.parse(s);
+  } catch {
+    return null;
+  }
+}
+
 function rankStage(s: string) {
   const i = STAGE_ORDER.indexOf(s);
   return i === -1 ? 0 : i;
@@ -56,13 +88,46 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
   try {
-    const body = (await req.json()) as Payload;
-    if (!body?.event_type) {
-      return new Response(JSON.stringify({ error: "event_type required" }), {
+    let raw: unknown;
+    try {
+      raw = await req.json();
+    } catch {
+      return new Response(JSON.stringify({ error: "invalid json" }), {
         status: 400,
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       });
     }
+    const body = (raw ?? {}) as Payload;
+
+    // Strict event_type allowlist — prevents forging arbitrary scoring events.
+    if (!body?.event_type || !ALLOWED_EVENT_TYPES.has(body.event_type)) {
+      return new Response(JSON.stringify({ error: "invalid event_type" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    // Validate & clamp lead fields
+    const leadInput = (body.lead && typeof body.lead === "object") ? body.lead : {};
+    const safeLead = {
+      id: clampStr(leadInput.id, 64),
+      email: clampStr(leadInput.email, 254),
+      name: clampStr(leadInput.name, 120),
+      phone: clampStr(leadInput.phone, 40),
+      source: clampStr(leadInput.source, 80),
+      inquiry_topic: clampStr(leadInput.inquiry_topic, 200),
+      business_type: clampStr(leadInput.business_type, 80),
+      message: clampStr(leadInput.message, 2000),
+    };
+    if (safeLead.email && !EMAIL_RE.test(safeLead.email)) {
+      return new Response(JSON.stringify({ error: "invalid email" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const safeAttribution = sanitizeJson(body.attribution) ?? {};
+    const safeMetadata = sanitizeJson(body.metadata) ?? {};
+    const safeSessionId = clampStr(body.session_id, 80);
 
     const supabase = createClient(
       Deno.env.get("SUPABASE_URL")!,
@@ -82,14 +147,14 @@ Deno.serve(async (req) => {
     const scoreDelta = Number(weights[body.event_type] ?? 0);
 
     // Resolve / upsert lead
-    let leadId = body.lead?.id ?? null;
+    let leadId = safeLead.id ?? null;
     let lead: any = null;
 
-    if (!leadId && body.lead?.email) {
+    if (!leadId && safeLead.email) {
       const { data: existing } = await supabase
         .from("leads")
         .select("*")
-        .eq("email", body.lead.email)
+        .eq("email", safeLead.email)
         .maybeSingle();
       if (existing) {
         leadId = existing.id;
@@ -97,18 +162,18 @@ Deno.serve(async (req) => {
       }
     }
 
-    if (!leadId && body.lead?.email && body.lead?.name) {
+    if (!leadId && safeLead.email && safeLead.name) {
       const { data: inserted } = await supabase
         .from("leads")
         .insert({
-          name: body.lead.name,
-          email: body.lead.email,
-          phone: body.lead.phone ?? null,
-          source: body.lead.source ?? body.event_type,
-          inquiry_topic: body.lead.inquiry_topic ?? null,
-          business_type: body.lead.business_type ?? null,
-          message: body.lead.message ?? null,
-          attribution: body.attribution ?? null,
+          name: safeLead.name,
+          email: safeLead.email,
+          phone: safeLead.phone,
+          source: safeLead.source ?? body.event_type,
+          inquiry_topic: safeLead.inquiry_topic,
+          business_type: safeLead.business_type,
+          message: safeLead.message,
+          attribution: safeAttribution,
           lead_score: 0,
         })
         .select()
@@ -131,7 +196,7 @@ Deno.serve(async (req) => {
           lead_score: newScore,
           lifecycle_stage: newStage,
           lead_priority: newPriority,
-          attribution: body.attribution ?? lead.attribution,
+          attribution: safeAttribution ?? lead.attribution,
         })
         .eq("id", lead.id);
     }
@@ -140,9 +205,9 @@ Deno.serve(async (req) => {
     await supabase.from("conversion_events").insert({
       event_type: body.event_type,
       lead_id: leadId,
-      session_id: body.session_id ?? null,
+      session_id: safeSessionId,
       score_delta: scoreDelta,
-      metadata: { ...(body.metadata ?? {}), attribution: body.attribution ?? null },
+      metadata: { ...safeMetadata, attribution: safeAttribution },
     });
 
     return new Response(JSON.stringify({ ok: true, lead_id: leadId, score_delta: scoreDelta }), {
