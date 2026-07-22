@@ -538,6 +538,11 @@ const AdminDashboard = () => {
           </div>
         )}
 
+        {/* Bookings Tab */}
+        {tab === "bookings" && (
+          <BookingsPanel leads={leads} />
+        )}
+
         {/* Settings Tab */}
         {tab === "settings" && settings && (
           <div className="space-y-6">
