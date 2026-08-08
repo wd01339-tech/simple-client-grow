@@ -322,16 +322,6 @@ export const SmartOfferBanner = () => {
               {timeLeft}
             </span>
           </p>
-          <a
-            href={waUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={handleClick}
-            data-campaign-id={campaignId}
-            className="shrink-0 inline-flex items-center gap-1 rounded-md bg-white/20 hover:bg-white/30 backdrop-blur px-2.5 sm:px-3 py-1 font-semibold transition-all hover:shadow-[0_0_20px_rgba(255,255,255,0.4)] whitespace-nowrap"
-          >
-            {offer.cta}
-          </a>
           <button
             onClick={handleDismiss}
             aria-label="Dismiss offer"
