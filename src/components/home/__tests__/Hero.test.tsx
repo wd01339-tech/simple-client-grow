@@ -24,7 +24,9 @@ vi.mock("@/lib/analytics", async () => {
 });
 
 const CALENDLY_BASE = "https://calendly.com/consultantb84/30min";
-const BOOKING_LABEL = /book (my )?free (discovery )?call/i;
+/** Matches both the visible copy ("Book My Free Discovery Call") and the
+ *  accessible name ("Book a free 30-minute discovery call"). */
+const BOOKING_LABEL = /book\b.*\bfree\b.*\bcall\b/i;
 
 /** Emulate a breakpoint. Tailwind classes don't apply in jsdom, so this asserts
  *  markup-level invariants that must hold at every width. */
