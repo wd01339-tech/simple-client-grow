@@ -1,9 +1,10 @@
 import "@testing-library/jest-dom";
 
 // jsdom lacks IntersectionObserver (used for lazy media/animation triggers).
-class MockIntersectionObserver implements IntersectionObserver {
+class MockIntersectionObserver {
   readonly root = null;
   readonly rootMargin = "";
+  readonly scrollMargin = "";
   readonly thresholds: ReadonlyArray<number> = [];
   observe() {}
   unobserve() {}
