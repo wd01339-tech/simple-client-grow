@@ -312,6 +312,7 @@ export const SmartOfferBanner = () => {
         }}
         role="region"
         aria-label="Special offer"
+        data-testid="smart-offer-banner"
       >
         <div className="container mx-auto px-3 sm:px-6 py-2 flex items-center gap-2 sm:gap-4 text-[11px] sm:text-sm">
           <Sparkles className="w-4 h-4 shrink-0 hidden sm:block" />
