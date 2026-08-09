@@ -1,11 +1,15 @@
 /**
  * Google Analytics 4 + Custom Event Tracking
- * 
- * Replace GA_MEASUREMENT_ID with your actual GA4 ID (e.g. G-XXXXXXXXXX)
+ *
+ * Set VITE_GA_MEASUREMENT_ID (e.g. G-XXXXXXXXXX) to enable real GA4 delivery.
  * To get one: https://analytics.google.com → Admin → Data Streams → Web
+ *
+ * Every tracked event is ALSO pushed to window.dataLayer regardless of whether
+ * GA4 is configured, so events stay observable in DebugView / automated tests.
  */
 
-const GA_MEASUREMENT_ID = "G-XXXXXXXXXX"; // TODO: Replace with your actual GA4 Measurement ID
+const GA_MEASUREMENT_ID =
+  (import.meta.env.VITE_GA_MEASUREMENT_ID as string | undefined) || "G-XXXXXXXXXX";
 
 declare global {
   interface Window {
@@ -15,6 +19,13 @@ declare global {
 }
 
 let initialized = false;
+
+/** Always-on event mirror so tests/DebugView can observe events pre-config. */
+function pushToDataLayer(args: unknown[]) {
+  if (typeof window === "undefined") return;
+  window.dataLayer = window.dataLayer || [];
+  window.dataLayer.push(args);
+}
 
 /**
  * Initialize Google Analytics (call once on app load)
@@ -50,18 +61,16 @@ export function initGA() {
  * Track a page view
  */
 export function trackPageView(path: string, title?: string) {
-  if (!initialized) return;
-  window.gtag("event", "page_view", {
-    page_path: path,
-    page_title: title || document.title,
-  });
+  const params = { page_path: path, page_title: title || document.title };
+  if (!initialized) return pushToDataLayer(["event", "page_view", params]);
+  window.gtag("event", "page_view", params);
 }
 
 /**
  * Track a custom event
  */
 export function trackEvent(eventName: string, params?: Record<string, unknown>) {
-  if (!initialized) return;
+  if (!initialized) return pushToDataLayer(["event", eventName, params]);
   window.gtag("event", eventName, params);
 }
 
@@ -69,12 +78,13 @@ export function trackEvent(eventName: string, params?: Record<string, unknown>) 
  * Track a conversion (e.g. form submission)
  */
 export function trackConversion(conversionLabel: string, value?: number) {
-  if (!initialized) return;
-  window.gtag("event", "conversion", {
+  const params = {
     send_to: `${GA_MEASUREMENT_ID}/${conversionLabel}`,
     value: value || 1,
     currency: "INR",
-  });
+  };
+  if (!initialized) return pushToDataLayer(["event", "conversion", params]);
+  window.gtag("event", "conversion", params);
 }
 
 // Pre-defined conversion events
