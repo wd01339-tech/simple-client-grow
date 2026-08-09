@@ -93,7 +93,7 @@ async def run() -> None:
             )
             await page.route("https://calendly.com/**", lambda r: r.abort())
             await page.goto(BASE_URL, wait_until="domcontentloaded")
-            hero = page.locator("section").first
+            hero = page.locator('section[aria-label*="Freelance Digital Consultant"]').first
             await hero.wait_for(state="visible")
             await page.wait_for_timeout(1500)  # settle entry animations
 
