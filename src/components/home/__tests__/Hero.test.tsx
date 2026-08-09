@@ -57,13 +57,21 @@ function heroSection(): HTMLElement {
 }
 
 describe("Hero booking CTA", () => {
+  // calendly.ts dedups clicks within a 3s window using Date.now(); shift the
+  // clock forward between tests so each test starts outside that window.
+  let clockOffset = 0;
+  const realNow = Date.now.bind(Date);
+
   beforeEach(() => {
+    clockOffset += 60_000;
+    vi.spyOn(Date, "now").mockImplementation(() => realNow() + clockOffset);
     window.gtag = vi.fn();
     window.dataLayer = [];
   });
 
   afterEach(() => {
     cleanup();
+    vi.restoreAllMocks();
     vi.clearAllMocks();
   });
 
