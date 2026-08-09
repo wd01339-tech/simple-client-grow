@@ -100,6 +100,13 @@ async def run() -> None:
             await page.goto(BASE_URL, wait_until="domcontentloaded")
             hero = page.locator('section[aria-label*="Freelance Digital Consultant"]').first
             await hero.wait_for(state="visible")
+            # Freeze animation-driven pixels so the diff only reflects real layout/UI change.
+            await page.add_style_tag(
+                content=(
+                    "*,*::before,*::after{animation:none!important;"
+                    "transition:none!important;caret-color:transparent!important}"
+                )
+            )
             await page.wait_for_timeout(1500)  # settle entry animations
 
             # 1. exactly one booking CTA in the hero
@@ -125,8 +132,13 @@ async def run() -> None:
                 check(q.get(k) == v, f"[{name}] {k}={v} (got {q.get(k)!r})")
             check(bool(q.get("utm_content")), f"[{name}] utm_content present (got {q.get('utm_content')!r})")
 
-            # 3. visual regression of the hero section
-            await hero.screenshot(path=str(CURRENT / f"hero-{name}.png"))
+            # 3. visual regression of the hero section.
+            # The smart-offer panel rotates copy and runs a live countdown, so it is
+            # masked out — layout shifts elsewhere in the hero still get flagged.
+            masks = [
+                page.locator('section[aria-label*="Freelance Digital Consultant"] [data-testid="smart-offer-banner"]')
+            ]
+            await hero.screenshot(path=str(CURRENT / f"hero-{name}.png"), mask=masks)
             compare(name)
 
             # 4. accessibility: accessible name, focusability, keyboard activation
