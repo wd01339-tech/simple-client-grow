@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
-import { render, screen, within, cleanup } from "@testing-library/react";
+import { render, within, cleanup } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { MemoryRouter } from "react-router-dom";
 import { Hero } from "../Hero";
@@ -9,6 +9,19 @@ vi.mock("@/lib/conversions", () => ({ recordConversion: vi.fn() }));
 vi.mock("@/integrations/supabase/client", () => ({
   supabase: { functions: { invoke: vi.fn() }, from: vi.fn() },
 }));
+
+// GA4 transport: trackEvent is the single funnel into gtag, so we spy there and
+// mirror the payload into window.dataLayer exactly like gtag.js would.
+vi.mock("@/lib/analytics", async () => {
+  const actual = await vi.importActual<typeof import("@/lib/analytics")>("@/lib/analytics");
+  return {
+    ...actual,
+    initGA: vi.fn(),
+    trackEvent: vi.fn((name: string, params?: Record<string, unknown>) => {
+      window.gtag("event", name, params);
+    }),
+  };
+});
 
 const CALENDLY_BASE = "https://calendly.com/consultantb84/30min";
 const BOOKING_LABEL = /book (my )?free (discovery )?call/i;
