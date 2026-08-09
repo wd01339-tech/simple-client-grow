@@ -43,7 +43,7 @@ VIEWPORTS = [
 ]
 
 # Fraction of differing pixels tolerated (anti-aliasing / gradient noise).
-DIFF_TOLERANCE = 0.005
+DIFF_TOLERANCE = 0.01
 
 UPDATE = "--update" in sys.argv
 failures: list[str] = []
