@@ -136,7 +136,9 @@ async def run() -> None:
             # The smart-offer panel rotates copy and runs a live countdown, so it is
             # masked out — layout shifts elsewhere in the hero still get flagged.
             masks = [
-                page.locator('section[aria-label*="Freelance Digital Consultant"] [data-testid="smart-offer-banner"]')
+                page.locator('[data-testid="smart-offer-banner"]'),
+                page.locator("header"),          # sticky nav overlaps the hero box; has A/B CTA copy
+                page.locator(".fixed"),          # floating chat / WhatsApp / mobile sticky CTA
             ]
             await hero.screenshot(path=str(CURRENT / f"hero-{name}.png"), mask=masks)
             compare(name)
