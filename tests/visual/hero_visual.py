@@ -88,10 +88,15 @@ async def run() -> None:
             # Capture GA4 payloads and stop the browser from leaving the page.
             await page.add_init_script(
                 "window.__ga4=[];window.dataLayer=[];"
-                "window.gtag=(...a)=>{window.dataLayer.push(a);"
-                "if(a[0]==='event')window.__ga4.push({name:a[1],params:a[2]||{}});};"
+                "const push=window.dataLayer.push.bind(window.dataLayer);"
+                "window.dataLayer.push=(...items)=>{for(const it of items){"
+                "const a=Array.isArray(it)?it:Array.from(it||[]);"
+                "if(a[0]==='event')window.__ga4.push({name:a[1],params:a[2]||{}});}return push(...items);};"
+                "window.gtag=(...a)=>window.dataLayer.push(a);"
+                "document.addEventListener('click',e=>{const t=e.target;"
+                "const a=t&&t.closest&&t.closest('a[href*=\"calendly.com\"]');"
+                "if(a)e.preventDefault();},true);"
             )
-            await page.route("https://calendly.com/**", lambda r: r.abort())
             await page.goto(BASE_URL, wait_until="domcontentloaded")
             hero = page.locator('section[aria-label*="Freelance Digital Consultant"]').first
             await hero.wait_for(state="visible")
