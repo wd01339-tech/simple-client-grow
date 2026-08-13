@@ -50,9 +50,9 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         <p>Questions? Just reply to this email or tap below:</p>
         
         <p style="margin: 20px 0;">
-          <a href="https://wa.me/918335870240?text=Hi%20%F0%9F%91%8B%20I%20requested%20a%20free%20audit%20and%20have%20a%20question" 
-             style="background: #25D366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
-            💬 Message on WhatsApp
+          <a href="https://calendly.com/consultantb84/30min" 
+             style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
+            📅 Book Free Call
           </a>
         </p>
         
@@ -80,8 +80,8 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         <p>Simply reply to this email or tap below:</p>
         
         <p style="margin: 20px 0;">
-          <a href="https://wa.me/918335870240?text=Hi%20%F0%9F%91%8B%20Yes%20please%20proceed%20with%20my%20audit" 
-             style="background: #25D366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
+          <a href="https://calendly.com/consultantb84/30min" 
+             style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
             ✅ Yes, proceed with my audit
           </a>
         </p>
@@ -131,7 +131,7 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         <p>Want me to walk you through your results? I offer a <strong>free 20-minute call</strong> to discuss the findings.</p>
         
         <p style="margin: 20px 0;">
-          <a href="https://wa.me/918335870240?text=Hi%20%F0%9F%91%8B%20I%27d%20like%20to%20see%20my%20full%20audit%20results" 
+          <a href="https://calendly.com/consultantb84/30min" 
              style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
             📊 View My Full Audit
           </a>
@@ -164,7 +164,7 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         <p><strong>No sales pitch, no pressure</strong> — just practical advice from someone who's helped dozens of businesses improve their online presence.</p>
         
         <p style="margin: 20px 0;">
-          <a href="https://wa.me/918335870240?text=Hi%20%F0%9F%91%8B%20I%27d%20like%20to%20schedule%20a%20free%20discovery%20call" 
+          <a href="https://calendly.com/consultantb84/30min" 
              style="background: #6366f1; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; display: inline-block; font-size: 16px;">
             📞 Schedule My Free Call
           </a>
@@ -195,7 +195,7 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         <p><strong>You can message me anytime when you're ready 😊</strong></p>
         
         <p style="margin: 20px 0;">
-          <a href="https://wa.me/918335870240?text=Hi%20%F0%9F%91%8B%20I%27m%20ready%20to%20discuss%20my%20website" 
+          <a href="https://calendly.com/consultantb84/30min" 
              style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
             💬 Get in touch
           </a>
