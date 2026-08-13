@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Package } from "@/data/packages";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 import { Link } from "react-router-dom";
 
 interface PackageCardProps {
@@ -11,9 +12,6 @@ interface PackageCardProps {
   index: number;
   onPayment: (pkg: Package, method: string) => void;
 }
-
-const CALENDLY_URL =
-  "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=package_card";
 
 export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
 
@@ -112,10 +110,10 @@ export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
           asChild
         >
           <a
-            href={CALENDLY_URL}
+            href={buildCalendlyUrl({ source: "package_card", content: pkg.name })}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackEvent("calendly_cta_click", { source: "package_card", package: pkg.name })}
+            onClick={() => trackCalendlyClick({ source: "package_card", content: pkg.name })}
           >
             <MessageCircle className="w-4 h-4" />
             Book Free Discovery Call
