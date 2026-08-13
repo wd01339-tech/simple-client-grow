@@ -39,6 +39,30 @@ const ALLOWED_EVENT_TYPES = new Set([
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/** Guardrails for unauthenticated (public site visitor) callers. */
+const ANON_MAX_DELTA = 25; // per-event score increment ceiling
+const ANON_MAX_SCORE = 60; // cannot push a lead into the top tiers
+const ANON_MAX_STAGE = "qualified"; // cannot self-promote to proposal_sent/client
+
+async function isAdminRequest(
+  supabase: ReturnType<typeof createClient>,
+  req: Request,
+): Promise<boolean> {
+  const authHeader = req.headers.get("Authorization") ?? "";
+  const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+  if (!token) return false;
+  const { data: userData } = await supabase.auth.getUser(token);
+  const uid = userData?.user?.id;
+  if (!uid) return false;
+  const { data: roleRow } = await supabase
+    .from("user_roles")
+    .select("role")
+    .eq("user_id", uid)
+    .eq("role", "admin")
+    .maybeSingle();
+  return Boolean(roleRow);
+}
+
 function clampStr(v: unknown, max: number): string | null {
   if (typeof v !== "string") return null;
   const t = v.trim();
@@ -134,6 +158,12 @@ Deno.serve(async (req) => {
       Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!,
     );
 
+    // Only admins may target an arbitrary lead by id or drive unbounded score /
+    // lifecycle changes. Anonymous visitors are limited to their own email and
+    // to capped, non-regressing increments so CRM data cannot be manipulated.
+    const isAdmin = await isAdminRequest(supabase, req);
+    if (!isAdmin) safeLead.id = null;
+
     // Load settings
     const { data: settings } = await supabase
       .from("crm_settings")
@@ -144,7 +174,9 @@ Deno.serve(async (req) => {
     const weights: Record<string, number> = settings?.scoring_weights ?? {};
     const thresholds = settings?.stage_thresholds ?? {};
     const priThresholds = settings?.priority_thresholds ?? {};
-    const scoreDelta = Number(weights[body.event_type] ?? 0);
+    let scoreDelta = Number(weights[body.event_type] ?? 0);
+    if (!Number.isFinite(scoreDelta)) scoreDelta = 0;
+    if (!isAdmin) scoreDelta = Math.min(Math.max(scoreDelta, 0), ANON_MAX_DELTA);
 
     // Resolve / upsert lead
     let leadId = safeLead.id ?? null;
@@ -187,8 +219,14 @@ Deno.serve(async (req) => {
 
     // Update lead score & stage
     if (lead) {
-      const newScore = Math.max(0, (lead.lead_score ?? 0) + scoreDelta);
-      const newStage = stageFor(newScore, thresholds, lead.lifecycle_stage ?? "lead", body.event_type);
+      const currentScore = lead.lead_score ?? 0;
+      let newScore = Math.max(0, currentScore + scoreDelta);
+      if (!isAdmin) newScore = Math.min(newScore, Math.max(currentScore, ANON_MAX_SCORE));
+      const currentStage = lead.lifecycle_stage ?? "lead";
+      let newStage = stageFor(newScore, thresholds, currentStage, body.event_type);
+      if (!isAdmin && rankStage(newStage) > rankStage(ANON_MAX_STAGE)) {
+        newStage = rankStage(currentStage) > rankStage(ANON_MAX_STAGE) ? currentStage : ANON_MAX_STAGE;
+      }
       const newPriority = priorityFor(newScore, priThresholds);
       await supabase
         .from("leads")
@@ -196,7 +234,10 @@ Deno.serve(async (req) => {
           lead_score: newScore,
           lifecycle_stage: newStage,
           lead_priority: newPriority,
-          attribution: safeAttribution ?? lead.attribution,
+          // Never let an anonymous caller wipe stored attribution.
+          attribution: Object.keys(safeAttribution).length > 0
+            ? { ...(lead.attribution ?? {}), ...safeAttribution }
+            : lead.attribution,
         })
         .eq("id", lead.id);
     }
