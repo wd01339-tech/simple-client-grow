@@ -82,11 +82,13 @@ Deno.serve(async (req) => {
       const { data: userData } = await supabase.auth.getUser(token);
       const uid = userData?.user?.id;
       if (uid) {
-        const { data: isAdmin } = await supabase.rpc("has_role", {
-          _user_id: uid,
-          _role: "admin",
-        });
-        authorized = isAdmin === true;
+        const { data: roleRow } = await supabase
+          .from("user_roles")
+          .select("role")
+          .eq("user_id", uid)
+          .eq("role", "admin")
+          .maybeSingle();
+        authorized = Boolean(roleRow);
       }
     }
   }
