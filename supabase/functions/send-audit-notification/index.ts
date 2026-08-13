@@ -114,9 +114,9 @@ const handler = async (req: Request): Promise<Response> => {
             <p>If you'd like to expedite, you can reply with <strong>"Schedule Now"</strong> and your preferred times, and we'll prioritize your request.</p>
             
             <p style="margin: 20px 0;">
-              <a href="https://wa.me/918335870240?text=Hi%20%F0%9F%91%8B%20I%20just%20requested%20a%20free%20audit%20and%20would%20like%20to%20schedule%20a%20call" 
+              <a href="https://calendly.com/consultantb84/30min" 
                  style="background: #25D366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: bold;">
-                💬 Schedule via WhatsApp
+                📅 Book Your Free 30-Minute Discovery Call
               </a>
             </p>
             
