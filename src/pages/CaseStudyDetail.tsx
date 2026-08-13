@@ -5,6 +5,7 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/portfolio/BeforeAfterSlider";
 import { getCaseStudyBySlug, caseStudies } from "@/data/caseStudies";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 const CaseStudyDetail = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -256,9 +257,10 @@ const CaseStudyDetail = () => {
               </Button>
               <Button variant="outline" size="lg" asChild>
                 <a
-                  href="https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=case_study"
+                  href={buildCalendlyUrl({ source: "case_study" })}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackCalendlyClick({ source: "case_study" })}
                 >
                   Book Free Discovery Call
                 </a>
