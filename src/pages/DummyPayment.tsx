@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { packages } from "@/data/packages";
 import { recordConversion } from "@/lib/conversions";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 import { toast } from "sonner";
 
 const DummyPayment = () => {
@@ -159,9 +160,10 @@ const DummyPayment = () => {
 
               <Button variant="outline" className="w-full gap-2" asChild>
                 <a
-                  href="https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=dummy_payment"
+                  href={buildCalendlyUrl({ source: "dummy_payment" })}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackCalendlyClick({ source: "dummy_payment" })}
                 >
                   <MessageCircle className="w-4 h-4" />
                   Book Free Discovery Call

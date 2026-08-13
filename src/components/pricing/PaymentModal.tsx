@@ -4,6 +4,7 @@ import { X, CreditCard, Shield, FileText, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Package } from "@/data/packages";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 interface PaymentModalProps {
   isOpen: boolean;
@@ -45,8 +46,8 @@ export const PaymentModal = ({ isOpen, onClose, pkg }: PaymentModalProps) => {
     setIsProcessing(true);
     
     // Route to Calendly Discovery Call instead of WhatsApp
-    const calendlyUrl =
-      "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=payment_modal";
+    const calendlyUrl = buildCalendlyUrl({ source: "payment_modal", content: pkg?.name });
+    trackCalendlyClick({ source: "payment_modal", content: pkg?.name });
     setTimeout(() => {
       window.open(calendlyUrl, "_blank");
       setIsProcessing(false);
@@ -168,9 +169,10 @@ export const PaymentModal = ({ isOpen, onClose, pkg }: PaymentModalProps) => {
                 <p className="text-xs text-muted-foreground mb-2">Prefer to talk first?</p>
                 <Button variant="ghost" size="sm" className="gap-2" asChild>
                   <a
-                    href="https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=payment_modal_footer"
+                    href={buildCalendlyUrl({ source: "payment_modal_footer" })}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackCalendlyClick({ source: "payment_modal_footer" })}
                   >
                     <MessageCircle className="w-4 h-4" />
                     Book Free Discovery Call Before Paying

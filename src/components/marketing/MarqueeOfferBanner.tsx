@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { trackEvent } from "@/lib/analytics";
 import { recordConversion } from "@/lib/conversions";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 const MONTHLY_OFFERS = [
   "🔥 January Special: Free Website & GMB Audit – This Week Only!",
@@ -16,9 +17,6 @@ const MONTHLY_OFFERS = [
   "🦃 November Deal: Affordable Website + Free Consultation!",
   "🎁 December Finale: Free SEO + GMB Audit – Year-End Special!",
 ];
-
-const CLAIM_URL =
-  "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=monthly_offer&utm_term=marquee_banner";
 
 export const MarqueeOfferBanner = () => {
   const [visible, setVisible] = useState(false);
@@ -37,12 +35,27 @@ export const MarqueeOfferBanner = () => {
 
   const handleClick = () => {
     trackEvent("marquee_offer_click", {});
+    trackCalendlyClick({
+      source: "marquee_banner",
+      campaign: "monthly_offer",
+      medium: "offer_banner",
+      content: offer,
+    });
     recordConversion({
       event_type: "marquee_offer_click",
       attribution: { offer_text: offer, cta: "marquee_banner" },
       metadata: { offer_text: offer },
     });
-    window.open(CLAIM_URL, "_blank", "noopener,noreferrer");
+    window.open(
+      buildCalendlyUrl({
+        source: "marquee_banner",
+        campaign: "monthly_offer",
+        medium: "offer_banner",
+        content: offer,
+      }),
+      "_blank",
+      "noopener,noreferrer"
+    );
   };
 
   return (
