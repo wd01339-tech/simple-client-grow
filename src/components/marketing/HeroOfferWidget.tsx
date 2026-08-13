@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Clock, X } from "lucide-react";
 import { trackEvent, ConversionEvents } from "@/lib/analytics";
 import { recordConversion } from "@/lib/conversions";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 type UserType = "new" | "returning" | "engaged";
 
@@ -82,16 +83,20 @@ export const HeroOfferWidget = () => {
   const m = Math.floor(remaining / 60000);
   const s = Math.floor((remaining % 60000) / 1000);
 
-  const waUrl = useMemo(() => {
-    const campaignId = `hero_offer_${new Date().toISOString().slice(0, 7)}_${userType}`;
-    const utm = new URLSearchParams({
-      utm_source: "website",
-      utm_medium: "hero_offer_widget",
-      utm_campaign: campaignId,
-      utm_content: userType,
-    }).toString();
-    return `https://calendly.com/consultantb84/30min?${utm}`;
-  }, [offer.wa, userType]);
+  const campaignId = useMemo(
+    () => `hero_offer_${new Date().toISOString().slice(0, 7)}_${userType}`,
+    [userType]
+  );
+  const waUrl = useMemo(
+    () =>
+      buildCalendlyUrl({
+        source: "hero_offer_widget",
+        campaign: campaignId,
+        medium: "offer_banner",
+        content: userType,
+      }),
+    [campaignId, userType]
+  );
 
   const handleClick = () => {
     sessionStorage.setItem("clickedCTA", "1");
@@ -100,6 +105,12 @@ export const HeroOfferWidget = () => {
       user_type: userType,
     });
     trackEvent("hero_offer_click", { user_type: userType });
+    trackCalendlyClick({
+      source: "hero_offer_widget",
+      campaign: campaignId,
+      medium: "offer_banner",
+      content: userType,
+    });
     recordConversion({
       event_type: "whatsapp_click",
       attribution: { source: "hero_offer_widget", user_type: userType, offer_text: offer.text },
