@@ -69,6 +69,35 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
+  // Bulk dispatch endpoint: only the scheduler (shared cron secret) or an
+  // authenticated admin may trigger it. Fails closed when CRON_SECRET is unset.
+  const CRON_SECRET = Deno.env.get("CRON_SECRET");
+  const providedSecret = req.headers.get("x-cron-secret");
+  let authorized = Boolean(CRON_SECRET) && providedSecret === CRON_SECRET;
+
+  if (!authorized) {
+    const authHeader = req.headers.get("Authorization") ?? "";
+    const token = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+    if (token) {
+      const { data: userData } = await supabase.auth.getUser(token);
+      const uid = userData?.user?.id;
+      if (uid) {
+        const { data: isAdmin } = await supabase.rpc("has_role", {
+          _user_id: uid,
+          _role: "admin",
+        });
+        authorized = isAdmin === true;
+      }
+    }
+  }
+
+  if (!authorized) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
+
   try {
     const now = new Date();
     const h24 = new Date(now.getTime() - 24 * 60 * 60 * 1000).toISOString();
