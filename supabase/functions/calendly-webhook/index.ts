@@ -7,10 +7,12 @@ import { createClient } from "npm:@supabase/supabase-js@2";
 
 const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
 const SERVICE_ROLE = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
-const SIGNING_KEY = Deno.env.get("CALENDLY_WEBHOOK_SIGNING_KEY"); // optional
+// Required. The webhook fails closed when this is not configured so nobody can
+// POST fabricated bookings/cancellations into the CRM.
+const SIGNING_KEY = Deno.env.get("CALENDLY_WEBHOOK_SIGNING_KEY");
 
 async function verifySignature(rawBody: string, header: string | null): Promise<boolean> {
-  if (!SIGNING_KEY) return true; // signature enforcement optional
+  if (!SIGNING_KEY) return false; // fail closed: no key configured → reject everything
   if (!header) return false;
   // Calendly format: "t=<ts>,v1=<hmac_sha256_hex>"
   const parts = Object.fromEntries(
@@ -58,6 +60,13 @@ Deno.serve(async (req) => {
 
   const rawBody = await req.text();
   const sigHeader = req.headers.get("Calendly-Webhook-Signature");
+  if (!SIGNING_KEY) {
+    console.error("[calendly-webhook] CALENDLY_WEBHOOK_SIGNING_KEY is not configured; rejecting request");
+    return new Response(JSON.stringify({ error: "webhook_not_configured" }), {
+      status: 503,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
+  }
   if (!(await verifySignature(rawBody, sigHeader))) {
     return new Response(JSON.stringify({ error: "invalid_signature" }), {
       status: 401,
