@@ -51,8 +51,8 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         
         <p style="margin: 20px 0;">
           <a href="https://calendly.com/consultantb84/30min" 
-             style="background: #25D366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
-            💬 Message on WhatsApp
+             style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
+            📅 Book Free Call
           </a>
         </p>
         
@@ -81,7 +81,7 @@ const followupTemplates: Record<number, { subject: string; html: (name: string) 
         
         <p style="margin: 20px 0;">
           <a href="https://calendly.com/consultantb84/30min" 
-             style="background: #25D366; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
+             style="background: #6366f1; color: white; padding: 12px 24px; text-decoration: none; border-radius: 8px; display: inline-block;">
             ✅ Yes, proceed with my audit
           </a>
         </p>
