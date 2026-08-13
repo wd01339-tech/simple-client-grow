@@ -38,13 +38,15 @@ export interface CalendlyCTAOptions {
   campaign?: string;
   /** Optional content/variant label (e.g. A/B test variant). */
   content?: string;
+  /** Optional medium override; defaults to "cta_button" (e.g. "offer_banner"). */
+  medium?: string;
 }
 
 /**
  * Build a Calendly URL with UTM parameters based on the current page and CTA placement.
  */
 export function buildCalendlyUrl(opts: CalendlyCTAOptions): string {
-  const { source, campaign = "discovery_call", content } = opts;
+  const { source, campaign = "discovery_call", content, medium = "cta_button" } = opts;
   const page =
     typeof window !== "undefined" && window.location?.pathname
       ? window.location.pathname.replace(/^\//, "") || "home"
@@ -52,7 +54,7 @@ export function buildCalendlyUrl(opts: CalendlyCTAOptions): string {
 
   const params = new URLSearchParams({
     utm_source: "website",
-    utm_medium: "cta_button",
+    utm_medium: medium,
     utm_campaign: campaign,
     utm_term: source,
     utm_content: content ?? page,
@@ -66,7 +68,7 @@ export function buildCalendlyUrl(opts: CalendlyCTAOptions): string {
  * Safe to call inside an anchor onClick — non-blocking.
  */
 export function trackCalendlyClick(opts: CalendlyCTAOptions): void {
-  const { source, campaign = "discovery_call", content } = opts;
+  const { source, campaign = "discovery_call", content, medium = "cta_button" } = opts;
   const dedupKey = `${source}:${campaign}:${content ?? ""}`;
   if (!shouldFire(dedupKey)) return;
 
@@ -80,6 +82,7 @@ export function trackCalendlyClick(opts: CalendlyCTAOptions): void {
     source,
     campaign,
     content: content ?? page,
+    medium,
     page,
   });
   trackEvent(ConversionEvents.CTA_CLICK, {
