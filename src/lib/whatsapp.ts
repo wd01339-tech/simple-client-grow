@@ -173,16 +173,9 @@ export function getWhatsAppUrl(
     country?: string;
   }
 ): string {
-  // All previous WhatsApp CTAs now route to the Calendly Discovery Call
-  // to consolidate lead capture into scheduled consultations.
-  const params = new URLSearchParams({
-    utm_source: "website",
-    utm_medium: "cta_button",
-    utm_campaign: "discovery_call",
-    utm_term: `whatsapp_${intent}`,
-    utm_content: customDetails?.packageName || intent,
-  });
-  return `https://calendly.com/consultantb84/30min?${params.toString()}`;
+  // WhatsApp chatbot routes to a WhatsApp conversation (no scheduling redirect).
+  const message = buildWhatsAppMessage(intent, customDetails);
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 /**
