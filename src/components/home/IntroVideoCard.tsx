@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Play, ChevronDown } from "lucide-react";
 import introVideo from "@/assets/consultant-intro.mp4.asset.json";
-import introThumb from "@/assets/intro-video-thumbnail.jpg";
+import introPoster from "@/assets/intro-video-poster.png.asset.json";
 import { recordConversion } from "@/lib/conversions";
 
 const VIDEO_TITLE = "Meet Your Freelance Digital Consultant";
@@ -107,7 +107,7 @@ export const IntroVideoCard = () => {
     name: "Freelance Digital Consultant Introduction",
     description:
       "Introduction video presenting freelance website development, local SEO, Google Business Profile optimization, digital marketing support, and online growth services for small businesses worldwide.",
-    thumbnailUrl: typeof window !== "undefined" ? window.location.origin + introThumb : introThumb,
+    thumbnailUrl: typeof window !== "undefined" ? window.location.origin + introPoster.url : introPoster.url,
     contentUrl: introVideo.url,
     uploadDate: introVideo.created_at,
     transcript: TRANSCRIPT,
@@ -130,11 +130,11 @@ export const IntroVideoCard = () => {
         {VIDEO_TITLE}
       </h3>
       <div className="relative group rounded-2xl p-[1.5px] bg-gradient-to-br from-primary/60 via-secondary/40 to-accent/60 shadow-[0_15px_40px_-15px_hsl(var(--primary)/0.4)] transition-shadow duration-300 hover:shadow-[0_20px_55px_-15px_hsl(var(--primary)/0.55)]">
-        <div className="relative aspect-video rounded-[14px] overflow-hidden bg-background">
+        <div className="relative aspect-[16/9] rounded-[14px] overflow-hidden bg-background">
           <video
             ref={videoRef}
             src={introVideo.url}
-            poster={introThumb}
+            poster={introPoster.url}
             preload="none"
             playsInline
             controls={playing}
