@@ -138,7 +138,7 @@ export const IntroVideoCard = () => {
             preload="none"
             playsInline
             controls={playing}
-            className="w-full h-full object-contain"
+            className="w-full h-full object-cover block"
             onPlay={() => {
               lastTickRef.current = performance.now();
               if (!hasPlayedRef.current) {
