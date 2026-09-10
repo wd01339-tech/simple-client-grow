@@ -111,7 +111,7 @@ export default function OAuthConsent() {
           </div>
           <div>
             <h1 className="text-lg font-semibold text-foreground">Connect {clientName}</h1>
-            <p className="text-xs text-muted-foreground">to Freelance Digital Consultant</p>
+            <p className="text-xs text-muted-foreground">to Digital Growth Strategy</p>
           </div>
         </div>
         <div className="p-6 space-y-4">

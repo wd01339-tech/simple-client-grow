@@ -7,7 +7,7 @@ import { SEOHead } from "@/components/seo/SEOHead";
 
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 
-const IMAGE_ALT = "Freelance digital consultant providing remote website and marketing support for small businesses";
+const IMAGE_ALT = "Digital strategy, web development, and growth marketing expert providing remote website and marketing support for small businesses";
 
 const values = [
   {
@@ -79,14 +79,14 @@ const AboutPage = () => {
               </div>
               
               <h1 className="font-display text-4xl sm:text-5xl font-bold mt-4 mb-6">
-                Remote Freelance Digital Consultant —{" "}
+                Digital Strategy + Web Development + Growth Marketing —{" "}
                 <span className="gradient-text">Affordable Website & Marketing Help</span>
               </h1>
               
               <p className="text-muted-foreground text-lg mb-6">
-                I started freelancing because too many small business owners — especially in tourism, 
+                I started this practice because too many small business owners — especially in tourism, 
                 hospitality, and local services — struggle to find <strong>affordable website design</strong> and 
-                <strong>personal digital marketing support</strong> without paying agency prices.
+                <strong>dedicated digital strategy, web development, and growth marketing support</strong> without paying agency prices.
               </p>
               
               <p className="text-muted-foreground mb-6">
@@ -135,7 +135,7 @@ const AboutPage = () => {
                 <div className="relative bg-card rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src={heroConsultant}
-                    alt={IMAGE_ALT}
+                    alt="Digital strategy, web development, and growth marketing expert helping small businesses"
                     className="w-full h-auto object-cover aspect-[4/5]"
                     width={400}
                     height={500}
@@ -177,11 +177,11 @@ const AboutPage = () => {
             className="text-center max-w-2xl mx-auto mb-16"
           >
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-              Why Hire a Freelance Digital Consultant Instead of an Agency?
+              Why Digital Strategy + Web Development + Growth Marketing?
             </h2>
             <p className="text-muted-foreground text-lg">
               Digital marketing agencies charge high fees for impersonal service. 
-              A freelance consultant delivers affordable, direct, and results-focused website and SEO support.
+              A dedicated digital partner delivers affordable, direct, and results-focused website and SEO support.
             </p>
           </motion.div>
 
@@ -277,7 +277,7 @@ const AboutPage = () => {
               </Button>
             </div>
             <p className="text-primary-foreground/70 text-sm mt-6">
-              No agencies, no middlemen — direct freelancer support.
+              No agencies, no middlemen — direct expert support.
             </p>
           </div>
         </div>

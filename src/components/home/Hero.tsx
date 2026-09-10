@@ -13,11 +13,11 @@ const benefits = [
   "Results-Focused Solutions",
 ];
 
-const IMAGE_ALT = "Freelance digital consultant helping small businesses, tourism brands, and local services grow online";
+const IMAGE_ALT = "Digital strategy, web development, and growth marketing expert helping small businesses, tourism brands, and local services grow online";
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden" aria-label="Freelance Digital Consultant for Small Business Growth">
+    <section className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden" aria-label="Digital Strategy, Web Development, and Growth Marketing for Small Business Growth">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -44,7 +44,7 @@ export const Hero = () => {
               <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.25)]">
                 <img
                   src={heroConsultant}
-                  alt={IMAGE_ALT}
+                  alt="Digital strategy, web development, and growth marketing expert helping small businesses"
                   className="w-full h-full object-cover object-top"
                   width={320}
                   height={400}
@@ -75,7 +75,7 @@ export const Hero = () => {
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-foreground">
-              Freelance Digital Consultant — Remote & Affordable
+              Digital Strategy + Web Development + Growth Marketing
               </span>
             </motion.div>
 
@@ -98,7 +98,7 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-5 sm:mb-8"
             >
-              Remote freelance digital consultant specializing in affordable website design, Google Business Profile optimization, 
+              Remote digital strategist and developer specializing in affordable website design, Google Business Profile optimization, 
               local SEO, and practical digital marketing for homestays, tourism businesses, ecommerce stores, 
               and local services — without agency prices or complexity.
             </motion.p>
@@ -181,7 +181,7 @@ export const Hero = () => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img
                     src={heroConsultant}
-                    alt={IMAGE_ALT}
+                    alt="Digital strategy, web development, and growth marketing expert helping small businesses"
                     className="h-full w-auto max-w-none object-cover object-top"
                     width={560}
                     height={315}

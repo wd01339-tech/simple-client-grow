@@ -146,7 +146,7 @@ const FreeAuditPage = () => {
             <p className="text-muted-foreground text-lg sm:text-xl">
               Get a free comprehensive SEO audit of your website and Google Business Profile. 
               Receive actionable recommendations for improving search rankings, local visibility, and online conversions. 
-              Your dedicated freelance consultant will follow up within 24–48 hours.
+              Your digital growth expert will follow up within 24–48 hours.
             </p>
           </motion.div>
 

@@ -43,7 +43,7 @@ export const Footer = () => {
   ];
 
   return (
-    <footer className="bg-foreground text-background" role="contentinfo" aria-label="DigitalFreelancer Footer">
+    <footer className="bg-foreground text-background" role="contentinfo" aria-label="Digital Growth Strategy Footer">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
@@ -52,10 +52,10 @@ export const Footer = () => {
               <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
                 <span className="text-primary-foreground font-display font-bold text-lg">D</span>
               </div>
-              <span className="font-display font-bold text-xl">DigitalFreelancer</span>
+              <span className="font-display font-bold text-xl">Digital Growth Strategy</span>
             </div>
             <p className="text-background/70 max-w-md mb-6">
-              Affordable freelance digital consultant helping small businesses, homestays, cafés, and local services 
+              Digital strategy, web development, and growth marketing expert helping small businesses, homestays, cafés, and local services 
               grow online through professional website design, Google Business Profile optimization, local SEO, 
               and practical digital marketing — delivered remotely with personal, one-to-one support worldwide.
             </p>
@@ -140,7 +140,7 @@ export const Footer = () => {
         <div className="mt-12 pt-8 border-t border-background/10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <p className="text-background/60 text-sm">
-              © {currentYear} DigitalFreelancer. All rights reserved.
+              © {currentYear} Digital Growth Strategy. All rights reserved.
             </p>
             <div className="flex items-center gap-2 text-background/60 text-sm">
               <MapPin className="w-4 h-4" />

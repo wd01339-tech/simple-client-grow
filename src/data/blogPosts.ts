@@ -90,7 +90,7 @@ Local SEO isn't rocket science, but it does require consistent attention. Start 
 Ready for a professional audit of your local SEO? Contact us for a free assessment.
     `,
     category: "SEO Strategies",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "SEO Specialist",
     publishedAt: "2024-01-15",
     readTime: "6 min read",
@@ -202,7 +202,7 @@ An optimized Google Business Profile is one of the most effective marketing tool
 Need help optimizing your profile? Get in touch for a free audit.
     `,
     category: "Google Business",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "Local SEO Expert",
     publishedAt: "2024-01-22",
     readTime: "8 min read",
@@ -303,7 +303,7 @@ Don't chase trends for trends' sake. Focus on creating a fast, clear, trustworth
 Ready for a website that works for your business? Let's talk about a redesign.
     `,
     category: "Web Design",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "Web Designer",
     publishedAt: "2024-02-05",
     readTime: "7 min read",
@@ -405,7 +405,7 @@ Lead generation for local services isn't about any single magic tactic—it's ab
 Need help building your lead generation system? Get a free strategy session.
     `,
     category: "Lead Generation",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "Marketing Strategist",
     publishedAt: "2024-02-18",
     readTime: "8 min read",
@@ -519,7 +519,7 @@ There's no magic number for marketing spend. Start with what you can afford to l
 Need help planning your marketing strategy? Let's create a custom plan for your budget.
     `,
     category: "Digital Marketing",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "Marketing Consultant",
     publishedAt: "2024-03-01",
     readTime: "7 min read",
@@ -634,7 +634,7 @@ Social media success for local businesses isn't about going viral—it's about c
 Need help creating a social media strategy? Let's build a plan that fits your business.
     `,
     category: "Digital Marketing",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "Social Media Strategist",
     publishedAt: "2024-03-15",
     readTime: "8 min read",
@@ -762,7 +762,7 @@ Converting visitors into customers isn't magic—it's about understanding what v
 Ready to improve your website's conversion rate? Get a free conversion audit.
     `,
     category: "Web Design",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "Conversion Specialist",
     publishedAt: "2024-03-28",
     readTime: "9 min read",
@@ -893,7 +893,7 @@ Local SEO success comes from consistently optimizing across all ranking factors.
 Want to know where you stand? Get a free local SEO audit today.
     `,
     category: "SEO Strategies",
-    author: "Digital Freelancer",
+    author: "Digital Growth Strategy",
     authorRole: "SEO Specialist",
     publishedAt: "2024-04-10",
     readTime: "8 min read",

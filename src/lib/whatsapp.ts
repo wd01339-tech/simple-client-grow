@@ -18,7 +18,7 @@ export type WhatsAppIntent =
   | "website-dev"
   | "tourism-marketing"
   | "gmb-help"
-  | "digital-marketing"
+  | "growth-marketing"
   | "contact"
   | "package-inquiry"
   | "talk-to-consultant";
@@ -86,7 +86,7 @@ const messageTemplates: Record<WhatsAppIntent, WhatsAppMessageConfig> = {
     question: "Can you help me show up better on Google Maps?",
     apiTemplateName: "gmb_optimization",
   },
-  "digital-marketing": {
+  "growth-marketing": {
     greeting: "Hi 👋",
     context: "I'm interested in digital marketing services to grow my business online.",
     question: "What marketing strategies would you recommend for my industry?",
@@ -186,10 +186,10 @@ export const whatsAppFlowOptions = [
   { id: "1", label: "Free Website & GMB Audit", intent: "free-audit" as WhatsAppIntent, icon: "search" as const, description: "Get a free review of your online presence" },
   { id: "2", label: "Website Development", intent: "website-dev" as WhatsAppIntent, icon: "globe" as const, description: "Build a professional website" },
   { id: "3", label: "Google Business Optimization", intent: "gmb-help" as WhatsAppIntent, icon: "map-pin" as const, description: "Rank higher in local searches" },
-  { id: "4", label: "Digital Marketing", intent: "digital-marketing" as WhatsAppIntent, icon: "trending-up" as const, description: "Grow your online presence" },
+  { id: "4", label: "Digital Marketing", intent: "growth-marketing" as WhatsAppIntent, icon: "trending-up" as const, description: "Grow your online presence" },
   { id: "5", label: "Pricing & Packages", intent: "pricing" as WhatsAppIntent, icon: "tag" as const, description: "View our service packages" },
   { id: "6", label: "Ask a Question", intent: "general" as WhatsAppIntent, icon: "help-circle" as const, description: "We're happy to help" },
-  { id: "7", label: "Talk to Consultant", intent: "talk-to-consultant" as WhatsAppIntent, icon: "phone" as const, description: "Speak directly with an expert" },
+  { id: "7", label: "Talk to Expert", intent: "talk-to-consultant" as WhatsAppIntent, icon: "phone" as const, description: "Speak directly with an expert" },
 ];
 
 /**
@@ -204,7 +204,7 @@ export const whatsAppApiTemplates = {
     components: [
       {
         type: "BODY",
-        text: "Hello 👋\nWelcome to Freelance Digital Consultant.\n\nI'm here to help you explore our services and find the best solution for your business.\n\nPlease choose one option below:\n\n1️⃣ Free Website & GMB Audit\n2️⃣ Website Development\n3️⃣ Google My Business Optimization\n4️⃣ Digital Marketing Services\n5️⃣ Pricing & Packages\n6️⃣ Ask a Question\n7️⃣ Talk to Consultant",
+        text: "Hello 👋\nWelcome to Digital Strategy + Web Development + Growth Marketing.\n\nI'm here to help you explore our services and find the best solution for your business.\n\nPlease choose one option below:\n\n1️⃣ Free Website & GMB Audit\n2️⃣ Website Development\n3️⃣ Google My Business Optimization\n4️⃣ Growth Marketing Services\n5️⃣ Pricing & Packages\n6️⃣ Ask a Question\n7️⃣ Talk to Expert",
       },
     ],
   },
@@ -215,7 +215,7 @@ export const whatsAppApiTemplates = {
     components: [
       {
         type: "BODY",
-        text: "Thank you for requesting a *Free Website & GMB Audit*.\n\nPlease share the following details:\n\n• Website URL\n• Business Type\n• Location / Country\n\nOur consultant will review your website and send helpful insights.",
+        text: "Thank you for requesting a *Free Website & GMB Audit*.\n\nPlease share the following details:\n\n• Website URL\n• Business Type\n• Location / Country\n\nOur expert will review your website and send helpful insights.",
       },
     ],
   },
@@ -293,7 +293,7 @@ export const chatbotTrainingIntents = [
       "How to get more customers online",
     ],
     response: "We offer comprehensive digital marketing services:\n\n• SEO & content strategy\n• Social media management\n• Lead generation campaigns\n• Analytics & reporting\n\nWould you like to discuss a *marketing plan* for your business?",
-    suggestedIntent: "digital-marketing" as WhatsAppIntent,
+    suggestedIntent: "growth-marketing" as WhatsAppIntent,
   },
 ];
 

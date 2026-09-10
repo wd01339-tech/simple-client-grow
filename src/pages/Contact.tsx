@@ -84,7 +84,7 @@ const ContactPage = () => {
               Contact
             </span>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold mt-4 mb-6">
-              Contact Your Freelance Digital Consultant —{" "}
+              Contact Us for Digital Strategy, Web Development & Growth Marketing —{" "}
               <span className="gradient-text">Free Consultation</span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl">
@@ -236,7 +236,7 @@ const ContactPage = () => {
               {/* Trust Microcopy */}
               <div className="bg-primary/5 rounded-xl p-4 border border-primary/10">
                 <p className="text-sm text-muted-foreground text-center">
-                  ✨ Direct freelancer communication · Response within 24 hours · No agencies, no middlemen
+                  ✨ Direct expert communication · Response within 24 hours · No agencies, no middlemen
                 </p>
               </div>
 

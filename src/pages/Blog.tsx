@@ -46,7 +46,7 @@ const Blog = () => {
             </h1>
             <p className="text-muted-foreground text-lg md:text-xl mb-8">
               Practical SEO strategies, Google Business tips, and website optimization guides 
-              to help your local business grow online. Expert freelance digital marketing advice — no fluff, just actionable results.
+              to help your local business grow online. Expert digital strategy, web development, and growth marketing advice — no fluff, just actionable results.
             </p>
 
             {/* Search */}
@@ -212,7 +212,7 @@ const Blog = () => {
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
               Get a free, no-obligation audit of your website and Google Business Profile. 
-              Our freelance digital consultant will show you exactly what's holding your business back online and how to fix it.
+              Our digital strategy and growth expert will show you exactly what's holding your business back online and how to fix it.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button size="lg" asChild>

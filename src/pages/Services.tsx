@@ -95,7 +95,7 @@ const ServicesPage = () => {
               <span className="gradient-text">Small Businesses</span>
             </h1>
             <p className="text-muted-foreground text-lg sm:text-xl">
-              Expert freelance web design, Google Business optimization, local SEO, and lead generation services. 
+              Expert digital strategy, web development,, Google Business optimization, local SEO, and lead generation services. 
               Affordable, practical digital support that helps homestays, cafés, and local businesses get found online.
             </p>
           </motion.div>
