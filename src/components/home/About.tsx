@@ -5,12 +5,12 @@ import { Link } from "react-router-dom";
 
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
 
-const IMAGE_ALT = "Freelance digital consultant helping small businesses, tourism brands, and local services grow online";
+const IMAGE_ALT = "Digital strategy, web development, and growth marketing expert helping small businesses, tourism brands, and local services grow online";
 
 const highlights = [
   {
     icon: User,
-    title: "Freelancer, Not Agency",
+    title: "Digital Strategy + Growth",
     description: "Work directly with me — no middlemen, no handoffs.",
   },
   {
@@ -51,7 +51,7 @@ const socialLinks = [
 
 export const About = () => {
   return (
-    <section className="py-24" aria-label="About the Freelance Digital Consultant">
+    <section className="py-24" aria-label="About Digital Strategy and Growth Services">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Image with 4:3 desktop, 4:5 mobile ratios */}
@@ -141,14 +141,14 @@ export const About = () => {
             transition={{ duration: 0.6 }}
           >
             <span className="text-primary font-semibold text-sm uppercase tracking-wider">
-              About Your Freelance Digital Consultant
+              About Our Digital Strategy & Growth Services
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold mt-4 mb-6">
-              Remote Freelance Website & Marketing Support for{" "}
+              Digital Strategy + Web Development + Growth Marketing for{" "}
               <span className="gradient-text">Small Business Owners</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              I'm a remote freelance digital consultant specializing in affordable website design, 
+              We provide digital strategy, web development, and growth marketing specializing in affordable website design, 
               Google Business optimization, and local SEO for small business owners, homestay operators, 
               cafés, and solo entrepreneurs. No agency overhead — just practical, budget-friendly solutions that deliver real results.
             </p>

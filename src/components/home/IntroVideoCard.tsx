@@ -5,12 +5,12 @@ import introVideo from "@/assets/consultant-intro.mp4.asset.json";
 import introPoster from "@/assets/intro-video-poster.png.asset.json";
 import { recordConversion } from "@/lib/conversions";
 
-const VIDEO_TITLE = "Meet Your Freelance Digital Consultant";
+const VIDEO_TITLE = "Digital Strategy + Web Development + Growth Marketing";
 const VIDEO_DESC =
   "Learn how I help homestays, tourism businesses, ecommerce stores, and local service providers improve their online visibility, generate more inquiries, and grow their business through affordable website and digital marketing support.";
 
 const TRANSCRIPT =
-  "Hi, I'm a freelance digital consultant helping small businesses, homestays, tourism brands, ecommerce stores, and local service providers grow online. I build affordable, fast websites, optimise your Google Business Profile, run local SEO, and set up practical digital marketing — without agency prices or jargon. If you want more inquiries, better visibility, and a clear plan tailored to your business, book a free 15-minute discovery call or request a free website and GMB audit. Let's grow your business, simply and effectively.";
+  "Hi, we provide digital strategy, web development, and growth marketing helping small businesses, homestays, tourism brands, ecommerce stores, and local service providers grow online. I build affordable, fast websites, optimise your Google Business Profile, run local SEO, and set up practical digital marketing — without agency prices or jargon. If you want more inquiries, better visibility, and a clear plan tailored to your business, book a free 15-minute discovery call or request a free website and GMB audit. Let's grow your business, simply and effectively.";
 
 const MILESTONES = [25, 50, 75, 100] as const;
 
@@ -104,7 +104,7 @@ export const IntroVideoCard = () => {
   const schema = {
     "@context": "https://schema.org",
     "@type": "VideoObject",
-    name: "Freelance Digital Consultant Introduction",
+    name: "Digital Growth Strategy Introduction",
     description:
       "Introduction video presenting freelance website development, local SEO, Google Business Profile optimization, digital marketing support, and online growth services for small businesses worldwide.",
     thumbnailUrl: typeof window !== "undefined" ? window.location.origin + introPoster.url : introPoster.url,

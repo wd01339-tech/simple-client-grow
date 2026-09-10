@@ -17,7 +17,7 @@ const TermsPage = () => {
                 Services
               </h2>
               <p>
-                I provide freelance digital consulting services including website design, 
+                We provide digital strategy, web development, and growth marketing services including website design, 
                 digital marketing, lead generation, and Google Business Profile optimization.
               </p>
 
