@@ -44,7 +44,7 @@ export const Hero = () => {
               <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.25)]">
                 <img
                   src={heroConsultant}
-                  alt={IMAGE_ALT}
+                  alt="Digital strategy, web development, and growth marketing expert helping small businesses"
                   className="w-full h-full object-cover object-top"
                   width={320}
                   height={400}
@@ -181,7 +181,7 @@ export const Hero = () => {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <img
                     src={heroConsultant}
-                    alt={IMAGE_ALT}
+                    alt="Digital strategy, web development, and growth marketing expert helping small businesses"
                     className="h-full w-auto max-w-none object-cover object-top"
                     width={560}
                     height={315}

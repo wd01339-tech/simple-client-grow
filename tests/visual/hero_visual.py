@@ -98,7 +98,7 @@ async def run() -> None:
                 "if(a)e.preventDefault();},true);"
             )
             await page.goto(BASE_URL, wait_until="domcontentloaded")
-            hero = page.locator('section[aria-label*="Freelance Digital Consultant"]').first
+            hero = page.locator('section[aria-label*="Digital Strategy + Web Development + Growth Marketing"]').first
             await hero.wait_for(state="visible")
             # Freeze animation-driven pixels so the diff only reflects real layout/UI change.
             await page.add_style_tag(

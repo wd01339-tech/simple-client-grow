@@ -7,7 +7,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
-const SYSTEM_PROMPT = `You are the friendly AI assistant for Freelance Digital Consultant — a professional digital consulting service helping small businesses, tourism operators, and entrepreneurs grow their online presence.
+const SYSTEM_PROMPT = `You are the friendly AI assistant for Digital Strategy + Web Development + Growth Marketing — a professional digital consulting service helping small businesses, tourism operators, and entrepreneurs grow their online presence.
 
 SERVICES WE OFFER:
 1. Website Development — Business, tourism & e-commerce websites ($99-$349)

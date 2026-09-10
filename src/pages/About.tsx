@@ -135,7 +135,7 @@ const AboutPage = () => {
                 <div className="relative bg-card rounded-2xl overflow-hidden shadow-2xl">
                   <img
                     src={heroConsultant}
-                    alt={IMAGE_ALT}
+                    alt="Digital strategy, web development, and growth marketing expert helping small businesses"
                     className="w-full h-auto object-cover aspect-[4/5]"
                     width={400}
                     height={500}

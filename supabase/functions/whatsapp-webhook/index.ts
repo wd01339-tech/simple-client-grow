@@ -18,7 +18,7 @@ const supabase = createClient(
 // ── Auto-reply templates ──────────────────────────────────────────────
 
 const WELCOME_MESSAGE = `Hello 👋
-Thank you for contacting Freelance Digital Consultant.
+Thank you for contacting Digital Strategy + Web Development + Growth Marketing.
 
 I help businesses grow online with:
 
