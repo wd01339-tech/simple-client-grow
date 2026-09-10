@@ -210,10 +210,10 @@ export function generateWebsiteSchema(data: {
  * Default SEO data for the site
  */
 export const defaultSEO: PageSEO = {
-  title: "Freelance Digital Consultant | Affordable Website Design, SEO & Marketing for Small Businesses",
-  description: "Hire a remote freelance digital consultant for affordable website design, Google Business optimization, local SEO, and digital marketing. Personal support for homestays, cafés, tourism businesses, and local services worldwide.",
+  title: "Digital Strategy + Web Development + Growth Marketing | Affordable Web & Growth for Small Businesses",
+  description: "Expert digital strategy, web development, and growth marketing for affordable website design, Google Business optimization, local SEO, and digital marketing. Personal support for homestays, cafés, tourism businesses, and local services worldwide.",
   keywords: [
-    "freelance digital consultant",
+    "digital strategist",
     "remote freelancer for small business",
     "affordable website design",
     "digital marketing for local businesses",
@@ -243,8 +243,8 @@ export const pageSEO: Record<string, PageSEO> = {
     ...defaultSEO,
   },
   services: {
-    title: "Freelance Website Design, Local SEO & Digital Marketing Services | DigitalFreelancer",
-    description: "Affordable freelance digital services: custom website design, Google Business Profile optimization, local SEO, lead generation, and digital marketing for small businesses, homestays, and tourism brands worldwide.",
+    title: "Digital Strategy, Web Development & Growth Marketing Services",
+    description: "Professional digital strategy, web development, and growth marketing services: custom website design, Google Business Profile optimization, local SEO, lead generation, and digital marketing for small businesses, homestays, and tourism brands worldwide.",
     keywords: [
       "freelance web design services",
       "Google Business optimization",
@@ -260,7 +260,7 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   pricing: {
-    title: "Affordable Website Design & SEO Pricing | Freelance Digital Packages | DigitalFreelancer",
+    title: "Affordable Website Design & SEO Pricing | Freelance Digital Packages | Digital Growth Strategy",
     description: "Transparent, affordable pricing for freelance website design, local SEO, Google Business optimization, and digital marketing. Starter, Growth, Premium, or Custom packages for small businesses.",
     keywords: [
       "website design pricing",
@@ -275,10 +275,10 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   about: {
-    title: "About | Hire a Remote Freelance Digital Consultant for Small Businesses | DigitalFreelancer",
-    description: "Meet your remote freelance digital consultant specializing in affordable website design, Google Business optimization, and local SEO for homestays, cafés, tour guides, and small businesses worldwide.",
+    title: "About | Hire a Remote Digital Growth Strategist & Developer for Small Businesses | Digital Growth Strategy",
+    description: "Meet your remote digital strategist specializing in affordable website design, Google Business optimization, and local SEO for homestays, cafés, tour guides, and small businesses worldwide.",
     keywords: [
-      "freelance digital consultant",
+      "digital strategist",
       "remote web developer",
       "about digital freelancer",
       "hire freelance marketer",
@@ -289,8 +289,8 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   contact: {
-    title: "Contact Freelance Digital Consultant | Free Consultation | DigitalFreelancer",
-    description: "Contact your freelance digital consultant for a free website and SEO consultation. Reach out via WhatsApp, email, or contact form. Response within 24 hours. Affordable digital support for small businesses.",
+    title: "Contact Digital Growth Strategist & Developer | Free Consultation | Digital Growth Strategy",
+    description: "Contact your digital strategist for a free website and SEO consultation. Reach out via WhatsApp, email, or contact form. Response within 24 hours. Affordable digital support for small businesses.",
     keywords: [
       "contact freelance developer",
       "hire digital consultant",
@@ -303,7 +303,7 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   portfolio: {
-    title: "Portfolio | Website Redesign & SEO Case Studies | DigitalFreelancer",
+    title: "Portfolio | Website Redesign & SEO Case Studies | Digital Growth Strategy",
     description: "Browse real before-and-after case studies showing website redesign, Google Business optimization, and SEO results for homestays, cafés, and small businesses. See how freelance digital consulting drives growth.",
     keywords: [
       "web design portfolio",
@@ -317,7 +317,7 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   blog: {
-    title: "Digital Marketing Blog | SEO Tips, Website Guides & Google Business Advice | DigitalFreelancer",
+    title: "Digital Marketing Blog | SEO Tips, Website Guides & Google Business Advice | Digital Growth Strategy",
     description: "Expert blog with practical SEO tips, website optimization guides, Google Business Profile strategies, and digital marketing advice for small businesses, homestays, and local services.",
     keywords: [
       "digital marketing blog",
@@ -331,7 +331,7 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   "free-audit": {
-    title: "Free Website & Google Business Audit | SEO Analysis | DigitalFreelancer",
+    title: "Free Website & Google Business Audit | SEO Analysis | Digital Growth Strategy",
     description: "Get a free 7-point SEO audit of your website and Google Business Profile. Discover search ranking issues, mobile responsiveness problems, and get actionable recommendations to improve your local visibility.",
     keywords: [
       "free website audit",
@@ -351,15 +351,15 @@ export const pageSEO: Record<string, PageSEO> = {
  * Business info for schema markup
  */
 export const businessInfo = {
-  name: "DigitalFreelancer",
-  legalName: "DigitalFreelancer",
-  description: "Remote freelance digital consultant helping small businesses grow online through websites, SEO, and digital marketing.",
+  name: "Digital Growth Strategy",
+  legalName: "Digital Growth Strategy",
+  description: "Remote digital strategist helping small businesses grow online through websites, SEO, and digital marketing.",
   url: "https://simple-client-grow.lovable.app",
   email: "consultantb84@gmail.com",
   telephone: "+918335870240",
   founder: {
     name: "Digital Consultant",
-    jobTitle: "Freelance Digital Consultant",
+    jobTitle: "Digital Growth Strategist & Developer",
   },
   socialLinks: [
     "https://facebook.com/yourpage",
