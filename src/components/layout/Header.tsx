@@ -56,7 +56,7 @@ export const Header = () => {
               <span className="text-primary-foreground font-display font-bold text-lg">D</span>
             </div>
             <span className="font-display font-bold text-xl text-foreground hidden sm:block">
-              Digital Growth Strategy
+              Digital Strategy + Web Development + Growth Marketing
             </span>
           </Link>
 
