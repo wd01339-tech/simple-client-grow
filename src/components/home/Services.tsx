@@ -78,14 +78,14 @@ export const Services = () => {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider" id="digital-services">
-            Freelance Digital Services
+            Digital Strategy + Web Development + Growth Marketing
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
             Website Design, SEO & Marketing Solutions for{" "}
             <span className="gradient-text">Small Business Growth</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Affordable freelance web design, Google Business optimization, local SEO, and 
+            Professional digital strategy, web development,, Google Business optimization, local SEO, and 
             digital marketing services that help small businesses get found online and attract more customers.
           </p>
         </motion.div>
