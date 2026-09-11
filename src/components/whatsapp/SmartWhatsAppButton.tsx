@@ -26,7 +26,7 @@ export const SmartWhatsAppButton = ({ defaultIntent = "general" }: SmartWhatsApp
   const handleOptionClick = (intent: WhatsAppIntent) => {
     trackEvent(ConversionEvents.WHATSAPP_CLICK, { intent, source: "floating_button" });
     // For audit, website-dev, gmb-help, digital-marketing → show qualification flow
-    const qualifyIntents: WhatsAppIntent[] = ["free-audit", "website-dev", "gmb-help", "digital-marketing"];
+    const qualifyIntents: WhatsAppIntent[] = ["free-audit", "website-dev", "gmb-help", "growth-marketing"];
     if (qualifyIntents.includes(intent)) {
       setQualifyIntent(intent);
     } else {

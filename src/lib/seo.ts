@@ -210,9 +210,16 @@ export function generateWebsiteSchema(data: {
  * Default SEO data for the site
  */
 export const defaultSEO: PageSEO = {
-  title: "Digital Strategy + Web Development + Growth Marketing | Affordable Web & Growth for Small Businesses",
-  description: "Expert digital strategy, web development, and growth marketing for affordable website design, Google Business optimization, local SEO, and digital marketing. Personal support for homestays, cafés, tourism businesses, and local services worldwide.",
+  title: "Digital Strategy Consultant | Web Development, Marketing & Growth",
+  description: "Digital strategy consulting, professional web development, and growth marketing for scaling businesses, startups, and B2B teams. Book a free 30-minute discovery call.",
   keywords: [
+    "digital strategy consultant",
+    "digital transformation consultant",
+    "digital growth consultant",
+    "growth marketing consultant",
+    "digital consulting services",
+    "B2B digital growth",
+    "business technology consulting",
     "digital strategist",
     "remote freelancer for small business",
     "affordable website design",
