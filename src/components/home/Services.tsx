@@ -82,15 +82,15 @@ export const Services = () => {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <span className="text-primary font-semibold text-sm uppercase tracking-wider" id="digital-services">
-            Digital Strategy + Web Development + Growth Marketing
+            01 Digital Strategy • 02 Web Development • 03 Growth Marketing
           </span>
           <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold mt-4 mb-6">
-            Website Design, SEO & Marketing Solutions for{" "}
-            <span className="gradient-text">Small Business Growth</span>
+            Strategy, Web Development & Marketing for{" "}
+            <span className="gradient-text">Scaling Businesses</span>
           </h2>
           <p className="text-muted-foreground text-lg">
-            Professional digital strategy, web development,, Google Business optimization, local SEO, and 
-            digital marketing services that help small businesses get found online and attract more customers.
+            Digital strategy, professional web development, Google Business optimization, local SEO, and
+            growth marketing that help small businesses, startups, and B2B teams get found online and win more customers.
           </p>
         </motion.div>
 
@@ -132,6 +132,9 @@ export const Services = () => {
 
               {/* Content */}
               <div className="p-6">
+                <span className="block text-xs font-semibold uppercase tracking-wider text-primary mb-2">
+                  {service.category}
+                </span>
                 <h3 className="font-display text-xl font-bold mb-3 group-hover:text-primary transition-colors">
                   {service.title}
                 </h3>
