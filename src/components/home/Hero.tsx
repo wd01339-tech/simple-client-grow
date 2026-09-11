@@ -75,7 +75,7 @@ export const Hero = () => {
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-foreground">
-              Digital Strategy + Web Development + Growth Marketing
+              Digital Strategy • Web Development • Growth Marketing
               </span>
             </motion.div>
 
@@ -84,11 +84,11 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display text-3xl sm:text-5xl md:text-6xl font-bold leading-tight mb-4 sm:mb-6"
+              className="font-display text-[1.75rem] sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight mb-4 sm:mb-6 text-balance"
             >
-              Affordable Website Design & Digital Marketing for Small Businesses —{" "}
-              <span className="gradient-text">Grow Online</span>{" "}
-              Simply & Effectively
+              Digital Strategy Consultant —{" "}
+              <span className="gradient-text">Web Development, Marketing &amp; Growth</span>{" "}
+              for Scaling Businesses
             </motion.h1>
 
             {/* Subheadline */}
@@ -98,9 +98,9 @@ export const Hero = () => {
               transition={{ duration: 0.5, delay: 0.2 }}
               className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-5 sm:mb-8"
             >
-              Remote digital strategist and developer specializing in affordable website design, Google Business Profile optimization, 
-              local SEO, and practical digital marketing for homestays, tourism businesses, ecommerce stores, 
-              and local services — without agency prices or complexity.
+              Practical digital strategy, professional web solutions, and growth-focused marketing designed to help
+              small businesses, startups, B2B and professional service teams strengthen their online presence,
+              generate opportunities, and scale with confidence.
             </motion.p>
 
             {/* Benefits */}

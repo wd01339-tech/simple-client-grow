@@ -11,6 +11,7 @@ import serviceGmb from "@/assets/service-gmb.jpg";
 const services = [
   {
     icon: Globe,
+    category: "02 — Web Development",
     title: "Website & Landing Page Support",
     description:
       "Clean, mobile-friendly websites that turn visitors into inquiries. Simple designs that work, without the complexity.",
@@ -20,6 +21,7 @@ const services = [
   },
   {
     icon: TrendingUp,
+    category: "03 — Growth Marketing",
     title: "Digital Marketing",
     description:
       "Improve online visibility without high budgets or jargon. Organic growth and simple ad strategies that actually work.",
@@ -29,6 +31,7 @@ const services = [
   },
   {
     icon: Users,
+    category: "03 — Growth Marketing",
     title: "Lead Generation & Social Media",
     description:
       "Focus on messages, calls, and bookings — not vanity metrics. Real results for real businesses.",
@@ -38,6 +41,7 @@ const services = [
   },
   {
     icon: MapPin,
+    category: "01 — Digital Strategy",
     title: "Google Business Profile Management",
     description:
       "Get found on Google Maps. Profile setup, keyword optimization, and review strategies for local visibility.",
