@@ -1,73 +1,212 @@
-# Welcome to your Lovable project
+# Grow Online Fast
 
-## Project info
+Act as a **senior WordPress website strategist, conversion copywriter, and local SEO consultant** for a **remote freelance digital consultant**.
+>
+> Create a **simple, stunning, and easy-to-understand freelancing & remote work personal portfolio website** that is:
+>
+> * Mobile-first and fully responsive
+> * WordPress-ready
+> * SEO-optimized with high-volume keywords auto-generated naturally
+> * Focused on **WhatsApp leads, free audits, and consultation bookings**
+>
+> The website must clearly position me as a **freelancer (not an agency)** offering **affordable, practical, and results-oriented digital support** to **small businesses, homestays, tourism services, cafés, local service providers, and solo entrepreneurs worldwide**.
+>
+> Use a **clean modern UI**, friendly tone, non-technical language, and a **gradient color theme (blue, violet, red)** with smooth animations and clear visual hierarchy.
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+---
 
-## How can I edit this code?
+## 🎯 Core Positioning
 
-There are several ways of editing your application.
+* Freelance digital consultant working remotely
+* One-to-one personal support
+* Simple solutions, not complex systems
+* Affordable services designed for small businesses
+* Focus on visibility, inquiries, and real results
 
-**Use Lovable**
+---
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+## 🧩 Website Pages & Structure
 
-Changes made via Lovable will be committed automatically to this repo.
+### 🔹 **Home Page**
 
-**Use your preferred IDE**
+**Goal:** Instant clarity, trust, and action
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Include:
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+* Hero headline clearly stating:
 
-Follow these steps:
+  * Who I help
+  * What I do
+  * What outcome do clients get
+* Subheadline highlighting:
+
+  * Simple, affordable, remote digital support
+* Primary CTAs:
+
+  * **Get a Free Website & GMB Audit**
+  * **Message Me on WhatsApp**
+
+Sections:
+
+* Short personal introduction (freelance, remote-based)
+* Core services (4 simple cards)
+* Value proposition for small businesses & homestays
+* Lead magnet: **Free 7-Point Website + Google Business Profile Audit**
+* Light social proof (testimonials or example results)
+* Psychological CTA section encouraging quick contact
+
+SEO keywords to blend naturally:
+
+* freelance digital consultant
+* remote freelancer for small business
+* affordable website design
+* digital marketing for local businesses
+* Google My Business optimization services
+
+---
+
+### 🔹 **Services Page**
+
+**Goal:** Explain value, not complexity
+
+Present **only 4 services**, benefit-driven and client-friendly:
+
+1. **Website & Landing Page Support**
+
+   * Clean, mobile-friendly websites that turn visitors into inquiries
+
+2. **Digital Marketing (Organic + Simple Ads)**
+
+   * Improve online visibility without high budgets or jargon
+
+3. **Lead Generation & Social Media Support**
+
+   * Focus on messages, calls, and bookings — not vanity metrics
+
+4. **Google My Business Profile Management & Optimization**
+
+   * Business profile setup or cleanup
+   * Keyword-optimized descriptions
+   * Category & service optimization
+   * Google Maps visibility improvement
+   * Review guidance for trust and ranking
+   * Ideal for homestays, cafés, tourism services, and local businesses
+
+CTAs after each service:
+
+* **Request a Free Review**
+* **Talk on WhatsApp**
+
+---
+
+### 🔹 **About Page**
+
+**Goal:** Build personal trust
+
+Include:
+
+* Friendly freelancer story
+* Why I work remotely
+* Who I enjoy helping most
+* Clear positioning:
+
+  * Freelancer, not agency
+  * Personal one-to-one support
+
+Short elevator pitch:
+
+> Helping small businesses grow online through simple websites, Google Business optimization, and practical digital marketing — delivered remotely with a personal touch.
+
+---
+
+### 🔹 **Free Audit / Consultation Page**
+
+**Goal:** Lead capture with value
+
+Include:
+
+* Explanation of the **Free 7-Point Website & GMB Audit**
+* What clients receive:
+
+  * Website usability & clarity feedback
+  * Google Business Profile visibility check
+  * Simple improvement suggestions
+* CTA:
+
+  * WhatsApp click-to-chat or simple form
+
+---
+
+### 🔹 **Contact Page**
+
+**Goal:** Remove friction
+
+Include:
+
+* WhatsApp click-to-chat (primary)
+* Simple contact form (secondary)
+* Location-agnostic messaging (global remote support)
+* Trust line:
+
+  * *Remote, reliable, and easy to work with*
+
+---
+
+### 🔹 **Privacy Policy & Terms**
+
+(Standard WordPress legal pages)
+
+---
+
+## 🧠 Call-to-Action Strategy
+
+Use clear, value-based CTAs across all pages:
+
+* Get a Free Website & GMB Audit
+* Optimize My Google Business Profile
+* Book a Free Consultation
+* Message Me on WhatsApp
+
+---
+
+## 🧩 Design & Tone Guidelines
+
+* Clean layout, readable fonts
+* Friendly, simple, non-technical language
+* Smooth scroll and light animations
+* Built for non-technical clients
+* Trust-first, sales-second approach
+
+---
+
+## ⚙️ Final Output Requirements
+
+* WordPress-ready structure
+* Mobile-first layout
+* SEO-friendly copy
+* High conversion focus
+* Easy to understand for small business owners
+* Suitable for Lovable and AI website generators
+
+This project was built with [Lovable](https://lovable.dev).
+
+**Live app**: https://simple-client-grow.lovable.app
+
+## Build with Lovable
+
+Continue developing this project in the [Lovable editor](https://lovable.dev/projects/7c763257-9e66-4582-94de-f012950a6da1).
+
+- **Ship faster**: describe what you want to build and Lovable handles the code.
+- **Stay in sync**: every change made in Lovable is committed straight to this repository.
+- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
+
+## Development
+
+Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
+git clone <this-repository-url>
+cd <repository-name>
 npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
 npm run dev
 ```
-
-**Edit a file directly in GitHub**
-
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
-
-**Use GitHub Codespaces**
-
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
-
-## What technologies are used for this project?
-
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
