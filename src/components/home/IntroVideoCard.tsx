@@ -5,7 +5,7 @@ import introVideo from "@/assets/consultant-intro.mp4.asset.json";
 import introPoster from "@/assets/intro-video-poster.png.asset.json";
 import { recordConversion } from "@/lib/conversions";
 
-const VIDEO_TITLE = "AI-Powered Digital Business Growth Strategy Consultant";
+const VIDEO_TITLE = "Digital Strategy + Web Development + Growth Marketing";
 const VIDEO_DESC =
   "Learn how I help homestays, tourism businesses, ecommerce stores, and local service providers improve their online visibility, generate more inquiries, and grow their business through affordable website and digital marketing support.";
 
