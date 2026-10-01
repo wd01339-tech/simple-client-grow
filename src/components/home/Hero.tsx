@@ -75,7 +75,7 @@ export const Hero = () => {
             >
               <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
               <span className="text-sm font-medium text-foreground">
-              Digital Strategy • Web Development • Growth Marketing
+              AI-Powered Digital Business Growth Strategy Consultant
               </span>
             </motion.div>
 

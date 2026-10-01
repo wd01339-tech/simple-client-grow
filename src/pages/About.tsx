@@ -78,8 +78,8 @@ const AboutPage = () => {
                 <span className="text-sm font-medium text-foreground">About Me</span>
               </div>
               
-              <h1 className="font-display text-4xl sm:text-5xl font-bold mt-4 mb-6">
-                Digital Strategy + Web Development + Growth Marketing —{" "}
+              <h1 className="font-display text-4xl sm:text-5xl font-bold leading-tight mt-4 mb-6">
+                AI-Powered Digital Business Growth Strategy Consultant —{" "}
                 <span className="gradient-text">Affordable Website & Marketing Help</span>
               </h1>
               
@@ -177,7 +177,7 @@ const AboutPage = () => {
             className="text-center max-w-2xl mx-auto mb-16"
           >
             <h2 className="font-display text-3xl sm:text-4xl font-bold mb-4">
-              Why Digital Strategy + Web Development + Growth Marketing?
+              Why an AI-Powered Digital Business Growth Strategy Consultant?
             </h2>
             <p className="text-muted-foreground text-lg">
               Digital marketing agencies charge high fees for impersonal service. 

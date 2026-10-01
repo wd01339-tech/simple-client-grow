@@ -144,7 +144,7 @@ export const About = () => {
               About Our Digital Strategy & Growth Services
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold mt-4 mb-6">
-              Digital Strategy + Web Development + Growth Marketing for{" "}
+              AI-Powered Digital Business Growth Strategy Consultant for{" "}
               <span className="gradient-text">Small Business Owners</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
