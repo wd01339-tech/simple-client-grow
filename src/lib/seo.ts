@@ -210,9 +210,13 @@ export function generateWebsiteSchema(data: {
  * Default SEO data for the site
  */
 export const defaultSEO: PageSEO = {
-  title: "Digital Strategy Consultant | Web Development, Marketing & Growth",
-  description: "Digital strategy consulting, professional web development, and growth marketing for scaling businesses, startups, and B2B teams. Book a free 30-minute discovery call.",
+  title: "AI-Powered Digital Business Growth Strategy Consultant",
+  description: "AI-powered digital strategy, web development, and growth marketing for ambitious and scaling businesses. Build, compete, and grow online with consultant-led support.",
   keywords: [
+    "AI-powered digital strategy consultant",
+    "digital business growth consultant",
+    "AI digital consultant",
+    "AI-powered business growth",
     "digital strategy consultant",
     "digital transformation consultant",
     "digital growth consultant",
@@ -360,13 +364,13 @@ export const pageSEO: Record<string, PageSEO> = {
 export const businessInfo = {
   name: "Digital Growth Strategy",
   legalName: "Digital Growth Strategy",
-  description: "Remote digital strategist helping small businesses grow online through websites, SEO, and digital marketing.",
+  description: "AI-powered digital strategy, web development, and growth marketing for ambitious and scaling businesses.",
   url: "https://simple-client-grow.lovable.app",
   email: "consultantb84@gmail.com",
   telephone: "+918335870240",
   founder: {
     name: "Digital Consultant",
-    jobTitle: "Digital Growth Strategist & Developer",
+    jobTitle: "AI-Powered Digital Business Growth Strategy Consultant",
   },
   socialLinks: [
     "https://facebook.com/yourpage",
@@ -383,5 +387,7 @@ export const businessInfo = {
     "E-commerce",
     "Tourism Marketing",
     "Lead Generation",
+    "AI-Powered Digital Strategy",
+    "Business Technology Consulting",
   ],
 };

@@ -55,8 +55,8 @@ export const Header = () => {
             <div className="w-10 h-10 rounded-xl gradient-bg flex items-center justify-center">
               <span className="text-primary-foreground font-display font-bold text-lg">D</span>
             </div>
-            <span className="font-display font-bold text-xl text-foreground hidden sm:block">
-              Digital Strategy + Web Development + Growth Marketing
+            <span className="font-display font-bold text-base lg:text-lg text-foreground hidden sm:block max-w-[190px] lg:max-w-[260px] leading-tight">
+              AI-Powered Digital Business Growth Strategy Consultant
             </span>
           </Link>
 
