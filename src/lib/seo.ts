@@ -210,7 +210,7 @@ export function generateWebsiteSchema(data: {
  * Default SEO data for the site
  */
 export const defaultSEO: PageSEO = {
-  title: "AI-Powered Digital Business Growth Strategy Consultant",
+  title: "Business Growth Consultant",
   description: "AI-powered digital strategy, web development, and growth marketing for ambitious and scaling businesses. Build, compete, and grow online with consultant-led support.",
   keywords: [
     "AI-powered digital strategy consultant",
@@ -370,7 +370,7 @@ export const businessInfo = {
   telephone: "+918335870240",
   founder: {
     name: "Digital Consultant",
-    jobTitle: "AI-Powered Digital Business Growth Strategy Consultant",
+    jobTitle: "Business Growth Consultant",
   },
   socialLinks: [
     "https://facebook.com/yourpage",
@@ -387,7 +387,7 @@ export const businessInfo = {
     "E-commerce",
     "Tourism Marketing",
     "Lead Generation",
-    "AI-Powered Digital Strategy",
+    "Business Growth Consulting",
     "Business Technology Consulting",
   ],
 };
