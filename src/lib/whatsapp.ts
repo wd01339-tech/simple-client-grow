@@ -204,7 +204,7 @@ export const whatsAppApiTemplates = {
     components: [
       {
         type: "BODY",
-        text: "Hello 👋\nWelcome to Digital Strategy + Web Development + Growth Marketing.\n\nI'm here to help you explore our services and find the best solution for your business.\n\nPlease choose one option below:\n\n1️⃣ Free Website & GMB Audit\n2️⃣ Website Development\n3️⃣ Google My Business Optimization\n4️⃣ Growth Marketing Services\n5️⃣ Pricing & Packages\n6️⃣ Ask a Question\n7️⃣ Talk to Expert",
+        text: "Hello 👋\nWelcome to Business Growth Consultant.\n\nI'm here to help you explore our services and find the best solution for your business.\n\nPlease choose one option below:\n\n1️⃣ Free Website & GMB Audit\n2️⃣ Website Development\n3️⃣ Google My Business Optimization\n4️⃣ Growth Marketing Services\n5️⃣ Pricing & Packages\n6️⃣ Ask a Question\n7️⃣ Talk to Expert",
       },
     ],
   },
