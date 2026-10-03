@@ -213,7 +213,7 @@ export const defaultSEO: PageSEO = {
   title: "Business Growth Consultant",
   description: "AI-powered digital strategy, web development, and growth marketing for ambitious and scaling businesses. Build, compete, and grow online with consultant-led support.",
   keywords: [
-    "AI-powered digital strategy consultant",
+    "business growth consultant",
     "digital business growth consultant",
     "AI digital consultant",
     "AI-powered business growth",
