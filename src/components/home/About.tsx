@@ -148,9 +148,9 @@ export const About = () => {
               <span className="gradient-text">Small Business Owners</span>
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
-              We provide digital strategy, web development, and growth marketing specializing in affordable website design, 
-              Google Business optimization, and local SEO for small business owners, homestay operators, 
-              cafés, and solo entrepreneurs. No agency overhead — just practical, budget-friendly solutions that deliver real results.
+              I bring hands-on experience as an AI-powered business growth consultant, combining practical digital strategy,
+              web development, and growth marketing. I use AI thoughtfully to support research, planning, and repeatable
+              workflows for small businesses, homestays, cafés, and solo entrepreneurs — with personal, one-to-one support.
             </p>
 
             {/* Highlights */}
@@ -184,6 +184,16 @@ export const About = () => {
                 </a>
               </Button>
             </div>
+
+            <a
+              href="https://www.linkedin.com/in/freelancedigitalconsultant"
+              target="_blank"
+              rel="noopener noreferrer me"
+              className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:underline"
+            >
+              <Linkedin className="h-4 w-4" />
+              Connect with me on LinkedIn
+            </a>
 
             {/* Social Follow Section */}
             <div className="mt-8 pt-6 border-t border-border">

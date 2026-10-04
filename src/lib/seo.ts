@@ -210,9 +210,11 @@ export function generateWebsiteSchema(data: {
  * Default SEO data for the site
  */
 export const defaultSEO: PageSEO = {
-  title: "Business Growth Consultant",
-  description: "AI-powered digital strategy, web development, and growth marketing for ambitious and scaling businesses. Build, compete, and grow online with consultant-led support.",
+  title: "AI-Powered Business Growth Consultant | Digital Strategy Consultant",
+  description: "Work with an AI-powered business growth consultant and digital strategy consultant for practical strategy, web development, and growth marketing tailored to your business.",
   keywords: [
+    "AI-powered business growth consultant",
+    "digital strategy consultant",
     "business growth consultant",
     "digital business growth consultant",
     "AI digital consultant",
@@ -314,8 +316,8 @@ export const pageSEO: Record<string, PageSEO> = {
     ogType: "website",
   },
   portfolio: {
-    title: "Portfolio | Website Redesign & SEO Case Studies | Digital Growth Strategy",
-    description: "Browse real before-and-after case studies showing website redesign, Google Business optimization, and SEO results for homestays, cafés, and small businesses. See how freelance digital consulting drives growth.",
+    title: "Case Studies | AI-Powered Business Growth Consultant",
+    description: "Explore business growth case studies covering digital strategy, web development, local visibility, and marketing improvements for small businesses.",
     keywords: [
       "web design portfolio",
       "digital marketing case studies",
@@ -324,6 +326,16 @@ export const pageSEO: Record<string, PageSEO> = {
       "SEO case studies",
       "Google Business success stories",
       "small business website results",
+    ],
+    ogType: "website",
+  },
+  "strategy-proposal": {
+    title: "Request a Strategy Proposal | Digital Strategy Consultant",
+    description: "Share your business goals with an AI-powered business growth consultant and request a tailored digital strategy proposal.",
+    keywords: [
+      "business growth strategy proposal",
+      "digital strategy consultant",
+      "AI-powered business growth consultant",
     ],
     ogType: "website",
   },
@@ -364,7 +376,7 @@ export const pageSEO: Record<string, PageSEO> = {
 export const businessInfo = {
   name: "Digital Growth Strategy",
   legalName: "Digital Growth Strategy",
-  description: "AI-powered digital strategy, web development, and growth marketing for ambitious and scaling businesses.",
+  description: "AI-powered business growth consulting and digital strategy, web development, and growth marketing for scaling businesses.",
   url: "https://simple-client-grow.lovable.app",
   email: "consultantb84@gmail.com",
   telephone: "+918335870240",
@@ -373,9 +385,7 @@ export const businessInfo = {
     jobTitle: "Business Growth Consultant",
   },
   socialLinks: [
-    "https://facebook.com/yourpage",
-    "https://instagram.com/yourprofile",
-    "https://linkedin.com/in/yourprofile",
+    "https://www.linkedin.com/in/freelancedigitalconsultant",
   ],
   knowsAbout: [
     "Web Development",

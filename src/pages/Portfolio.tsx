@@ -5,10 +5,12 @@ import { Layout } from "@/components/layout/Layout";
 import { Button } from "@/components/ui/button";
 import { BeforeAfterSlider } from "@/components/portfolio/BeforeAfterSlider";
 import { caseStudies } from "@/data/caseStudies";
+import { SEOHead } from "@/components/seo/SEOHead";
 
 const Portfolio = () => {
   return (
     <Layout>
+      <SEOHead page="portfolio" />
       {/* Hero Section */}
       <section className="pt-32 pb-16 bg-gradient-to-b from-muted/50 to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
