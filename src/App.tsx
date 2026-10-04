@@ -24,6 +24,7 @@ import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import ConversationFlowchart from "./pages/ConversationFlowchart";
 import OAuthConsent from "./pages/OAuthConsent";
+import StrategyProposal from "./pages/StrategyProposal";
 
 // Initialize GA on app load
 initGA();
@@ -52,7 +53,9 @@ const App = () => (
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/case-studies" element={<Portfolio />} />
           <Route path="/portfolio/:slug" element={<CaseStudyDetail />} />
+          <Route path="/strategy-proposal" element={<StrategyProposal />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPostDetail />} />
           <Route path="/dummy-payment" element={<DummyPayment />} />

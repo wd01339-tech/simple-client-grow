@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Calendar } from "lucide-react";
+import { ArrowRight, CheckCircle, Calendar, BookOpen } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import heroConsultant from "@/assets/hero-consultant-enhanced.png";
@@ -143,6 +143,23 @@ export const Hero = () => {
                 </Link>
               </Button>
             </motion.div>
+
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 lg:justify-start">
+              <Link
+                to="/case-studies"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+              >
+                <BookOpen className="h-4 w-4" />
+                Explore case studies
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/strategy-proposal"
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Request a strategy proposal
+              </Link>
+            </div>
 
             {/* Trust Signal */}
             <motion.p

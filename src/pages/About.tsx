@@ -84,15 +84,14 @@ const AboutPage = () => {
               </h1>
               
               <p className="text-muted-foreground text-lg mb-6">
-                I started this practice because too many small business owners — especially in tourism, 
-                hospitality, and local services — struggle to find <strong>affordable website design</strong> and 
-                <strong>dedicated digital strategy, web development, and growth marketing support</strong> without paying agency prices.
+                I work as an AI-powered business growth consultant, bringing hands-on experience across digital strategy,
+                web development, and growth marketing. I use AI thoughtfully to support research, planning, and repeatable
+                workflows, while keeping recommendations grounded in each business's goals and customers.
               </p>
               
               <p className="text-muted-foreground mb-6">
-                Big agencies often charge high prices for complicated solutions. I wanted to offer 
-                something different: <strong>simple websites, Google Business optimization, and practical 
-                marketing support</strong> — delivered remotely with one-to-one communication.
+                My approach pairs useful technology with direct, one-to-one consulting: clear priorities, practical
+                websites, stronger online visibility, and growth plans that fit the business rather than a template.
               </p>
               
               <p className="text-muted-foreground mb-8">
@@ -118,6 +117,16 @@ const AboutPage = () => {
                     <Calendar className="w-5 h-5" />
                     Book a Discovery Call
                   </Link>
+                </Button>
+                <Button variant="outline" size="lg" asChild>
+                  <a
+                    href="https://www.linkedin.com/in/freelancedigitalconsultant"
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                    LinkedIn Profile
+                  </a>
                 </Button>
               </div>
             </motion.div>
