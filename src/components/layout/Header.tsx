@@ -21,9 +21,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { variant, trackClick: trackABClick } = useABTest("header_cta_copy");
 
-  const ctaText = variant === "A" ? "Book Free Call" : "Reserve Free Session";
 
   useEffect(() => {
     const handleScroll = () => {
