@@ -97,22 +97,8 @@ export const Header = () => {
                 Book Free Call
               </a>
             </Button>
-            <Button variant="animated-gradient" size="default" className="gap-2 font-semibold" asChild>
-              <a
-                href={buildCalendlyUrl({ source: "header_desktop_cta" })}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackCalendlyClick({ source: "header_desktop_cta", content: variant });
-                  trackABClick();
-                }}
-                title="Book your free 30-minute discovery call"
-              >
-                <Calendar className="w-4 h-4" />
-                {ctaText}
-              </a>
-            </Button>
           </div>
+
 
           {/* Mobile Menu Toggle */}
           <button
@@ -175,21 +161,8 @@ export const Header = () => {
                       Call Now
                     </a>
                   </Button>
-                  <Button variant="animated-gradient" className="w-full gap-2" asChild>
-                    <a
-                      href={buildCalendlyUrl({ source: "header_mobile_cta" })}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackCalendlyClick({ source: "header_mobile_cta", content: variant });
-                        trackABClick();
-                      }}
-                    >
-                      <Calendar className="w-4 h-4" />
-                      {ctaText}
-                    </a>
-                  </Button>
                 </div>
+
               </div>
             </motion.div>
           )}
