@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle, Phone, Calendar } from "lucide-react";
+import { Menu, X, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
-import { trackEvent, ConversionEvents } from "@/lib/analytics";
-import { useABTest } from "@/hooks/useABTest";
+import { trackEvent } from "@/lib/analytics";
 import { WhatsAppFAQBanner } from "@/components/home/WhatsAppFAQBanner";
 import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
