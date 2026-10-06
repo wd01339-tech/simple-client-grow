@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, MessageCircle, Phone, Calendar } from "lucide-react";
+import { Menu, X, Phone, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { getWhatsAppUrl } from "@/lib/whatsapp";
-import { trackEvent, ConversionEvents } from "@/lib/analytics";
-import { useABTest } from "@/hooks/useABTest";
+import { trackEvent } from "@/lib/analytics";
 import { WhatsAppFAQBanner } from "@/components/home/WhatsAppFAQBanner";
 import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
@@ -23,9 +21,7 @@ export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
-  const { variant, trackClick: trackABClick } = useABTest("header_cta_copy");
 
-  const ctaText = variant === "A" ? "Book Free Call" : "Reserve Free Session";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -101,22 +97,8 @@ export const Header = () => {
                 Book Free Call
               </a>
             </Button>
-            <Button variant="animated-gradient" size="default" className="gap-2 font-semibold" asChild>
-              <a
-                href={buildCalendlyUrl({ source: "header_desktop_cta" })}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => {
-                  trackCalendlyClick({ source: "header_desktop_cta", content: variant });
-                  trackABClick();
-                }}
-                title="Book your free 30-minute discovery call"
-              >
-                <Calendar className="w-4 h-4" />
-                {ctaText}
-              </a>
-            </Button>
           </div>
+
 
           {/* Mobile Menu Toggle */}
           <button
@@ -179,21 +161,8 @@ export const Header = () => {
                       Call Now
                     </a>
                   </Button>
-                  <Button variant="animated-gradient" className="w-full gap-2" asChild>
-                    <a
-                      href={buildCalendlyUrl({ source: "header_mobile_cta" })}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      onClick={() => {
-                        trackCalendlyClick({ source: "header_mobile_cta", content: variant });
-                        trackABClick();
-                      }}
-                    >
-                      <Calendar className="w-4 h-4" />
-                      {ctaText}
-                    </a>
-                  </Button>
                 </div>
+
               </div>
             </motion.div>
           )}
