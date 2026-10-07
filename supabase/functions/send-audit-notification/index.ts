@@ -17,6 +17,14 @@ interface AuditNotificationRequest {
   preferred_followup_time: string;
 }
 
+const escapeHtml = (value: string) => value.replace(/[&<>"']/g, (char) => ({
+  "&": "&amp;",
+  "<": "&lt;",
+  ">": "&gt;",
+  '"': "&quot;",
+  "'": "&#39;",
+})[char]!);
+
 const handler = async (req: Request): Promise<Response> => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
@@ -27,18 +35,39 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("RESEND_API_KEY is not configured");
     }
 
-    const { name, company, email, website, challenges, preferred_followup_time }: AuditNotificationRequest = await req.json();
+    const body = await req.json() as AuditNotificationRequest;
+    const { name, company, email, website, challenges, preferred_followup_time } = body;
 
-    if (!name || !email) {
-      throw new Error("Name and email are required");
+    if (typeof name !== "string" || !name.trim() || name.length > 200 || typeof email !== "string" ||
+        email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())) {
+      return new Response(JSON.stringify({ error: "A valid name and email are required" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
     }
 
-    const sanitize = (str: string) => (str || "").replace(/[<>]/g, "");
-    const safeName = sanitize(name);
-    const safeCompany = sanitize(company) || "Not provided";
-    const safeWebsite = sanitize(website) || "Not provided";
-    const safeChallenges = sanitize(challenges) || "Not provided";
-    const safeFollowup = sanitize(preferred_followup_time) || "Not specified";
+    const text = (value: unknown, max: number) => typeof value === "string" ? value.trim().slice(0, max) : "";
+    const safeName = escapeHtml(text(name, 200));
+    const safeCompany = escapeHtml(text(company, 200)) || "Not provided";
+    const safeWebsite = text(website, 2048);
+    const safeChallenges = escapeHtml(text(challenges, 5000)) || "Not provided";
+    const safeFollowup = escapeHtml(text(preferred_followup_time, 200)) || "Not specified";
+    const validWebsite = (() => {
+      try {
+        const parsed = new URL(safeWebsite);
+        return parsed.protocol === "https:" || parsed.protocol === "http:";
+      } catch {
+        return false;
+      }
+    })();
+    const websiteHtml = safeWebsite
+      ? validWebsite
+        ? `<a href="${escapeHtml(safeWebsite)}">${escapeHtml(safeWebsite)}</a>`
+        : escapeHtml(safeWebsite)
+      : "Not provided";
+    const safeEmail = email.trim();
+    const emailHtml = escapeHtml(safeEmail);
+    const subjectName = text(name, 200).replace(/[\r\n]+/g, " ");
 
     // 1. Send notification to consultant
     await fetch("https://api.resend.com/emails", {
@@ -50,8 +79,8 @@ const handler = async (req: Request): Promise<Response> => {
       body: JSON.stringify({
         from: "Audit System <onboarding@resend.dev>",
         to: ["consultantb84@gmail.com"],
-        subject: `New Free Website & GMB Audit Request from ${safeName}`,
-        reply_to: email,
+        subject: `New Free Website & GMB Audit Request from ${subjectName}`,
+        reply_to: safeEmail,
         html: `
           <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
             <h2 style="color: #6366f1;">New Free Website & GMB Audit Request</h2>
@@ -59,8 +88,8 @@ const handler = async (req: Request): Promise<Response> => {
             <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <p style="margin: 8px 0;"><strong>Name:</strong> ${safeName}</p>
               <p style="margin: 8px 0;"><strong>Company:</strong> ${safeCompany}</p>
-              <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${email}">${email}</a></p>
-              <p style="margin: 8px 0;"><strong>Website:</strong> ${safeWebsite.startsWith("http") ? `<a href="${safeWebsite}">${safeWebsite}</a>` : safeWebsite}</p>
+              <p style="margin: 8px 0;"><strong>Email:</strong> <a href="mailto:${emailHtml}">${emailHtml}</a></p>
+              <p style="margin: 8px 0;"><strong>Website:</strong> ${websiteHtml}</p>
               <p style="margin: 8px 0;"><strong>Challenges:</strong> ${safeChallenges}</p>
               <p style="margin: 8px 0;"><strong>Preferred follow-up:</strong> ${safeFollowup}</p>
             </div>
@@ -71,7 +100,7 @@ const handler = async (req: Request): Promise<Response> => {
                 <li style="margin: 8px 0;">Review the audit request and gather any needed access or login details.</li>
                 <li style="margin: 8px 0;">Prepare a tailored audit report (website performance, on-page SEO, local GMB optimization, quick wins).</li>
                 <li style="margin: 8px 0;">Reach out to the lead to schedule a 20–30 minute discovery call.</li>
-                <li style="margin: 8px 0;">Send the audit report to <a href="mailto:${email}">${email}</a> within 24–48 hours.</li>
+                <li style="margin: 8px 0;">Send the audit report to <a href="mailto:${emailHtml}">${emailHtml}</a> within 24–48 hours.</li>
               </ol>
             </div>
             
@@ -92,7 +121,7 @@ const handler = async (req: Request): Promise<Response> => {
       },
       body: JSON.stringify({
         from: "Website Consultant <onboarding@resend.dev>",
-        to: [email],
+        to: [safeEmail],
         subject: "Your Free Website & GMB Audit is Confirmed",
         reply_to: "consultantb84@gmail.com",
         html: `
@@ -106,7 +135,7 @@ const handler = async (req: Request): Promise<Response> => {
             <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
               <h3 style="margin-top: 0; color: #6366f1;">What happens next:</h3>
               <ol style="padding-left: 20px;">
-                <li style="margin: 8px 0;">An audit report will be emailed to you at <strong>${email}</strong> within 24–48 hours.</li>
+                <li style="margin: 8px 0;">An audit report will be emailed to you at <strong>${emailHtml}</strong> within 24–48 hours.</li>
                 <li style="margin: 8px 0;">Our senior consultant will reach out to schedule a 20–30 minute follow-up call to review findings and recommended actions.</li>
               </ol>
             </div>
@@ -137,7 +166,7 @@ const handler = async (req: Request): Promise<Response> => {
       }),
     });
 
-    console.log(`Audit notification sent for ${email}`);
+    console.log("Audit notification sent");
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
