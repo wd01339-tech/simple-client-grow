@@ -9,11 +9,26 @@ const corsHeaders = {
 const WHATSAPP_PHONE_ID = Deno.env.get("WHATSAPP_PHONE_NUMBER_ID") || "";
 const WHATSAPP_TOKEN = Deno.env.get("WHATSAPP_ACCESS_TOKEN") || "";
 const VERIFY_TOKEN = Deno.env.get("WHATSAPP_VERIFY_TOKEN") || "";
+const META_APP_SECRET = Deno.env.get("META_APP_SECRET") || "";
 
 const supabase = createClient(
   Deno.env.get("SUPABASE_URL")!,
   Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!
 );
+
+async function hasValidMetaSignature(rawBody: string, signature: string | null): Promise<boolean> {
+  if (!META_APP_SECRET || !signature || !/^sha256=[a-f0-9]{64}$/i.test(signature)) return false;
+  const key = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(META_APP_SECRET),
+    { name: "HMAC", hash: "SHA-256" },
+    false,
+    ["sign"],
+  );
+  const digest = new Uint8Array(await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(rawBody)));
+  const expected = `sha256=${Array.from(digest, (byte) => byte.toString(16).padStart(2, "0")).join("")}`;
+  return signature.toLowerCase() === expected;
+}
 
 // ── Auto-reply templates ──────────────────────────────────────────────
 
@@ -397,7 +412,15 @@ Deno.serve(async (req) => {
   // ── POST: Incoming messages ─────────────────────────────────────
   if (req.method === "POST") {
     try {
-      const body = await req.json();
+      if (!META_APP_SECRET) {
+        console.error("WhatsApp webhook signature verification is not configured");
+        return new Response("Webhook verification unavailable", { status: 503, headers: corsHeaders });
+      }
+      const rawBody = await req.text();
+      if (!(await hasValidMetaSignature(rawBody, req.headers.get("x-hub-signature-256")))) {
+        return new Response("Unauthorized", { status: 401, headers: corsHeaders });
+      }
+      const body = JSON.parse(rawBody);
 
       // Meta sends a specific structure
       const entry = body?.entry?.[0];

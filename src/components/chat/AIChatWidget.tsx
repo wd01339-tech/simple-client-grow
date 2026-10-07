@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Bot, X, Send, Loader2, ExternalLink } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import { recordConversion } from "@/lib/conversions";
+import { supabase } from "@/integrations/supabase/client";
 
 type Msg = { role: "user" | "assistant"; content: string };
 
@@ -18,10 +19,12 @@ const SUGGESTED_QUESTIONS = [
 
 async function streamChat({
   messages,
+  accessToken,
   onDelta,
   onDone,
 }: {
   messages: Msg[];
+  accessToken: string;
   onDelta: (text: string) => void;
   onDone: () => void;
 }) {
@@ -29,7 +32,8 @@ async function streamChat({
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+      apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY,
+      Authorization: `Bearer ${accessToken}`,
     },
     body: JSON.stringify({ messages, sessionId: SESSION_ID }),
   });
@@ -111,6 +115,15 @@ export const AIChatWidget = () => {
   const send = useCallback(async (text: string) => {
     if (!text.trim() || isLoading) return;
 
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session?.access_token) {
+      setMessages((prev) => [...prev, {
+        role: "assistant",
+        content: "Please [sign in](/admin/login) to use the AI assistant.",
+      }]);
+      return;
+    }
+
     // First user message in this session = chatbot opt-in
     if (messages.length === 0) {
       recordConversion({
@@ -141,6 +154,7 @@ export const AIChatWidget = () => {
     try {
       await streamChat({
         messages: newMessages,
+        accessToken: session.access_token,
         onDelta: upsert,
         onDone: () => setIsLoading(false),
       });
