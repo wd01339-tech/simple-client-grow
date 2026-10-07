@@ -69,7 +69,6 @@ export const LeadQualificationChat = ({ intent, onClose }: LeadQualificationChat
         country: data.country,
         inquiry_topic: intent,
         source: `whatsapp-${intent}`,
-        lead_score: intent === "free-audit" ? 20 : intent === "website-dev" ? 15 : intent === "gmb-help" ? 15 : 10,
         notes: `Country: ${data.country}`,
         utm_source: utmParams.utm_source,
         utm_medium: utmParams.utm_medium,
