@@ -11,6 +11,16 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;",
+  })[char]!);
+}
+
 interface FollowupRequest {
   leadId?: string;
   processAll?: boolean;
@@ -294,7 +304,7 @@ const handler = async (req: Request): Promise<Response> => {
             to: [lead.email],
             subject: template.subject,
             reply_to: "consultantb84@gmail.com",
-            html: template.html(lead.name || "there"),
+            html: template.html(escapeHtml(lead.name || "there")),
           }),
         });
 
