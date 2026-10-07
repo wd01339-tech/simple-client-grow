@@ -79,7 +79,60 @@ serve(async (req) => {
   }
 
   try {
-    const { messages, sessionId } = await req.json();
+    const authHeader = req.headers.get("Authorization") ?? "";
+    const bearerToken = authHeader.startsWith("Bearer ") ? authHeader.slice(7) : "";
+    if (!bearerToken) {
+      return new Response(JSON.stringify({ error: "Sign in to use the AI assistant." }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const payload: unknown = await req.json();
+    if (!payload || typeof payload !== "object" || Array.isArray(payload)) {
+      return new Response(JSON.stringify({ error: "Invalid request" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const requestBody = payload as { messages?: unknown; sessionId?: unknown };
+    if (!Array.isArray(requestBody.messages) || requestBody.messages.length < 1 || requestBody.messages.length > 20) {
+      return new Response(JSON.stringify({ error: "Invalid message history" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+
+    const messages: { role: "user" | "assistant"; content: string }[] = [];
+    for (const item of requestBody.messages) {
+      if (
+        !item || typeof item !== "object" || Array.isArray(item) ||
+        !["user", "assistant"].includes((item as { role?: string }).role ?? "") ||
+        typeof (item as { content?: unknown }).content !== "string" ||
+        (item as { content: string }).content.length > 4000
+      ) {
+        return new Response(JSON.stringify({ error: "Invalid chat message" }), {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+      messages.push({
+        role: (item as { role: "user" | "assistant" }).role,
+        content: (item as { content: string }).content,
+      });
+    }
+    if (
+      messages[0].role !== "user" || messages[messages.length - 1].role !== "user" ||
+      messages.some((message, index) => index > 0 && message.role === messages[index - 1].role)
+    ) {
+      return new Response(JSON.stringify({ error: "Invalid message order" }), {
+        status: 400,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
+    const sessionId = typeof requestBody.sessionId === "string" && requestBody.sessionId.length <= 80
+      ? requestBody.sessionId
+      : null;
     const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
     if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
 
@@ -87,6 +140,13 @@ serve(async (req) => {
     const SUPABASE_URL = Deno.env.get("SUPABASE_URL")!;
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!;
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY);
+    const { data: userData, error: authError } = await supabase.auth.getUser(bearerToken);
+    if (authError || !userData.user) {
+      return new Response(JSON.stringify({ error: "Your sign-in session is invalid or expired. Please sign in again." }), {
+        status: 401,
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+      });
+    }
 
     const lastUserMsg = messages[messages.length - 1];
     if (lastUserMsg?.role === "user" && sessionId) {
