@@ -9,9 +9,6 @@ export default defineConfig(({ mode }) => ({
   base: "/simple-client-grow/",
   server: {
     host: "::",
-    // Keep the existing settings below unchanged.
-  server: {
-    host: "::",
     port: 8080,
     hmr: {
       overlay: false,
