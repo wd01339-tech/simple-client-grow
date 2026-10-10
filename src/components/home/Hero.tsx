@@ -17,7 +17,7 @@ const IMAGE_ALT = "Digital strategy, web development, and growth marketing exper
 
 export const Hero = () => {
   return (
-    <section className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden" aria-label="Digital Strategy, Web Development, and Growth Marketing for Small Business Growth">
+    <section className="relative min-h-screen flex items-center pt-16 sm:pt-20 overflow-hidden" aria-label="Business growth consulting for small businesses">
       {/* Background Gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-secondary/5 to-accent/5" />
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -29,66 +29,16 @@ export const Hero = () => {
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
-          {/* Mobile: Photo First (4:5 ratio) */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:hidden flex justify-center"
-          >
-            <div className="relative w-full max-w-[320px]">
-              {/* Extended background gradient for width illusion */}
-              <div className="absolute -inset-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-3xl blur-2xl" />
-              
-              {/* Image container with 4:5 ratio for mobile */}
-              <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.25)]">
-                <img
-                  src={heroConsultant}
-                  alt="Digital strategy, web development, and growth marketing expert helping small businesses"
-                  className="w-full h-full object-cover object-top"
-                  width={320}
-                  height={400}
-                  loading="eager"
-                />
-                {/* Subtle bottom gradient fade */}
-                <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
-              </div>
-              
-              {/* Soft border glow */}
-              <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
-            </div>
-          </motion.div>
-
-          {/* Mobile/Tablet: Intro video below photo, before text */}
-          <div className="lg:hidden w-full">
-            <IntroVideoCard />
-          </div>
-
           {/* Left: Content */}
           <div className="text-center lg:text-left">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full gradient-bg-subtle border border-primary/20 mt-4 sm:mt-0 mb-4 sm:mb-8"
-            >
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              <span className="text-sm font-medium text-foreground">
-              Business Growth Consultant
-              </span>
-            </motion.div>
-
             {/* Headline */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="font-display text-[1.75rem] sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight mb-4 sm:mb-6 text-balance"
+              className="font-display text-[1.75rem] sm:text-4xl md:text-5xl lg:text-[3.25rem] font-bold leading-tight mb-3 sm:mb-6 text-balance"
             >
-              Digital Strategy Consultant —{" "}
-              <span className="gradient-text">Web Development, Marketing &amp; Growth</span>{" "}
-              for Scaling Businesses
+              <span className="gradient-text">Business Growth Consultant</span>
             </motion.h1>
 
             {/* Subheadline */}
@@ -96,11 +46,9 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-5 sm:mb-8"
+              className="text-base sm:text-xl text-muted-foreground max-w-2xl mx-auto lg:mx-0 mb-4 sm:mb-8"
             >
-              Practical digital strategy, professional web solutions, and growth-focused marketing designed to help
-              small businesses, startups, B2B and professional service teams strengthen their online presence,
-              generate opportunities, and scale with confidence.
+              I help small businesses improve online visibility and get more enquiries with clear, one-to-one digital strategy.
             </motion.p>
 
             {/* Benefits */}
@@ -108,7 +56,7 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-10"
+              className="hidden sm:flex flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 mb-6 sm:mb-10"
             >
               {benefits.map((benefit, index) => (
                 <div key={index} className="flex items-center gap-2 text-muted-foreground">
@@ -123,9 +71,15 @@ export const Hero = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+              className="flex flex-col min-[480px]:flex-row items-center justify-center lg:justify-start gap-3 sm:gap-4"
             >
               <Button variant="animated-gradient" size="xl" asChild>
+                <Link to="/free-audit">
+                  Get a Free Website Audit
+                  <ArrowRight className="w-5 h-5" />
+                </Link>
+              </Button>
+              <Button variant="outline" size="xl" asChild>
                 <a
                   href={buildCalendlyUrl({ source: "hero" })}
                   aria-label="Book a free 30-minute discovery call"
@@ -133,14 +87,8 @@ export const Hero = () => {
                   onClick={() => trackCalendlyClick({ source: "hero" })}
                 >
                   <Calendar className="w-5 h-5" />
-                  Book My Free Discovery Call
+                  Book a Free 30-Min Call
                 </a>
-              </Button>
-              <Button variant="hero" size="xl" asChild>
-                <Link to="/free-audit">
-                  Get a Free Website & GMB Audit
-                  <ArrowRight className="w-5 h-5" />
-                </Link>
               </Button>
             </motion.div>
 
@@ -166,10 +114,38 @@ export const Hero = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="mt-5 sm:mt-8 text-sm text-muted-foreground"
+              className="hidden sm:block mt-5 sm:mt-8 text-sm text-muted-foreground"
             >
-              ✨ Free website audit & Google Business Profile review — actionable SEO recommendations included
+              Free, practical recommendations — no commitment required.
             </motion.p>
+          </div>
+
+          {/* Mobile portrait follows the message and next step */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="lg:hidden flex justify-center"
+          >
+            <div className="relative w-full max-w-[320px]">
+              <div className="absolute -inset-6 bg-gradient-to-r from-primary/10 via-secondary/10 to-accent/10 rounded-3xl blur-2xl" />
+              <div className="relative aspect-[4/5] rounded-xl overflow-hidden shadow-[0_10px_40px_-10px_hsl(var(--primary)/0.25)]">
+                <img
+                  src={heroConsultant}
+                  alt="Business growth consultant"
+                  className="w-full h-full object-cover object-top"
+                  width={320}
+                  height={400}
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-background/20 via-transparent to-transparent pointer-events-none" />
+              </div>
+              <div className="absolute inset-0 rounded-xl ring-1 ring-white/10" />
+            </div>
+          </motion.div>
+
+          <div className="lg:hidden w-full">
+            <IntroVideoCard />
           </div>
 
           {/* Right: Hero Image - Desktop (16:9 wider container) */}

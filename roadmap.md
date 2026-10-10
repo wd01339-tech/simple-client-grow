@@ -1,4 +1,5 @@
 # Roadmap
+- [x] Improve homepage first impression on small screens by surfacing the consultant message and free-audit action before the portrait and video.
 - [ ] Build a case-study index with links from the home hero, using only supportable client details.
 - [ ] Add a strategy-proposal intake that saves to the existing leads CRM and sends an owner notification.
 - [ ] Update About copy and LinkedIn link, and set SEO title, description, and structured data for the requested terms.
