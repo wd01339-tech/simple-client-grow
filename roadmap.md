@@ -1,4 +1,5 @@
 # Roadmap
+- [ ] Add a fact-checked, search-focused guide to the existing blog for "what is a digital strategy consultant," using verified service details and useful source links.
 - [x] Improve homepage first impression on small screens by surfacing the consultant message and free-audit action before the portrait and video.
 - [ ] Build a case-study index with links from the home hero, using only supportable client details.
 - [ ] Add a strategy-proposal intake that saves to the existing leads CRM and sends an owner notification.
