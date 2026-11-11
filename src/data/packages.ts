@@ -34,7 +34,7 @@ export const packages: Package[] = [
     price: 99,
     priceDisplay: "$99",
     priceType: "one-time",
-    ctaLabel: "Get Started – $99",
+    ctaLabel: "Discuss Starter Setup",
     whatsappMessage: "Hi! I'm interested in the Starter Setup package ($99). Can you tell me more?",
     popular: false,
     color: "primary",
@@ -58,7 +58,7 @@ export const packages: Package[] = [
     price: 249,
     priceDisplay: "$249",
     priceType: "one-time",
-    ctaLabel: "Buy Growth Boost – $249",
+    ctaLabel: "Discuss Growth Boost",
     whatsappMessage: "Hi! I'm interested in the Growth Boost package ($249). I'd like to discuss my business needs.",
     popular: true,
     color: "secondary",
@@ -82,7 +82,7 @@ export const packages: Package[] = [
     price: 149,
     priceDisplay: "$149",
     priceType: "monthly",
-    ctaLabel: "Start Monthly – $149/mo",
+    ctaLabel: "Discuss Monthly Support",
     whatsappMessage: "Hi! I'm interested in the Monthly Support package ($149/month). Can we discuss my ongoing needs?",
     popular: false,
     color: "accent",
@@ -107,7 +107,7 @@ export const packages: Package[] = [
     price: 349,
     priceDisplay: "$349",
     priceType: "monthly",
-    ctaLabel: "Go Premium – $349/mo",
+    ctaLabel: "Discuss Premium Partner",
     whatsappMessage: "Hi! I'm interested in the Premium Partner package ($349/month). Let's discuss how we can grow together.",
     popular: false,
     color: "primary",
@@ -115,26 +115,19 @@ export const packages: Package[] = [
 ];
 
 export const trustSignals = [
-  "🔒 Secure payment via Stripe, PayPal, or Razorpay",
-  "📄 Invoice provided after payment",
-  "💬 WhatsApp support included",
-  "🚫 No hidden fees – ever",
-];
-
-export const paymentMethods = [
-  { name: "Stripe", description: "Cards, Apple Pay, Google Pay" },
-  { name: "PayPal", description: "PayPal balance & cards" },
-  { name: "Razorpay", description: "International cards & UPI" },
+  "Prices shown in USD",
+  "Free 30-minute discovery call",
+  "No payment taken online",
 ];
 
 export const faqItems = [
   {
-    question: "How do I pay?",
-    answer: "Choose your package and click 'Pay Now'. You'll be redirected to a secure checkout powered by Stripe, PayPal, or Razorpay. All major credit/debit cards are accepted.",
+    question: "How do I get started?",
+    answer: "Choose a package and book a free 30-minute discovery call. We'll confirm the scope and payment steps together before any work begins. No payment is taken on this site.",
   },
   {
-    question: "What happens after I pay?",
-    answer: "You'll receive a confirmation email with an invoice within minutes. I'll reach out via WhatsApp or email within 24 hours to kick off your project.",
+    question: "What happens after the call?",
+    answer: "We'll confirm whether the package fits your needs, agree on the scope and payment steps, and decide together whether to proceed.",
   },
   {
     question: "Can I cancel my monthly subscription?",

@@ -1,19 +1,16 @@
 import { motion } from "framer-motion";
-import { Check, Star, MessageCircle, CreditCard } from "lucide-react";
+import { CalendarDays, Check, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { Package } from "@/data/packages";
-import { trackEvent, ConversionEvents } from "@/lib/analytics";
 import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
-import { Link } from "react-router-dom";
 
 interface PackageCardProps {
   pkg: Package;
   index: number;
-  onPayment: (pkg: Package, method: string) => void;
 }
 
-export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
+export const PackageCard = ({ pkg, index }: PackageCardProps) => {
 
   return (
     <motion.div
@@ -94,39 +91,21 @@ export const PackageCard = ({ pkg, index, onPayment }: PackageCardProps) => {
           className="w-full gap-2 font-semibold"
           asChild
         >
-          <Link
-            to={`/dummy-payment?package=${pkg.id}&method=stripe`}
-            onClick={() => onPayment(pkg, "dummy-payment")}
-          >
-            <CreditCard className="w-4 h-4" />
-            {pkg.ctaLabel}
-          </Link>
-        </Button>
-        
-        <Button 
-          variant="outline" 
-          size="sm"
-          className="w-full gap-2"
-          asChild
-        >
           <a
-            href={buildCalendlyUrl({ source: "package_card", content: pkg.name })}
+            href={buildCalendlyUrl({ source: "pricing_package_card", content: pkg.name })}
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => trackCalendlyClick({ source: "package_card", content: pkg.name })}
+            onClick={() => trackCalendlyClick({ source: "pricing_package_card", content: pkg.name })}
           >
-            <MessageCircle className="w-4 h-4" />
-            Book Free Discovery Call
+            <CalendarDays className="w-4 h-4" />
+            Discuss {pkg.name}
           </a>
         </Button>
 
         {/* Trust Microcopy */}
         <div className="text-center pt-2 space-y-1">
           <p className="text-xs text-muted-foreground">
-            🔒 Secure payment via Stripe, PayPal, or Razorpay
-          </p>
-          <p className="text-xs text-muted-foreground">
-            📄 Invoice provided after payment
+            Free 30-minute call · No payment taken online
           </p>
         </div>
       </div>

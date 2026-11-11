@@ -10,15 +10,11 @@ import { Link } from "react-router-dom";
 import { SEOHead } from "@/components/seo/SEOHead";
 import { generateFAQSchema } from "@/lib/seo";
 
-const trustIcons = [Shield, Users, Globe];
-
 const Pricing = () => {
-  const handlePayment = () => undefined;
-
   // FAQ schema for SEO
   const faqSchema = generateFAQSchema({
     questions: [
-      { question: "What payment methods do you accept?", answer: "We accept PayPal, Stripe, and Razorpay for secure payment processing." },
+      { question: "How do I get started?", answer: "Choose a package and book a free 30-minute discovery call. We will confirm the scope and payment steps together before any work begins. No payment is taken on this site." },
       { question: "Do you offer refunds?", answer: "Yes, we offer a 3-day partial refund policy if you're not satisfied." },
       { question: "How long does it take to complete a project?", answer: "Most projects are completed within 1-4 weeks depending on the package." },
       { question: "Can I upgrade my package later?", answer: "Absolutely! You can upgrade to a higher package at any time." },
@@ -81,7 +77,6 @@ const Pricing = () => {
                 key={pkg.id} 
                 pkg={pkg} 
                 index={index}
-                onPayment={handlePayment}
               />
             ))}
           </div>

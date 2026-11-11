@@ -1,27 +1,14 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
-import { MessageCircle, Check, Star, Shield, Users, Globe, CreditCard } from "lucide-react";
+import { CalendarDays, MessageCircle, Check, Star, Shield, Users, Globe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { packages, trustSignals } from "@/data/packages";
-import { PaymentModal } from "@/components/pricing/PaymentModal";
-import type { Package } from "@/data/packages";
 import { Link } from "react-router-dom";
+import { buildCalendlyUrl, trackCalendlyClick } from "@/lib/calendly";
 
 const trustIcons = [Shield, Users, Globe];
 
 export const Packages = () => {
-  const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
-  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
-  const CALENDLY_URL =
-    "https://calendly.com/consultantb84/30min?utm_source=website&utm_medium=cta_button&utm_campaign=discovery_call&utm_term=packages_section";
-  const getWhatsAppUrl = (_message: string) => CALENDLY_URL;
-
-  const handlePayment = (pkg: Package) => {
-    setSelectedPackage(pkg);
-    setIsPaymentModalOpen(true);
-  };
-
   return (
     <section id="packages" className="py-24 bg-gradient-to-b from-background via-muted/30 to-background" aria-label="Affordable Digital Service Packages and Pricing">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -132,31 +119,23 @@ export const Packages = () => {
 
               {/* CTAs */}
               <div className="p-6 pt-0 space-y-3">
-                <Button 
+                <Button
                   variant={pkg.popular ? "gradient" : "default"} 
-                  className="w-full gap-2"
-                  onClick={() => handlePayment(pkg)}
-                >
-                  <CreditCard className="w-4 h-4" />
-                  {pkg.ctaLabel}
-                </Button>
-                <Button 
-                  variant="outline" 
-                  size="sm"
                   className="w-full gap-2"
                   asChild
                 >
                   <a
-                    href={getWhatsAppUrl(pkg.whatsappMessage)}
+                    href={buildCalendlyUrl({ source: "home_package_card", content: pkg.name })}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackCalendlyClick({ source: "home_package_card", content: pkg.name })}
                   >
-                    <MessageCircle className="w-4 h-4" />
-                    Book Free Discovery Call
+                    <CalendarDays className="w-4 h-4" />
+                    Discuss {pkg.name}
                   </a>
                 </Button>
                 <p className="text-xs text-center text-muted-foreground">
-                  🔒 Secure payment · Invoice provided
+                  Free 30-minute call · No payment taken online
                 </p>
               </div>
             </motion.div>
@@ -189,9 +168,10 @@ export const Packages = () => {
           </p>
           <Button variant="whatsapp" size="xl" asChild>
             <a
-              href={getWhatsAppUrl("Hi! I'd like help choosing the right package for my business. Can you guide me?")}
+              href={buildCalendlyUrl({ source: "packages_section" })}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackCalendlyClick({ source: "packages_section" })}
             >
               <MessageCircle className="w-5 h-5" />
               Book Your Free 30-Minute Discovery Call
@@ -200,12 +180,6 @@ export const Packages = () => {
         </motion.div>
       </div>
 
-      {/* Payment Modal */}
-      <PaymentModal
-        isOpen={isPaymentModalOpen}
-        onClose={() => setIsPaymentModalOpen(false)}
-        pkg={selectedPackage}
-      />
     </section>
   );
 };
