@@ -6,3 +6,5 @@
 - [ ] Update About copy and LinkedIn link, and set SEO title, description, and structured data for the requested terms.
 - [ ] Verify the app and email path; publish after validation. Do not create a production test lead or claim a real-client case without approved details.
 - [ ] Send each new CRM lead's details to the owner's chosen Slack channel immediately after submission; configure and verify the shared Slack connection and delivery.
+- [ ] Score each new lead against the consultant's ideal customers with Lovable AI, save a short summary and call-worthy flag, and surface it in the CRM.
+- [ ] Assess PayPal Business account eligibility for India and explain what is needed before enabling any payment option; current package checkout remains a discovery-call flow until prices, currency, and terms are confirmed.
