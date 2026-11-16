@@ -5,3 +5,4 @@
 - [ ] Add a strategy-proposal intake that saves to the existing leads CRM and sends an owner notification.
 - [ ] Update About copy and LinkedIn link, and set SEO title, description, and structured data for the requested terms.
 - [ ] Verify the app and email path; publish after validation. Do not create a production test lead or claim a real-client case without approved details.
+- [ ] Send each new CRM lead's details to the owner's chosen Slack channel immediately after submission; configure and verify the shared Slack connection and delivery.
