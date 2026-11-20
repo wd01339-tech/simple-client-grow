@@ -8,3 +8,4 @@
 - [ ] Send each new CRM lead's details to the owner's chosen Slack channel immediately after submission; configure and verify the shared Slack connection and delivery.
 - [ ] Score each new lead against the consultant's ideal customers with Lovable AI, save a short summary and call-worthy flag, and surface it in the CRM.
 - [ ] Assess PayPal Business account eligibility for India and explain what is needed before enabling any payment option; current package checkout remains a discovery-call flow until prices, currency, and terms are confirmed.
+- [ ] Plan and build a customer-support chat grounded in approved help documents and real order records, with human handoff when answers are uncertain; confirm order-data source and handoff destination before implementation.
